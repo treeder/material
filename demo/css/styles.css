@@ -1,0 +1,23 @@
+@import url(light.css) (prefers-color-scheme: light);
+@import url(dark.css) (prefers-color-scheme: dark);
+
+html,
+body {
+    margin: 0;
+}
+
+:root {
+    --md-ref-typeface-brand: 'Roboto Flex', sans-serif;
+    --md-ref-typeface-plain: 'Roboto Flex', sans-serif;
+
+    background: var(--md-sys-color-background);
+    color: var(--md-sys-color-on-background);
+    font-family: var(--md-ref-typeface-plain);
+    font-size: 14px;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 1rem;
+}
