@@ -27,14 +27,20 @@
 
     <script type="module">
         import 'material/textfield/outlined-text-field.js'
+        import 'material/button/filled-button.js'
+        import './components/demo-component.js'
     </script>
 
     <h2>Inputs</h2>
 
-    <div>
-        <md-outlined-text-field id="preferredDate" class="data" type="date" label="Preferred Date" required minlength="4" value=${this.data.preferredDate}></md-outlined-text-field>
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+        <md-outlined-text-field label="Name" required minlength="4"></md-outlined-text-field>
+        <md-outlined-text-field id="preferredDate" class="data" type="date" label="Preferred Date" required minlength="4"></md-outlined-text-field>
+        <md-filled-button>Save</md-filled-button>
+    </div>
 
-
+    <div style="margin-top: 24px;">
+        <demo-component></demo-component>
     </div>
 
 </body>

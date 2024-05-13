@@ -1,17 +1,13 @@
-# Material Web
+# Material 3 Web Components
 
 <img src="./docs/images/material-web.gif"
   title="Material web components"
   alt="A collection of Material web components"
   style="border-radius: 32px">
 
-[![Published on npm](https://img.shields.io/npm/v/%40material%2Fweb)](https://www.npmjs.com/package/@material/web)
-[![Join our Discord](https://img.shields.io/badge/discord-join%20chat-5865F2.svg?logo=discord&logoColor=fff&label=%23material)](https://lit.dev/discord/)
-[![Test status](https://github.com/material-components/material-web/actions/workflows/test.yml/badge.svg)](https://github.com/material-components/material-web/actions/workflows/test.yml)
-[![npm Downloads](https://img.shields.io/npm/dm/%40material%2Fweb?label=npm%20downloads)](https://npm-stat.com/charts.html?package=%40material%2Fweb)
-[![jsDelivr hits (npm)](https://img.shields.io/jsdelivr/npm/hm/%40material%2Fweb)](https://www.jsdelivr.com/package/npm/@material/web?tab=stats)
+[![jsDelivr hits (npm)](https://img.shields.io/jsdelivr/gh/hm/treeder/material)](https://www.jsdelivr.com/package/gh/treeder/material?tab=stats)
 
-`@material/web` is a library of
+`material` is a library of
 [web components](https://developer.mozilla.org/en-US/docs/Web/Web_Components)<!-- {.external} -->
 that helps build beautiful and accessible web applications. It uses
 [Material 3](https://m3.material.io/)<!-- {.external} -->, the latest version of Google's
@@ -23,67 +19,79 @@ open-source design system.
 make serve
 ```
 
-## Resources
-
--   [Introduction](./docs/intro.md)
--   [Roadmap](./docs/roadmap.md)
--   [Component docs](./docs/components/)
--   [Bundle size](./docs/size.md)
--   [Browser support and FAQ](./docs/support.md)
-
 ## Quick start
 
-> Tip: Using Angular? We recommend using
-> [Angular Material](https://material.angular.io/)<!-- {.external} --> components
-> instead.
+Add this importmap to the `<head>` section of you app/site:
 
-This code snippet is a buildless example that loads `@material/web` from a CDN.
-Check out the [quick start](./docs/quick-start.md) guide to install and build
-for production.
-
-<!-- LINT.IfChange -->
-
-```html
-<head>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <script type="importmap">
-    {
-      "imports": {
-        "@material/web/": "https://esm.run/@material/web/"
-      }
+```js
+<script type="importmap">
+  {
+    "imports": {
+      "lit": "https://cdn.jsdelivr.net/npm/lit@3/index.js",
+      "lit/": "https://cdn.jsdelivr.net/npm/lit@3/",
+      "@lit/localize": "https://cdn.jsdelivr.net/npm/@lit/localize/lit-localize.js",
+      "@lit/reactive-element": "https://cdn.jsdelivr.net/npm/@lit/reactive-element@1/reactive-element.js",
+      "@lit/reactive-element/": "https://cdn.jsdelivr.net/npm/@lit/reactive-element@1/",
+      "lit-element/lit-element.js": "https://cdn.jsdelivr.net/npm/lit-element@4/lit-element.js",
+      "lit-html": "https://cdn.jsdelivr.net/npm/lit-html@3/lit-html.js",
+      "lit-html/": "https://cdn.jsdelivr.net/npm/lit-html@3/",
+      "tslib": "https://cdn.jsdelivr.net/npm/tslib@2/tslib.es6.mjs",
+      
+      "material/": "https://cdn.jsdelivr.net/gh/treeder/material@0/"
     }
-  </script>
-  <script type="module">
-    import '@material/web/all.js';
-    import {styles as typescaleStyles} from '@material/web/typography/md-typescale-styles.js';
-
-    document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
-  </script>
-</head>
-<body>
-  <h1 class="md-typescale-display-medium">Hello Material!</h1>
-  <form>
-    <p class="md-typescale-body-medium">Check out these controls in a form!</p>
-    <md-checkbox></md-checkbox>
-    <div>
-      <md-radio name="group"></md-radio>
-      <md-radio name="group"></md-radio>
-      <md-radio name="group"></md-radio>
-    </div>
-
-    <md-outlined-text-field label="Favorite color" value="Purple"></md-outlined-text-field>
-
-    <md-outlined-button type="reset">Reset</md-outlined-button>
-  </form>
-  <style>
-    form {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 16px;
-    }
-  </style>
-</body>
+  }
+</script>
 ```
 
-<!-- LINT.ThenChange(./g3doc/docs/quick-start.md) -->
+Then you can start using all the components like this:
+
+```html
+<script type="module">
+    import 'material/textfield/outlined-text-field.js'
+    import 'material/button/filled-button.js'
+</script>
+
+<div>
+  <md-outlined-text-field label="Name" required minlength="4"></md-outlined-text-field>
+  <md-filled-button @click=${this.save}>Save</md-filled-button>
+</div>
+```
+
+Or you'll more likely use them within other components, you'd do that like this. 
+
+Create a component with the material components in it:
+
+```js
+import { html, css, LitElement } from 'lit'
+import 'material/textfield/outlined-text-field.js'
+import 'material/button/filled-button.js'
+
+class DemoComponent extends LitElement {
+    static styles = css`
+        /* Add your component styles here */
+    `
+
+    render() {
+        return html`
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+        <md-outlined-text-field label="Name" required minlength="4"></md-outlined-text-field>
+        <md-filled-button @click=${this.save}>Save</md-filled-button>
+    </div>`
+    }
+    save() {
+        console.log("Save button clicked")
+    }
+}
+
+customElements.define('demo-component', DemoComponent)
+```
+
+Then in your HTML:
+
+```html
+<script type="module">
+    import './components/demo-component.js'
+</script>
+
+<demo-component></demo-component>        
+```
