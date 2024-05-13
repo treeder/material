@@ -8,10 +8,16 @@
 [![jsDelivr hits (npm)](https://img.shields.io/jsdelivr/gh/hm/treeder/material)](https://www.jsdelivr.com/package/gh/treeder/material?tab=stats)
 
 `material` is a library of
-[web components](https://developer.mozilla.org/en-US/docs/Web/Web_Components)<!-- {.external} -->
+[web components](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
 that helps build beautiful and accessible web applications. It uses
-[Material 3](https://m3.material.io/)<!-- {.external} -->, the latest version of Google's
+[Material 3](https://m3.material.io/), the latest version of Google's
 open-source design system.
+
+This is a fork of the original [material web](https://github.com/material-components/material-web) project that seems to be on hold. 
+We didn't want to wait for them to start moving again and we didn't want to stop using these material components so we'll continue to
+develop this at our own pace. And that pace is FAST. 
+
+Please [consider sponsoring](https://github.com/sponsors/treeder) before creating issues for us. 
 
 ## Demo
 
