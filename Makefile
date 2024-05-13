@@ -1,0 +1,2 @@
+serve:
+	npx serve

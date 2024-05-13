@@ -17,6 +17,12 @@ that helps build beautiful and accessible web applications. It uses
 [Material 3](https://m3.material.io/)<!-- {.external} -->, the latest version of Google's
 open-source design system.
 
+## Demo
+
+```js
+make serve
+```
+
 ## Resources
 
 -   [Introduction](./docs/intro.md)
