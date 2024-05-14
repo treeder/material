@@ -21,6 +21,10 @@ Please [consider sponsoring](https://github.com/sponsors/treeder) before creatin
 
 ## Demo
 
+Demo code is here: https://github.com/treeder/material/tree/main/demo
+
+You can run it locally by checking out this repo and:
+
 ```js
 make serve
 ```
