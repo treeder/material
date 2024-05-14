@@ -14,8 +14,9 @@ that helps build beautiful and accessible web applications. It uses
 open-source design system.
 
 This is a fork of the original [material web](https://github.com/material-components/material-web) project that seems to be on hold. 
-We didn't want to wait for them to start moving again and we didn't want to stop using these material components so we'll continue to
-develop this at our own pace. And that pace is FAST. 
+We are very grateful for the work the team at Google put into the project, but we just can't wait for them to start moving again and we 
+don't want to stop using these material components we've grown to love. So we'll continue to
+develop this at our own pace, and that pace is FAST. 
 
 Please [consider sponsoring](https://github.com/sponsors/treeder) before creating issues for us. 
 
