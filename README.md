@@ -32,6 +32,14 @@ make serve
 
 ## Quick start
 
+### NPM
+
+```sh
+npm install treeder/material
+```
+
+### CDN
+
 Add this importmap to the `<head>` section of you app/site:
 
 ```js
@@ -53,6 +61,8 @@ Add this importmap to the `<head>` section of you app/site:
   }
 </script>
 ```
+
+### Start using the components!
 
 Then you can start using all the components like this:
 

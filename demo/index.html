@@ -27,7 +27,7 @@
             "lit-html/": "https://cdn.jsdelivr.net/npm/lit-html@3/",
             "tslib": "https://cdn.jsdelivr.net/npm/tslib@2/tslib.es6.mjs",
 
-            "material/": "/"
+            "material/": "../"
           }
         }
       </script>
@@ -42,15 +42,31 @@
     import 'material/labs/navigationbar/navigation-bar.js'
     import 'material/labs/navigationtab/navigation-tab.js'
     import 'material/labs/navigationdrawer/navigation-drawer.js'
-
+    import 'material/search/search.js'
     import './components/demo-component.js'
   </script>
 
   <div class="container">
 
-    <h2>Inputs</h2>
+
 
     <div style="display: flex; flex-direction: column; gap: 12px;">
+      <md-search>
+        <md-icon slot="leading-icon">menu</md-icon>
+        <div slot="trailing-icon">
+          <img src="./images/avatar2.png" class="circle" style="height: 40px;">
+        </div>
+      </md-search>
+
+      <md-outlined-text-field label="Search" required minlength="4">
+        <md-icon slot="leading-icon">menu</md-icon>
+        <div slot="trailing-icon">
+          <img src="./images/avatar2.png" class="circle" style="height: 40px;">
+        </div>
+      </md-outlined-text-field>
+
+      <h2>Inputs</h2>
+
       <md-outlined-text-field label="Name" required minlength="4"></md-outlined-text-field>
       <md-outlined-text-field id="preferredDate" class="data" type="date" label="Preferred Date" required minlength="4"></md-outlined-text-field>
       <md-filled-button onclick="save()">Save</md-filled-button>

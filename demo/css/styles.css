@@ -21,3 +21,7 @@ body {
     max-width: 1200px;
     padding: 1rem;
 }
+
+.circle {
+    border-radius: 50%;
+}
