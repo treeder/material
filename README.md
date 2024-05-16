@@ -22,13 +22,7 @@ Please [consider sponsoring](https://github.com/sponsors/treeder) before creatin
 
 ## Demo
 
-Demo code is here: https://github.com/treeder/material/tree/main/demo
-
-You can run it locally by checking out this repo and:
-
-```js
-make serve
-```
+Demo is here: https://treeder.github.io/material/ 
 
 ## Quick start
 
@@ -115,4 +109,18 @@ Then in your HTML:
 </script>
 
 <demo-component></demo-component>        
+```
+
+## Contributing
+
+We welcome contributions, please discuss and/or make pull requests. 
+
+### Demo code
+
+Demo code is here: https://github.com/treeder/material/tree/main/demo
+
+You can run it locally by checking out this repo and:
+
+```js
+make serve
 ```
