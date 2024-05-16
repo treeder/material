@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import { __decorate } from "tslib";
-import '../../../elevation/elevation.js';
+import '../../elevation/elevation.js';
 import { html, LitElement, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
