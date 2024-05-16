@@ -4,11 +4,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import { __decorate } from "tslib";
-import '../../../elevation/elevation.js';
+import '../../elevation/elevation.js';
 import { html, LitElement, nothing } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
-import { requestUpdateOnAriaChange } from '../../../internal/aria/delegate.js';
-import { isRtl } from '../../../internal/controller/is-rtl.js';
+import { requestUpdateOnAriaChange } from '../../internal/aria/delegate.js';
+import { isRtl } from '../../internal/controller/is-rtl.js';
 /**
  * b/265346501 - add docs
  *
@@ -25,7 +25,7 @@ export class NavigationBar extends LitElement {
     render() {
         // Needed for closure conformance
         const { ariaLabel } = this;
-        return html `<div
+        return html`<div
       class="md3-navigation-bar"
       role="tablist"
       aria-label=${ariaLabel || nothing}

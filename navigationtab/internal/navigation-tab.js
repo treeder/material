@@ -4,13 +4,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import { __decorate } from "tslib";
-import '../../../focus/md-focus-ring.js';
-import '../../../ripple/ripple.js';
+import '../../focus/md-focus-ring.js';
+import '../../ripple/ripple.js';
 import '../../badge/badge.js';
 import { html, LitElement, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import { requestUpdateOnAriaChange } from '../../../internal/aria/delegate.js';
+import { requestUpdateOnAriaChange } from '../../internal/aria/delegate.js';
 /**
  * b/265346501 - add docs
  *
@@ -32,7 +32,7 @@ export class NavigationTab extends LitElement {
     render() {
         // Needed for closure conformance
         const { ariaLabel } = this;
-        return html ` <button
+        return html` <button
       class="md3-navigation-tab ${classMap(this.getRenderClasses())}"
       role="tab"
       aria-selected="${this.active}"
@@ -62,7 +62,7 @@ export class NavigationTab extends LitElement {
     }
     renderBadge() {
         return this.showBadge
-            ? html `<md-badge .value="${this.badgeValue}"></md-badge>`
+            ? html`<md-badge .value="${this.badgeValue}"></md-badge>`
             : nothing;
     }
     renderLabel() {
@@ -71,7 +71,7 @@ export class NavigationTab extends LitElement {
         const ariaHidden = ariaLabel ? 'true' : 'false';
         return !this.label
             ? nothing
-            : html ` <span
+            : html` <span
           aria-hidden="${ariaHidden}"
           class="md3-navigation-tab__label-text"
           >${this.label}</span

@@ -7,7 +7,7 @@ import { __decorate } from "tslib";
 import { html, LitElement, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import { requestUpdateOnAriaChange } from '../../../internal/aria/delegate.js';
+import { requestUpdateOnAriaChange } from '../../internal/aria/delegate.js';
 /**
  * b/265346501 - add docs
  *
@@ -25,7 +25,7 @@ export class NavigationDrawerModal extends LitElement {
         const ariaHidden = !this.opened ? 'true' : 'false';
         // Needed for closure conformance
         const { ariaLabel, ariaModal } = this;
-        return html `
+        return html`
       <div
         class="md3-navigation-drawer-modal__scrim ${this.getScrimClasses()}"
         @click="${this.handleScrimClick}">

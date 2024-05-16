@@ -6,7 +6,7 @@
 import { __decorate } from "tslib";
 import { html, LitElement, nothing } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
-import { requestUpdateOnAriaChange } from '../../../internal/aria/delegate.js';
+import { requestUpdateOnAriaChange } from '../../internal/aria/delegate.js';
 /**
  * SegmentedButtonSet is the parent component for two or more
  * `SegmentedButton` components. **Only** `SegmentedButton` components may be
@@ -87,7 +87,7 @@ export class SegmentedButtonSet extends LitElement {
     render() {
         // Needed for closure conformance
         const { ariaLabel } = this;
-        return html `
+        return html`
       <span
         role="group"
         @segmented-button-interaction="${this.handleSegmentedButtonInteraction}"
