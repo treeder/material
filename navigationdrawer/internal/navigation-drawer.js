@@ -8,7 +8,7 @@ import '../../../elevation/elevation.js';
 import { html, LitElement, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import { requestUpdateOnAriaChange } from '../../../internal/aria/delegate.js';
+import { requestUpdateOnAriaChange } from '../../internal/aria/delegate.js';
 /**
  * b/265346501 - add docs
  *
@@ -26,7 +26,7 @@ export class NavigationDrawer extends LitElement {
         const ariaHidden = !this.opened ? 'true' : 'false';
         // Needed for closure conformance
         const { ariaLabel, ariaModal } = this;
-        return html `
+        return html`
       <div
         aria-expanded="${ariaExpanded}"
         aria-hidden="${ariaHidden}"
