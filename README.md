@@ -22,7 +22,7 @@ Please [consider sponsoring](https://github.com/sponsors/treeder) before creatin
 
 ## Demo
 
-Demo is here: https://treeder.github.io/material/ 
+Demo is here: https://treeder.github.io/material/demo/
 
 ## Quick start
 
