@@ -39,6 +39,7 @@
     import 'material/textfield/outlined-text-field.js'
     import 'material/button/filled-button.js'
     import 'material/icon/icon.js'
+    import 'material/iconbutton/icon-button.js'
     import 'material/navigationbar/navigation-bar.js'
     import 'material/navigationtab/navigation-tab.js'
     import 'material/navigationdrawer/navigation-drawer.js'
@@ -49,21 +50,17 @@
   <div class="container">
 
 
-
     <div style="display: flex; flex-direction: column; gap: 12px;">
+      <div class="p12">
+        This is a demo of material 3 components from: <a href="https://github.com/treeder/material">https://github.com/treeder/material</a>
+      </div>
+
       <md-search>
-        <md-icon slot="leading-icon">menu</md-icon>
+        <md-icon-button slot="leading-icon"><md-icon>menu</md-icon></md-icon-button>
         <div slot="trailing-icon">
           <img src="./images/avatar2.png" class="circle" style="height: 40px;">
         </div>
       </md-search>
-
-      <md-outlined-text-field label="Search" required minlength="4">
-        <md-icon slot="leading-icon">menu</md-icon>
-        <div slot="trailing-icon">
-          <img src="./images/avatar2.png" class="circle" style="height: 40px;">
-        </div>
-      </md-outlined-text-field>
 
       <h2>Inputs</h2>
 

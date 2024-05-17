@@ -26,6 +26,9 @@ export const styles = css`
     gap: 24px;
 }
 
+.p12 {
+    padding: 12px;
+}
 .p16 {
     padding: 16px;
 }

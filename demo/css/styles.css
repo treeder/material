@@ -25,3 +25,7 @@ body {
 .circle {
     border-radius: 50%;
 }
+
+.p12 {
+    padding: 12px;
+}
