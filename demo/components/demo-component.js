@@ -33,14 +33,18 @@ class DemoComponent extends LitElement {
 
     render() {
         return html`
-    <div style="display: flex; flex-direction: column; gap: 12px;">
-        <md-outlined-text-field label="Name" required minlength="4"></md-outlined-text-field>
-        <md-outlined-text-field label="Email" type="email" required></md-outlined-text-field>
-        <md-outlined-text-field label="Password" type="password" required></md-outlined-text-field>
-        <md-outlined-text-field label="Phone" type="tel" required></md-outlined-text-field>
-        <md-outlined-text-field label="File" type="file" required></md-outlined-text-field>
-        <md-outlined-text-field label="Date" type="date" required></md-outlined-text-field>
-        <md-filled-button @click=${this.save}>Save</md-filled-button>
+    <div class="flex col g12">
+        <form id="form1">
+            <div class="flex col g12">
+                <md-outlined-text-field label="Name" required minlength="4"></md-outlined-text-field>
+                <md-outlined-text-field label="Email" type="email" required></md-outlined-text-field>
+                <md-outlined-text-field label="Password" type="password" required></md-outlined-text-field>
+                <md-outlined-text-field label="Phone" type="tel" required></md-outlined-text-field>
+                <md-outlined-text-field label="File" type="file" id="file1" required></md-outlined-text-field>
+                <md-outlined-text-field label="Date" type="date" required></md-outlined-text-field>
+                <md-filled-button type="button" @click=${this.save}>Save</md-filled-button>
+            </div>
+        </form>
 
         <md-chip-set>
             <md-assist-chip label="Assist chip"></md-assist-chip>
@@ -79,8 +83,18 @@ class DemoComponent extends LitElement {
         </div>
     </div>`
     }
-    save() {
+    save(e) {
+        e.preventDefault()
         console.log("Save button clicked")
+        let f1 = this.renderRoot.querySelector('#form1')
+        let file1 = this.renderRoot.querySelector('#file1')
+        console.log(file1.value)
+        if (!f1.reportValidity()) {
+            console.log("Form is invalid")
+            return
+        }
+
+
     }
 }
 
