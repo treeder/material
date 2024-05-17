@@ -1,2 +1,2 @@
-serve:
+run:
 	npx serve
