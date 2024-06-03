@@ -42,6 +42,7 @@
     import 'material/iconbutton/icon-button.js'
     import 'material/navigationbar/navigation-bar.js'
     import 'material/navigationtab/navigation-tab.js'
+    import 'material/badge/badge.js'
     import 'material/navigationdrawer/navigation-drawer.js'
     import 'material/search/search.js'
     import './components/demo-component.js'
@@ -91,13 +92,18 @@
 
   <div style="position: fixed; bottom: 0; width: 100%;">
     <md-navigation-bar>
-      <md-navigation-tab label="Home" icon="home" selected>
+      <md-navigation-tab label="Home" selected>
         <md-icon slot="active-icon">home</md-icon>
         <md-icon slot="inactive-icon">home</md-icon>
       </md-navigation-tab>
-      <md-navigation-tab label="Stuff" icon="home" selected>
+      <md-navigation-tab label="Stuff">
         <md-icon slot="active-icon">home</md-icon>
         <md-icon slot="inactive-icon">home</md-icon>
+      </md-navigation-tab>
+      <md-navigation-tab label="Cart" badge-value="3" show-badge>
+        <md-icon slot="active-icon">shopping_cart</md-icon>
+        <md-icon slot="inactive-icon">shopping_cart</md-icon>
+        <md-badge value="3"></md-badge>
       </md-navigation-tab>
     </md-navigation-bar>
   </div>
