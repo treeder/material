@@ -2,6 +2,7 @@ import { html, css, LitElement } from 'lit'
 import 'material/textfield/outlined-text-field.js'
 import 'material/button/filled-button.js'
 import 'material/button/outlined-button.js'
+import 'material/iconbutton/icon-button.js'
 import 'material/card/outlined-card.js'
 import 'material/chips/chip-set.js'
 import 'material/chips/assist-chip.js'
@@ -45,6 +46,15 @@ class DemoComponent extends LitElement {
                 <md-filled-button type="button" @click=${this.save}>Save</md-filled-button>
             </div>
         </form>
+
+        <div class="flex g12">
+            <md-icon-button>
+                <md-icon>search</md-icon>
+            </md-icon-button>
+            <md-icon-button href="https://google.com" target="_blank">
+                <md-icon>more_vert</md-icon>
+            </md-icon-button>
+        </div>
 
         <md-chip-set>
             <md-assist-chip label="Assist chip"></md-assist-chip>

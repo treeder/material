@@ -8,6 +8,7 @@ import '../../elevation/elevation.js';
 import '../../focus/md-focus-ring.js';
 import '../../ripple/ripple.js';
 import { html, LitElement, nothing } from 'lit';
+import { literal, html as staticHtml } from 'lit/static-html.js';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { requestUpdateOnAriaChange } from '../../internal/aria/delegate.js';
@@ -30,19 +31,28 @@ export class SharedFab extends LitElement {
          * Lowers the FAB's elevation.
          */
         this.lowered = false;
+        /**
+         * Sets the underlying `HTMLAnchorElement`'s `href` resource attribute.
+         */
+        this.href = '';
     }
     render() {
+        console.log("SharedFab", "href:", this.href)
         // Needed for closure conformance
         const { ariaLabel } = this;
-        return html `
-      <button
+        const tag = this.href ? literal `div` : literal `button`;
+        return staticHtml `
+      <${tag}
         class="fab ${classMap(this.getRenderClasses())}"
         aria-label=${ariaLabel || nothing}>
         <md-elevation part="elevation"></md-elevation>
-        <md-focus-ring part="focus-ring"></md-focus-ring>
-        <md-ripple class="ripple"></md-ripple>
+        <md-focus-ring part="focus-ring" 
+        for=${this.href ? 'link' : 'button'}></md-focus-ring>
+        <md-ripple class="ripple" for=${this.href ? 'link' : nothing}
+        ?disabled="${!this.href && this.disabled}"></md-ripple>
         ${this.renderTouchTarget()} ${this.renderIcon()} ${this.renderLabel()}
-      </button>
+        ${this.href && this.renderLink()}
+      </${tag}>
     `;
     }
     getRenderClasses() {
@@ -72,6 +82,18 @@ export class SharedFab extends LitElement {
       </slot>
     </span>`;
     }
+    renderLink() {
+        // Needed for closure conformance
+        const { ariaLabel } = this;
+        return html `
+      <a
+        class="link"
+        id="link"
+        href="${this.href}"
+        target="${this.target || nothing}"
+        aria-label="${ariaLabel || nothing}"></a>
+    `;
+    }
 }
 (() => {
     requestUpdateOnAriaChange(SharedFab);
@@ -90,4 +112,7 @@ __decorate([
 __decorate([
     property({ type: Boolean })
 ], SharedFab.prototype, "lowered", void 0);
+__decorate([
+    property({ type: String })
+], SharedFab.prototype, "href", void 0);
 //# sourceMappingURL=shared.js.map

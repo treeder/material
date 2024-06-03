@@ -16,6 +16,23 @@ body {
     font-size: 14px;
 }
 
+@media (width < 600px) {
+    :is(.medium, .expanded):not(.compact) {
+        display: none;
+    }
+}
+@media (width >= 600px) and (width < 840px) {
+    :is(.compact, .expanded):not(.medium) {
+        display: none;
+    }
+}
+
+@media (width >= 840px) {
+    :is(.compact, .medium):not(.expanded) {
+        display: none;
+    }
+}
+
 .container {
     margin: 0 auto;
     max-width: 1200px;
@@ -29,3 +46,4 @@ body {
 .p12 {
     padding: 12px;
 }
+
