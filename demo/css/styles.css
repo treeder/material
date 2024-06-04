@@ -21,13 +21,14 @@ body {
         display: none;
     }
 }
-@media (width >= 600px) and (width < 840px) {
+
+@media (width >=600px) and (width < 840px) {
     :is(.compact, .expanded):not(.medium) {
         display: none;
     }
 }
 
-@media (width >= 840px) {
+@media (width >=840px) {
     :is(.compact, .medium):not(.expanded) {
         display: none;
     }
@@ -43,7 +44,18 @@ body {
     border-radius: 50%;
 }
 
+.flex {
+    display: flex;
+}
+
+.col {
+    flex-direction: column;
+}
+
+.g12 {
+    gap: 12px;
+}
+
 .p12 {
     padding: 12px;
 }
-
