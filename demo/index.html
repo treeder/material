@@ -48,75 +48,131 @@
     import 'material/navigationtab/navigation-tab.js'
     import 'material/badge/badge.js'
     import 'material/navigationdrawer/navigation-drawer.js'
+    import 'material/navigationdrawer/navigation-drawer-modal.js'
+    import 'material/list/list-item.js'
     import 'material/fab/fab.js'
     import 'material/search/search.js'
+    import 'material/menu/menu.js'
+    import 'material/menu/menu-item.js'
     import './components/demo-component.js'
+    import './components/top-nav.js'
   </script>
 
-  <div class="container">
+  <!-- this is the modal drawer for small screens -->
+  <md-navigation-drawer-modal id="nav-drawer-modal">
+    <md-list-item href="/" style="width: 100%;">
+      <md-icon slot="start">home</md-icon>
+      <div slot="headline">Home</div>
+    </md-list-item>
+    <md-list-item href="/inbox">
+      <md-icon slot="start">inbox</md-icon>
+      <div slot="headline">Inbox</div>
+      <div slot="end">24</div>
+    </md-list-item>
+    <md-list-item href="/outbox">
+      <md-icon slot="start">outbox</md-icon>
+      <div slot="headline">Outbox</div>
+    </md-list-item>
+  </md-navigation-drawer-modal>
 
+  <!-- layout is left nav rail/drawer, header, content -->
+  <div class="flex g12">
 
-    <div style="display: flex; flex-direction: column; gap: 12px;">
-      <div class="p12">
-        This is a demo of material 3 components from: <a
-          href="https://github.com/treeder/material">https://github.com/treeder/material</a>
+    <!-- left rail -->
+    <div class="expanded" id="nav-drawer-container">
+      <!-- This one is non-modal, fixed menu, for bigger screens -->
+      <md-navigation-drawer id="nav-drawer" opened>
+        <md-list-item href="/" style="width: 100%;">
+          <md-icon slot="start">home</md-icon>
+          <div slot="headline">Home</div>
+        </md-list-item>
+        <md-list-item href="/inbox">
+          <md-icon slot="start">inbox</md-icon>
+          <div slot="headline">Inbox</div>
+          <div slot="end">24</div>
+        </md-list-item>
+        <md-list-item href="/outbox">
+          <md-icon slot="start">outbox</md-icon>
+          <div slot="headline">Outbox</div>
+        </md-list-item>
+      </md-navigation-drawer>
+    </div>
+
+    <div class="flex col g8">
+
+      <!-- top nav -->
+      <div>
+        <top-nav id="topNav"></top-nav>
+      </div>
+      <script>
+        document.getElementById('topNav').addEventListener('drawerButtonClicked', () => {
+          console.log('drawerButtonClicked')
+          // let display = document.getElementById('nav-drawer-container').style.display
+          // if (display == 'block') {
+          //   document.getElementById('nav-drawer-container').style.display = 'none'
+          //   document.getElementById('nav-drawer').opened = false
+          // } else {
+          //   document.getElementById('nav-drawer-container').style.display = 'block'
+          //   document.getElementById('nav-drawer').opened = true
+          // }
+
+          let opened = document.getElementById('nav-drawer-modal').opened
+          if (opened) {
+            document.getElementById('nav-drawer-modal').opened = false
+          } else {
+            document.getElementById('nav-drawer-modal').opened = true
+          }
+        })
+      </script>
+
+      <!-- main content -->
+      <div class="container">
+
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div class="p12">
+            This is a demo of material 3 components from: <a
+              href="https://github.com/treeder/material">https://github.com/treeder/material</a>
+          </div>
+
+          <h2>Inputs</h2>
+
+          <md-outlined-text-field label="Name" required minlength="4"></md-outlined-text-field>
+          <md-outlined-text-field id="preferredDate" class="data" type="date" label="Preferred Date" required
+            minlength="4"></md-outlined-text-field>
+          <md-filled-button onclick="save()">Save</md-filled-button>
+        </div>
+
+        <script>
+          function save() {
+            console.log("Save clicked")
+            document.getElementById('nav-drawer').opened = true
+          }
+        </script>
+
+        <div style="margin-top: 24px;">
+          <demo-component></demo-component>
+        </div>
+
       </div>
 
-      <md-search>
-        <md-icon-button slot="leading-icon"><md-icon>menu</md-icon></md-icon-button>
-        <div slot="trailing-icon">
-          <img src="./images/avatar2.png" class="circle" style="height: 40px;">
-        </div>
-      </md-search>
 
-      <h2>Inputs</h2>
-
-      <md-outlined-text-field label="Name" required minlength="4"></md-outlined-text-field>
-      <md-outlined-text-field id="preferredDate" class="data" type="date" label="Preferred Date" required
-        minlength="4"></md-outlined-text-field>
-      <md-filled-button onclick="save()">Save</md-filled-button>
     </div>
-
-    <script>
-      function save() {
-        console.log("Save clicked")
-        document.getElementById('nav-drawer').opened = true
-      }
-    </script>
-
-    <div style="margin-top: 24px;">
-      <demo-component></demo-component>
-    </div>
-
   </div>
 
-  <!-- can't get the drawer to work -->
-  <md-navigation-drawer id="nav-drawer" opened>
-    <div>
-      <md-filled-button>Save</md-filled-button>
-    </div>
-  </md-navigation-drawer>
-
   <style>
-    md-fab {
-      position: fixed;
-      right: 16px;
-      /* style as you need */
-      bottom: 96px;
-      /* style as you need */
-    }
+
   </style>
-  <md-fab variant="primary" href="/abc"> <!-- label="New customer" -->
+  <md-fab variant="primary" href="/"> <!-- label="New customer" -->
     <md-icon slot="icon">add</md-icon>
   </md-fab>
 
-  <div class="mobile" style="height: 80px;">
+  <div class="compact" style="height: 80px;">
     <!-- this is to add some padding for the nav bar -->
   </div>
 
-  <div style="position: fixed; bottom: 0; width: 100%;">
-    <md-navigation-bar>
-      <md-navigation-tab label="Home" selected>
+  <div class="compact" style="position: fixed; bottom: 0; width: 100%;">
+    <md-navigation-bar active-index="1">
+      <md-navigation-tab label="Home">
         <md-icon slot="active-icon">home</md-icon>
         <md-icon slot="inactive-icon">home</md-icon>
       </md-navigation-tab>

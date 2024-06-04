@@ -4,7 +4,6 @@ export const styles = css`
 .circle {
     border-radius: 50%;
 }
-
 .flex {
     display: flex;
 }
@@ -26,6 +25,9 @@ export const styles = css`
     gap: 24px;
 }
 
+.p4 {
+    padding: 4px;
+}
 .p12 {
     padding: 12px;
 }
