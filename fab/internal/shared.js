@@ -3,45 +3,44 @@
  * Copyright 2023 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import '../../elevation/elevation.js';
-import '../../focus/md-focus-ring.js';
-import '../../ripple/ripple.js';
-import { html, LitElement, nothing } from 'lit';
-import { literal, html as staticHtml } from 'lit/static-html.js';
-import { property } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { requestUpdateOnAriaChange } from '../../internal/aria/delegate.js';
+import { __decorate } from "tslib"
+import '../../elevation/elevation.js'
+import '../../focus/md-focus-ring.js'
+import '../../ripple/ripple.js'
+import { html, LitElement, nothing } from 'lit'
+import { literal, html as staticHtml } from 'lit/static-html.js'
+import { property } from 'lit/decorators.js'
+import { classMap } from 'lit/directives/class-map.js'
+import { requestUpdateOnAriaChange } from '../../internal/aria/delegate.js'
 // tslint:disable-next-line:enforce-comments-on-exported-symbols
 export class SharedFab extends LitElement {
     constructor() {
-        super(...arguments);
+        super(...arguments)
         /**
          * The size of the FAB.
          *
          * NOTE: Branded FABs cannot be sized to `small`, and Extended FABs do not
          * have different sizes.
          */
-        this.size = 'medium';
+        this.size = 'medium'
         /**
          * The text to display on the FAB.
          */
-        this.label = '';
+        this.label = ''
         /**
          * Lowers the FAB's elevation.
          */
-        this.lowered = false;
+        this.lowered = false
         /**
          * Sets the underlying `HTMLAnchorElement`'s `href` resource attribute.
          */
-        this.href = '';
+        this.href = ''
     }
     render() {
-        console.log("SharedFab", "href:", this.href)
         // Needed for closure conformance
-        const { ariaLabel } = this;
-        const tag = this.href ? literal `div` : literal `button`;
-        return staticHtml `
+        const { ariaLabel } = this
+        const tag = this.href ? literal`div` : literal`button`
+        return staticHtml`
       <${tag}
         class="fab ${classMap(this.getRenderClasses())}"
         aria-label=${ariaLabel || nothing}>
@@ -53,66 +52,66 @@ export class SharedFab extends LitElement {
         ${this.renderTouchTarget()} ${this.renderIcon()} ${this.renderLabel()}
         ${this.href && this.renderLink()}
       </${tag}>
-    `;
+    `
     }
     getRenderClasses() {
-        const isExtended = !!this.label;
+        const isExtended = !!this.label
         return {
             'lowered': this.lowered,
             'small': this.size === 'small' && !isExtended,
             'large': this.size === 'large' && !isExtended,
             'extended': isExtended,
-        };
+        }
     }
     renderTouchTarget() {
-        return html `<div class="touch-target"></div>`;
+        return html`<div class="touch-target"></div>`
     }
     renderLabel() {
-        return this.label ? html `<span class="label">${this.label}</span>` : '';
+        return this.label ? html`<span class="label">${this.label}</span>` : ''
     }
     renderIcon() {
-        const { ariaLabel } = this;
-        return html `<span class="icon">
+        const { ariaLabel } = this
+        return html`<span class="icon">
       <slot
         name="icon"
         aria-hidden=${ariaLabel || this.label
-            ? 'true'
-            : nothing}>
+                ? 'true'
+                : nothing}>
         <span></span>
       </slot>
-    </span>`;
+    </span>`
     }
     renderLink() {
         // Needed for closure conformance
-        const { ariaLabel } = this;
-        return html `
+        const { ariaLabel } = this
+        return html`
       <a
         class="link"
         id="link"
         href="${this.href}"
         target="${this.target || nothing}"
         aria-label="${ariaLabel || nothing}"></a>
-    `;
+    `
     }
 }
 (() => {
-    requestUpdateOnAriaChange(SharedFab);
-})();
+    requestUpdateOnAriaChange(SharedFab)
+})()
 /** @nocollapse */
 SharedFab.shadowRootOptions = {
     mode: 'open',
     delegatesFocus: true,
-};
+}
 __decorate([
     property({ reflect: true })
-], SharedFab.prototype, "size", void 0);
+], SharedFab.prototype, "size", void 0)
 __decorate([
     property()
-], SharedFab.prototype, "label", void 0);
+], SharedFab.prototype, "label", void 0)
 __decorate([
     property({ type: Boolean })
-], SharedFab.prototype, "lowered", void 0);
+], SharedFab.prototype, "lowered", void 0)
 __decorate([
     property({ type: String })
-], SharedFab.prototype, "href", void 0);
+], SharedFab.prototype, "href", void 0)
 //# sourceMappingURL=shared.js.map

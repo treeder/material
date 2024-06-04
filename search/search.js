@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit'
-import { MdOutlinedTextField } from '../textfield/outlined-text-field.js';
+import { MdOutlinedTextField } from '../textfield/outlined-text-field.js'
 
 class Search extends LitElement {
 
@@ -15,12 +15,17 @@ class Search extends LitElement {
     }
     `
 
+    static properties = {
+        label: { type: String },
+        placeholder: { type: String },
+    }
+
     constructor() {
         super(...arguments)
         console.log("SEARCH IS A WIP")
 
         this.label = 'Search'
-        // this.placeholder = 'Search'
+        this.placeholder = 'Search'
     }
 
     render() {

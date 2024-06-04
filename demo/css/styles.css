@@ -59,3 +59,17 @@ body {
 .p12 {
     padding: 12px;
 }
+
+md-fab {
+    position: fixed;
+    right: 16px;
+    /* style as you need */
+    bottom: 96px;
+    /* style as you need */
+}
+
+@media (width >=840px) {
+    md-fab {
+        bottom: 16px;
+    }
+}
