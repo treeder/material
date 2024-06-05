@@ -64,7 +64,7 @@ export const styles = css`
 
 .md3-navigation-bar .md3-navigation-bar__tabs-slot-container {
     display: inherit;
-    width: inherit
+    width: inherit;
 }
 
 md-elevation {

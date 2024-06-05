@@ -30,9 +30,17 @@ export class NavigationRail extends NavigationBar {
       @keydown="${this.handleKeydown}"
       @navigation-tab-interaction="${this.handleNavigationTabInteraction}"
       @navigation-tab-rendered=${this.handleNavigationTabConnected}
-      ><md-elevation part="elevation"></md-elevation
-      ><div class="md3-navigation-bar__tabs-slot-container"><slot></slot></div
-    ></div>`
+      ><md-elevation part="elevation"></md-elevation>
+      <div class="md3-navigation-bar__tabs-slot-container md3-navigation-rail__tabs-slot-container">
+        <div class="md3-navigation-rail-top">
+            <slot name="menu"></slot>
+            <slot name="fab"></slot>
+        </div>
+        <div>
+            <slot></slot>
+        </div>
+      </div></div>
+      `
     }
     updated(changedProperties) {
         if (changedProperties.has('activeIndex')) {

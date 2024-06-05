@@ -46,6 +46,7 @@
     import 'material/iconbutton/icon-button.js'
     import 'material/navigationbar/navigation-bar.js'
     import 'material/navigationtab/navigation-tab.js'
+    import 'material/navigationrail/navigation-rail.js'
     import 'material/badge/badge.js'
     import 'material/navigationdrawer/navigation-drawer.js'
     import 'material/navigationdrawer/navigation-drawer-modal.js'
@@ -82,6 +83,14 @@
     <div class="flex g4">
       <div class="medium" id="nav-rail-container">
         <md-navigation-rail active-index="1">
+          <!-- todo: should maybe just change this slot to "top" or something then can add whatever to the top section -->
+          <md-icon-button slot="menu" id="rail-menu-button">
+            <md-icon>menu</md-icon>
+          </md-icon-button>
+          <md-fab slot="fab" variant="primary" href="/" lowered>
+            <md-icon slot="icon">search</md-icon>
+          </md-fab>
+
           <md-navigation-tab label="Home">
             <md-icon slot="active-icon">home</md-icon>
             <md-icon slot="inactive-icon">home</md-icon>
@@ -143,6 +152,18 @@
             document.getElementById('nav-drawer-modal').opened = true
           }
         })
+
+        document.getElementById('rail-menu-button').addEventListener('click', () => {
+          console.log('rail menu button clicked')
+          let display = document.getElementById('nav-drawer-container').style.display
+          if (display == 'block') {
+            document.getElementById('nav-drawer-container').style.display = 'none'
+            document.getElementById('nav-drawer').opened = false
+          } else {
+            document.getElementById('nav-drawer-container').style.display = 'block'
+            document.getElementById('nav-drawer').opened = true
+          }
+        })
       </script>
 
       <!-- main content -->
@@ -182,7 +203,7 @@
   <style>
 
   </style>
-  <md-fab variant="primary" href="/"> <!-- label="New customer" -->
+  <md-fab class="fabBottom" variant="primary" href="/"> <!-- label="New customer" -->
     <md-icon slot="icon">add</md-icon>
   </md-fab>
 

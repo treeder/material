@@ -60,7 +60,7 @@ body {
     padding: 12px;
 }
 
-md-fab {
+.fabBottom {
     position: fixed;
     right: 16px;
     /* style as you need */
@@ -69,7 +69,7 @@ md-fab {
 }
 
 @media (width >=840px) {
-    md-fab {
+    .fabBottom {
         bottom: 16px;
     }
 }
