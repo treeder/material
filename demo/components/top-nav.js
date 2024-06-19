@@ -15,7 +15,7 @@ export class TopNav extends LitElement {
         return html`
         <div class="p4">
           <!-- Material search -->
-          <md-search placeholder="Search...">
+          <md-search placeholder="Search..." @keydown=${this.handleKeyDown}>
             <md-icon-button slot="leading-icon" @click=${this.toggleDrawer}>
                 <md-icon>menu</md-icon>
             </md-icon-button>
@@ -42,6 +42,16 @@ export class TopNav extends LitElement {
           </md-menu>
           </div>
           `
+    }
+
+    handleKeyDown(e) {
+        console.log(e)
+        console.log(e.target)
+        console.log(e.target.value)
+        if (e.key === "Enter") {
+            let v = e.target.value
+            console.log("search value: ", v)
+        }
     }
 
     toggleDrawer() {

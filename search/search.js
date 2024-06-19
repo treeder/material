@@ -31,7 +31,7 @@ class Search extends LitElement {
     render() {
         return html`
         <div class="main">
-        <md-outlined-text-field style="width: 100%;"
+        <md-outlined-text-field id="input" style="width: 100%;"
             label="${this.label}"
             placeholder="${this.placeholder}"
             @input="${this._handleInput}">
@@ -40,6 +40,10 @@ class Search extends LitElement {
         </md-outlined-text-field>
         </div>
         `
+    }
+
+    get value() {
+        return this.renderRoot.querySelector("#input").value
     }
 }
 
