@@ -20,6 +20,10 @@ body {
     :is(.medium, .expanded):not(.compact) {
         display: none;
     }
+
+    .gte-medium {
+        display: none;
+    }
 }
 
 @media (width >=600px) and (width < 840px) {
@@ -31,6 +35,12 @@ body {
 @media (width >=840px) {
     :is(.compact, .medium):not(.expanded) {
         display: none;
+    }
+}
+
+@media (width >=600px) {
+    .gte-medium {
+        display: block;
     }
 }
 

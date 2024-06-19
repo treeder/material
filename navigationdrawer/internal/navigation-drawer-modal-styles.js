@@ -10,7 +10,7 @@ export const styles = css`
     --_container-color: var(--md-navigation-drawer-modal-container-color, var(--md-sys-color-surface-container-low, #fff));
     --_container-height: var(--md-navigation-drawer-modal-container-height, 100%);
     --_container-shape: var(--md-navigation-drawer-modal-container-shape, 0 16px 16px 0);
-    --_container-width: var(--md-navigation-drawer-modal-container-width, 360px);
+    --_container-width: var(--md-navigation-drawer-modal-container-width, 320px);
     --_divider-color: var(--md-navigation-drawer-modal-divider-color, #000);
     --_modal-container-elevation: var(--md-navigation-drawer-modal-modal-container-elevation, 1);
     --_scrim-color: var(--md-navigation-drawer-modal-scrim-color, );

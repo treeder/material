@@ -51,8 +51,11 @@ class DemoComponent extends LitElement {
             <md-icon-button>
                 <md-icon>search</md-icon>
             </md-icon-button>
-            <md-icon-button href="https://google.com" target="_blank">
+            <md-icon-button>
                 <md-icon>more_vert</md-icon>
+            </md-icon-button>
+            <md-icon-button href="https://thingster.app" target="_blank">
+                <md-icon>open_in_new</md-icon>
             </md-icon-button>
         </div>
 

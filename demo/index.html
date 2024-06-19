@@ -76,12 +76,12 @@
     </md-list-item>
   </md-navigation-drawer-modal>
 
-  <!-- layout is left nav rail/drawer, header, content -->
+  <!-- layout is: { left nav rail/drawer, { header, content } } -->
   <div class="flex g12">
 
     <!-- left nav -->
     <div class="flex g4">
-      <div class="medium" id="nav-rail-container">
+      <div class="gte-medium" id="nav-rail-container">
         <md-navigation-rail active-index="1">
           <!-- todo: should maybe just change this slot to "top" or something then can add whatever to the top section -->
           <md-icon-button slot="menu" id="rail-menu-button">
@@ -200,9 +200,6 @@
     </div>
   </div>
 
-  <style>
-
-  </style>
   <md-fab class="fabBottom" variant="primary" href="/"> <!-- label="New customer" -->
     <md-icon slot="icon">add</md-icon>
   </md-fab>

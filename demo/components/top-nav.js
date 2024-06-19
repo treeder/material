@@ -14,7 +14,7 @@ export class TopNav extends LitElement {
     render() {
         return html`
         <div class="p4">
-        <!-- Material search -->
+          <!-- Material search -->
           <md-search placeholder="Search...">
             <md-icon-button slot="leading-icon" @click=${this.toggleDrawer}>
                 <md-icon>menu</md-icon>
