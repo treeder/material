@@ -211,9 +211,11 @@
 
         document.getElementById('rail-menu-button').addEventListener('click', () => {
           console.log('rail menu button clicked')
-          let display = document.getElementById('nav-drawer-container').style.display
-          console.log("display: ", display)
-          if (display == 'block' || display == '') {
+          let el = document.getElementById('nav-drawer-container')
+          let display = el.style.display
+          console.log(display, typeof display, display == undefined, display == '', display == 'none')
+          console.log(el.checkVisibility())
+          if (el.checkVisibility()) {
             document.getElementById('nav-drawer-container').style.display = 'none'
             document.getElementById('nav-drawer').opened = false
           } else {
