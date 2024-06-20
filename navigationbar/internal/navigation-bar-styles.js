@@ -50,7 +50,7 @@ export const styles = css`
     --_pressed-state-layer-opacity: var(--md-navigation-bar-pressed-state-layer-opacity, 0.12);
     --md-elevation-level: var(--_container-elevation);
     --md-elevation-shadow-color: var(--_container-shadow-color);
-    width: 100%
+    width: 100%;
 }
 
 .md3-navigation-bar {
@@ -59,7 +59,8 @@ export const styles = css`
     width: 100%;
     background-color: var(--_container-color);
     border-radius: var(--_container-shape);
-    height: var(--_container-height)
+    height: var(--_container-height);
+    z-index: 10000;
 }
 
 .md3-navigation-bar .md3-navigation-bar__tabs-slot-container {

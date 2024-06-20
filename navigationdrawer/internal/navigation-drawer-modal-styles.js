@@ -25,7 +25,8 @@ export const styles = css`
     display: flex;
     justify-content: flex-end;
     overflow: hidden;
-    position: absolute;
+    overflow-y: auto;
+    position: fixed;
     top: 0;
     inline-size: 0;
     transition: inline-size .25s cubic-bezier(0.4, 0, 0.2, 1) 0s, visibility 0s cubic-bezier(0.4, 0, 0.2, 1) .25s;

@@ -8,9 +8,9 @@ import { css } from 'lit'
 export const styles = css`
 :host {
     --_container-color: var(--md-navigation-drawer-container-color, var(--md-sys-color-surface-container-low, #fff));
-    --_container-height: var(--md-navigation-drawer-container-height, 100%);
+    --_container-height: var(--md-navigation-drawer-container-height, 100vh);
     --_container-shape: var(--md-navigation-drawer-container-shape, 0 16px 16px 0);
-    --_container-width: var(--md-navigation-drawer-container-width, 360px);
+    --_container-width: var(--md-navigation-drawer-container-width, 320px);
     --_divider-color: var(--md-navigation-drawer-divider-color, #000);
     --_modal-container-elevation: var(--md-navigation-drawer-modal-container-elevation, 1);
     --_standard-container-elevation: var(--md-navigation-drawer-standard-container-elevation, 0);
@@ -20,12 +20,16 @@ export const styles = css`
 
 :host {
     display: flex;
-    height: 100%;
+    height: var(--_container-height);
+    /*    height: 100vh; */
+    position: sticky; 
+    top: 0; 
+    overflow-y: auto; 
 }
 
 .md3-navigation-drawer {
     width: var(--_container-width);
-    height: var(--_container-height);
+    height: 100%;
     background-color: var(--_container-color);
     border-radius: var(--_container-shape);
 /*    inline-size: 0; */

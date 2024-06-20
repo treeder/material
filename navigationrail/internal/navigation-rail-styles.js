@@ -12,6 +12,8 @@ export const styles = css`
     justify-content: space-between;
     align-items: center;
     width: 80px;
+    position: sticky; 
+    top: 0;
     /* height: 100%; */
 }
 

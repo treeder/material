@@ -32,9 +32,19 @@ body {
     }
 }
 
+@media (width < 840px) {
+    .gte-expanded {
+        display: none;
+    }
+}
+
 @media (width >=840px) {
     :is(.compact, .medium):not(.expanded) {
         display: none;
+    }
+
+    .gte-expanded {
+        display: block;
     }
 }
 
@@ -44,10 +54,11 @@ body {
     }
 }
 
-.container {
+.main {
     margin: 0 auto;
     max-width: 1200px;
     padding: 1rem;
+    overflow-y: auto;
 }
 
 .circle {
