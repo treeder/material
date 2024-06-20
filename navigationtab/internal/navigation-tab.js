@@ -3,14 +3,15 @@
  * Copyright 2022 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import '../../focus/md-focus-ring.js';
-import '../../ripple/ripple.js';
-import '../../badge/badge.js';
-import { html, LitElement, nothing } from 'lit';
-import { property, query } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { requestUpdateOnAriaChange } from '../../internal/aria/delegate.js';
+import { __decorate } from "tslib"
+import '../../focus/md-focus-ring.js'
+import '../../ripple/ripple.js'
+import '../../badge/badge.js'
+import { html, LitElement, nothing } from 'lit'
+import { literal, html as staticHtml } from 'lit/static-html.js'
+import { property, query } from 'lit/decorators.js'
+import { classMap } from 'lit/directives/class-map.js'
+import { requestUpdateOnAriaChange } from '../../internal/aria/delegate.js'
 /**
  * b/265346501 - add docs
  *
@@ -22,79 +23,98 @@ import { requestUpdateOnAriaChange } from '../../internal/aria/delegate.js';
  */
 export class NavigationTab extends LitElement {
     constructor() {
-        super(...arguments);
-        this.disabled = false;
-        this.active = false;
-        this.hideInactiveLabel = false;
-        this.badgeValue = '';
-        this.showBadge = false;
+        super(...arguments)
+        this.disabled = false
+        this.active = false
+        this.hideInactiveLabel = false
+        this.badgeValue = ''
+        this.showBadge = false
+        this.href = ''
     }
     render() {
         // Needed for closure conformance
-        const { ariaLabel } = this;
-        return html` <button
+        const { ariaLabel } = this
+        const tag = this.href ? literal`div` : literal`button`
+        return staticHtml` <${tag}
       class="md3-navigation-tab ${classMap(this.getRenderClasses())}"
       role="tab"
       aria-selected="${this.active}"
       aria-label=${ariaLabel || nothing}
       tabindex="${this.active ? 0 : -1}"
-      @click="${this.handleClick}">
+      @click="${this.handleClick}"
+      >
+      ${this.href && this.renderLink()}
       <md-focus-ring part="focus-ring" inward></md-focus-ring>
       <md-ripple
         ?disabled="${this.disabled}"
         class="md3-navigation-tab__ripple"></md-ripple>
-      <span aria-hidden="true" class="md3-navigation-tab__icon-content"
-        ><span class="md3-navigation-tab__active-indicator"></span
-        ><span class="md3-navigation-tab__icon"
-          ><slot name="inactive-icon"></slot
-        ></span>
-        <span class="md3-navigation-tab__icon md3-navigation-tab__icon--active"
-          ><slot name="active-icon"></slot></span
-        >${this.renderBadge()}</span
-      >${this.renderLabel()}
-    </button>`;
+      <span aria-hidden="true" class="md3-navigation-tab__icon-content">
+        <span class="md3-navigation-tab__active-indicator"></span>
+        <span class="md3-navigation-tab__icon">
+        <slot name="inactive-icon"></slot>
+        </span>
+        <span class="md3-navigation-tab__icon md3-navigation-tab__icon--active">
+        <slot name="active-icon"></slot>
+        </span>
+        ${this.renderBadge()}
+      </span>
+      ${this.renderLabel()}
+    </${tag}>`
     }
     getRenderClasses() {
         return {
             'md3-navigation-tab--hide-inactive-label': this.hideInactiveLabel,
             'md3-navigation-tab--active': this.active,
-        };
+        }
     }
     renderBadge() {
         return this.showBadge
             ? html`<md-badge .value="${this.badgeValue}"></md-badge>`
-            : nothing;
+            : nothing
     }
     renderLabel() {
         // Needed for closure conformance
-        const { ariaLabel } = this;
-        const ariaHidden = ariaLabel ? 'true' : 'false';
+        const { ariaLabel } = this
+        const ariaHidden = ariaLabel ? 'true' : 'false'
         return !this.label
             ? nothing
             : html` <span
           aria-hidden="${ariaHidden}"
           class="md3-navigation-tab__label-text"
           >${this.label}</span
-        >`;
+        >`
+    }
+    renderLink() {
+        // Needed for closure conformance
+        const { ariaLabel } = this
+        return html`
+      <a
+        style="z-index: 1000;"
+        class="link"
+        id="link"
+        href="${this.href}"
+        target="${this.target || nothing}"
+        aria-label="${ariaLabel || nothing}"></a>
+    `
     }
     firstUpdated(changedProperties) {
-        super.firstUpdated(changedProperties);
+        super.firstUpdated(changedProperties)
         const event = new Event('navigation-tab-rendered', {
             bubbles: true,
             composed: true,
-        });
-        this.dispatchEvent(event);
+        })
+        this.dispatchEvent(event)
     }
     focus() {
-        const buttonElement = this.buttonElement;
+        const buttonElement = this.buttonElement
         if (buttonElement) {
-            buttonElement.focus();
+            buttonElement.focus()
         }
     }
     blur() {
-        const buttonElement = this.buttonElement;
+        const buttonElement = this.buttonElement
         if (buttonElement) {
-            buttonElement.blur();
+            buttonElement.blur()
         }
     }
     handleClick() {
@@ -103,31 +123,35 @@ export class NavigationTab extends LitElement {
             detail: { state: this },
             bubbles: true,
             composed: true,
-        }));
+        }))
     }
 }
 (() => {
-    requestUpdateOnAriaChange(NavigationTab);
-})();
+    requestUpdateOnAriaChange(NavigationTab)
+})()
 __decorate([
     property({ type: Boolean })
-], NavigationTab.prototype, "disabled", void 0);
+], NavigationTab.prototype, "disabled", void 0)
 __decorate([
     property({ type: Boolean, reflect: true })
-], NavigationTab.prototype, "active", void 0);
+], NavigationTab.prototype, "active", void 0)
 __decorate([
     property({ type: Boolean, attribute: 'hide-inactive-label' })
-], NavigationTab.prototype, "hideInactiveLabel", void 0);
+], NavigationTab.prototype, "hideInactiveLabel", void 0)
 __decorate([
     property()
-], NavigationTab.prototype, "label", void 0);
+], NavigationTab.prototype, "label", void 0)
 __decorate([
     property({ attribute: 'badge-value' })
-], NavigationTab.prototype, "badgeValue", void 0);
+], NavigationTab.prototype, "badgeValue", void 0)
 __decorate([
     property({ type: Boolean, attribute: 'show-badge' })
-], NavigationTab.prototype, "showBadge", void 0);
+], NavigationTab.prototype, "showBadge", void 0)
 __decorate([
     query('button')
-], NavigationTab.prototype, "buttonElement", void 0);
+], NavigationTab.prototype, "buttonElement", void 0)
+__decorate([
+    property()
+], NavigationTab.prototype, "href", void 0)
+
 //# sourceMappingURL=navigation-tab.js.map

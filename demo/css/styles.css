@@ -58,7 +58,7 @@ body {
     margin: 0 auto;
     max-width: 1200px;
     padding: 1rem;
-    overflow-y: auto;
+    /* overflow-y: auto; */
 }
 
 .circle {

@@ -19,25 +19,23 @@ export const styles = css`
 }
 
 :host {
-    display: flex;
-    height: var(--_container-height);
-    /*    height: 100vh; */
-    position: sticky; 
-    top: 0; 
-    overflow-y: auto; 
+    
 }
 
 .md3-navigation-drawer {
     width: var(--_container-width);
-    height: 100%;
+    /*height: 100%;*/
+    height: var(--_container-height);
     background-color: var(--_container-color);
     border-radius: var(--_container-shape);
 /*    inline-size: 0; */
     box-sizing: border-box;
     display: flex;
 /*    justify-content: flex-end; */
+    position: sticky; 
+    top: 0; 
     overflow: hidden;
-    overflow-y: auto;
+    overflow-y: auto; 
     visibility: hidden;
     transition: inline-size .25s cubic-bezier(0.4, 0, 0.2, 1) 0s, visibility 0s cubic-bezier(0.4, 0, 0.2, 1) .25s
 }

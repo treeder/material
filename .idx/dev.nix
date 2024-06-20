@@ -21,6 +21,7 @@
     extensions = [
       # "vscodevim.vim"
       "GitHub.vscode-pull-request-github"
+      "runem.lit-plugin"
     ];
 
     # Enable previews
