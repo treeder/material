@@ -19,5 +19,5 @@ jobs:
       run: |
         git config --global user.email "github+actions@gmail.com"
         git config --global user.name "Actions"
-        npm version patch
+        npm version patch -m "[skip ci] %s"
         git push --follow-tags
