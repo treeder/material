@@ -111,17 +111,37 @@ Then in your HTML:
 <demo-component></demo-component>        
 ```
 
-## Typography
+## Color Schemes, Fonts and Typography
 
-To set the default font family and sizes, set the following attributes in your CSS:
+In your CSS, set the default font family and sizes, set the following attributes in your CSS:
 
 ```css
---md-ref-typeface-brand: 'Roboto Flex', sans-serif;
---md-ref-typeface-plain: 'Roboto Flex', sans-serif;
+@import url(light.css) (prefers-color-scheme: light);
+@import url(dark.css) (prefers-color-scheme: dark);
 
-font-family: var(--md-ref-typeface-plain);
-font-size: 14px;
+:root {
+    --md-ref-typeface-brand: 'Roboto Flex', sans-serif;
+    --md-ref-typeface-plain: 'Roboto Flex', sans-serif;
+    
+    font-family: var(--md-ref-typeface-plain);
+    font-size: 14px;
+
+    background: var(--md-sys-color-background);
+    color: var(--md-sys-color-on-background);
+}
 ```
+
+Be sure to import the fonts you want to use along with Material Symbols:
+
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:wght@400;500;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+```
+
+To get your dark.css and light.css, go to [Material Theme Builder](https://material-foundation.github.io/material-theme-builder/), pick some colors and export to web/css.
+
 
 ## Contributing
 
