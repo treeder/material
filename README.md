@@ -111,6 +111,18 @@ Then in your HTML:
 <demo-component></demo-component>        
 ```
 
+## Typography
+
+To set the default font family and sizes, set the following attributes in your CSS:
+
+```css
+--md-ref-typeface-brand: 'Roboto Flex', sans-serif;
+--md-ref-typeface-plain: 'Roboto Flex', sans-serif;
+
+font-family: var(--md-ref-typeface-plain);
+font-size: 14px;
+```
+
 ## Contributing
 
 We welcome contributions, please discuss and/or make pull requests. 
