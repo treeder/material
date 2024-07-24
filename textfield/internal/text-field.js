@@ -444,7 +444,6 @@ export class TextField extends textFieldBaseClass {
           aria-describedby="description"
           aria-invalid=${this.hasError}
           aria-label=${ariaLabel}
-          autocomplete=${autocomplete || nothing}
           ?disabled=${this.disabled}
           maxlength=${hasMaxLength ? this.maxLength : nothing}
           minlength=${hasMinLength ? this.minLength : nothing}
@@ -458,7 +457,8 @@ export class TextField extends textFieldBaseClass {
           @focus=${this.handleFocusChange}
           @blur=${this.handleFocusChange}
           @input=${this.handleInput}
-          @select=${this.redispatchEvent}></textarea>
+          @select=${this.redispatchEvent}
+          autocomplete=${autocomplete || nothing}></textarea>
       `;
         }
         const prefix = this.renderPrefix();
@@ -476,7 +476,6 @@ export class TextField extends textFieldBaseClass {
           aria-describedby="description"
           aria-invalid=${this.hasError}
           aria-label=${ariaLabel}
-          autocomplete=${autocomplete || nothing}
           ?disabled=${this.disabled}
           inputmode=${inputMode || nothing}
           max=${(this.max || nothing)}
@@ -495,7 +494,9 @@ export class TextField extends textFieldBaseClass {
           @focus=${this.handleFocusChange}
           @blur=${this.handleFocusChange}
           @input=${this.handleInput}
-          @select=${this.redispatchEvent} />
+          @select=${this.redispatchEvent} 
+          autocomplete=${autocomplete || nothing}
+          />
         ${suffix}
       </div>
     `;
