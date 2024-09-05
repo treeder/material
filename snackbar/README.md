@@ -2,6 +2,14 @@
 
 This is a Material 3 snackbar component. 
 
+Import:
+
+```html
+import { snack } from 'material/snackbar/snackbar.js'
+```
+
+Use it like this:
+
 ```html
 <md-snackbar message="Hello World!" open></md-snackbar>
 ```
