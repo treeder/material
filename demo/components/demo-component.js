@@ -9,6 +9,8 @@ import 'material/chips/assist-chip.js'
 import 'material/chips/filter-chip.js'
 import 'material/chips/input-chip.js'
 import 'material/chips/suggestion-chip.js'
+import 'material/dialog/dialog.js'
+import { snack } from 'material/snackbar/snackbar.js'
 
 import { styles as sharedStyles } from './styles.js'
 
@@ -94,8 +96,28 @@ class DemoComponent extends LitElement {
                 </div>
             </md-outlined-card>
         </div>
-    </div>`
+
+        <div>
+            <md-filled-button @click=${() => snack('Hello world', { action: { label: 'Undo', onClick: () => { console.log("Undo clicked") } }, showCloseIcon: true })} >Snack</md-filled-button>
+            <md-filled-button @click=${() => this.renderRoot.querySelector("#dialog1").show()} show>Dialog</md-filled-button>
+        </div>
+
+    </div>
+    
+    <md-dialog id="dialog1">
+        <div slot="headline">
+            Dialog title
+        </div>
+        <form slot="content" id="form-id" method="dialog">
+            A simple dialog with free-form content.
+        </form>
+        <div slot="actions">
+            <md-text-button form="form-id" @click=${() => this.renderRoot.querySelector("#dialog1").close()}>Ok</md-text-button>
+        </div>
+    </md-dialog>
+    `
     }
+
     save(e) {
         e.preventDefault()
         console.log("Save button clicked")
