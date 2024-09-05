@@ -55,6 +55,7 @@
     import 'material/search/search.js'
     import 'material/menu/menu.js'
     import 'material/menu/menu-item.js'
+    import 'material/snackbar/snackbar.js'
     import './components/demo-component.js'
     import './components/top-nav.js'
   </script>
@@ -228,7 +229,7 @@
       <!-- main content -->
       <div class="main">
 
-        <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div class="flex col g12">
           <div class="p12">
             This is a demo of material 3 components from: <a
               href="https://github.com/treeder/material">https://github.com/treeder/material</a>
@@ -240,23 +241,26 @@
           <md-outlined-text-field id="preferredDate" class="data" type="date" label="Preferred Date" required
             minlength="4"></md-outlined-text-field>
           <md-filled-button onclick="save()">Save</md-filled-button>
+
+          <script>
+            function save() {
+              console.log("Save clicked")
+              document.getElementById('nav-drawer').opened = true
+            }
+          </script>
+
+          <div style="margin-top: 24px;">
+            <demo-component></demo-component>
+          </div>
+
+          <md-snackbar message="Hello World!" open></md-snackbar>
+
         </div>
 
-        <script>
-          function save() {
-            console.log("Save clicked")
-            document.getElementById('nav-drawer').opened = true
-          }
-        </script>
-
-        <div style="margin-top: 24px;">
-          <demo-component></demo-component>
-        </div>
 
       </div>
-
-
     </div>
+
   </div>
 
   <md-fab class="fabBottom" variant="primary" href="/"> <!-- label="New customer" -->
