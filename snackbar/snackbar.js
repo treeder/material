@@ -28,22 +28,21 @@ export function snack(message, { duration = 3000, action = null, showCloseIcon =
 
 class SnackBar extends LitElement {
   static styles = css`
-        #snackbar {
+#snackbar {
   /* visibility: hidden; */
   min-width: 250px;
-  /* margin-left: -125px; */
+  transform: translateX(-50%); // centers
   background-color: var(--md-sys-color-inverse-surface, #333);
   color: var(--md-sys-color-inverse-on-surface, white);
   text-align: center;
   border-radius: 4px;
-  /* padding: 12px; */
   position: fixed;
   z-index: 1000;
   left: 50%;
   bottom: 30px;
   height: 48px;
-  /* font-size: 17px; */ 
 }
+
 .inner {
   margin-left: 16px;
   margin-right: 8px;
