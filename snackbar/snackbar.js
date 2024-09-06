@@ -8,23 +8,11 @@ export function snack(message, { duration = 3000, action = null, showCloseIcon =
   snack.message = message
   snack.duration = duration
   if (action) {
-    // TODO: try:
-    //fruitList.insertAdjacentHTML("beforeend", `
-    //     <li>Pear</li>
-    //     <li>Orange</li>
-    //     <li>Grape</li>
-    // `);
-    // snack.action =x 
     let actionButton = document.createElement('md-text-button')
     actionButton.slot = 'action'
     actionButton.innerText = action.label
-    actionButton.addEventListener('click', action.onClick)
-    // // snack.action = actionButton
-    // snack.querySelector('slot[name="action"]').appendChild(actionButton)
-
-    // snack.insertAdjacentHTML(`beforeend`, `
-    //     <md-text-button slot="action" @click="${action.onClick}" href="${action.href}">${action.label}</md-text-button>
-    // `)
+    if (action.onClick) actionButton.addEventListener('click', action.onClick)
+    if (action.href) actionButton.href = action.href
     snack.insertAdjacentElement('beforeend', actionButton)
   }
   if (showCloseIcon) {
@@ -34,17 +22,8 @@ export function snack(message, { duration = 3000, action = null, showCloseIcon =
     closeButton.addEventListener('click', () => { snack.close() })
     snack.insertAdjacentElement('beforeend', closeButton)
   }
-  // snack.showCloseIcon = showCloseIcon
-  // snack.className = "show"
   document.body.appendChild(snack)
-  // todo: set duration, but needs to update the fadein/fadeout timing too
-  // snack.show()
-  // can't just call show() because it may not be rendered yet
-  // snack.className = "show"
-  // snack.style.setProperty('-webkit-animation', 'fadein 0.5s, fadeout 0.5s 2.5s')
-  // snack.style.setProperty('animation', 'fadein 0.5s, fadeout 0.5s 2.5s')
   snack.show()
-  // setTimeout(function () { snack.close() }, duration)
 }
 
 class SnackBar extends LitElement {
