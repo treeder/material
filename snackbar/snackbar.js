@@ -31,7 +31,7 @@ class SnackBar extends LitElement {
 #snackbar {
   /* visibility: hidden; */
   min-width: 250px;
-  transform: translateX(-50%); // centers
+  transform: translateX(-50%); /* centers the div */
   background-color: var(--md-sys-color-inverse-surface, #333);
   color: var(--md-sys-color-inverse-on-surface, white);
   text-align: center;
