@@ -7,6 +7,7 @@
 import { css } from 'lit'
 export const styles = css`
 :host {
+    display: block;
     --_container-color: var(--md-navigation-drawer-container-color, var(--md-sys-color-surface-container-low, #fff));
     --_container-height: var(--md-navigation-drawer-container-height, 100vh);
     --_container-shape: var(--md-navigation-drawer-container-shape, 0 16px 16px 0);
@@ -16,10 +17,6 @@ export const styles = css`
     --_standard-container-elevation: var(--md-navigation-drawer-standard-container-elevation, 0);
     --md-elevation-level: var(--_standard-container-elevation);
     --md-elevation-shadow-color: var(--_divider-color)
-}
-
-:host {
-    
 }
 
 .md3-navigation-drawer {
