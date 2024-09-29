@@ -109,78 +109,83 @@
           </md-navigation-rail>
         </div>
 
-        <div class="gte-expanded" id="nav-drawer-container">
-          <!-- <div> -->
-          <!-- This one is non-modal, fixed menu, for bigger screens -->
-          <md-navigation-drawer id="nav-drawer" opened>
-            <md-list-item href="/" style="width: 100%;">
-              <md-icon slot="start">home</md-icon>
-              <div slot="headline">Home</div>
-            </md-list-item>
-            <md-list-item href="/inbox">
-              <md-icon slot="start">inbox</md-icon>
-              <div slot="headline">Inbox</div>
-              <div slot="end">24</div>
-            </md-list-item>
-            <md-list-item href="/outbox">
-              <md-icon slot="start">outbox</md-icon>
-              <div slot="headline">Outbox</div>
-            </md-list-item>
-            <md-list-item href="/" style="width: 100%;">
-              <md-icon slot="start">home</md-icon>
-              <div slot="headline">Home</div>
-            </md-list-item>
-            <md-list-item href="/inbox">
-              <md-icon slot="start">inbox</md-icon>
-              <div slot="headline">Inbox</div>
-              <div slot="end">24</div>
-            </md-list-item>
-            <md-list-item href="/outbox">
-              <md-icon slot="start">outbox</md-icon>
-              <div slot="headline">Outbox</div>
-            </md-list-item>
-            <md-list-item href="/" style="width: 100%;">
-              <md-icon slot="start">home</md-icon>
-              <div slot="headline">Home</div>
-            </md-list-item>
-            <md-list-item href="/inbox">
-              <md-icon slot="start">inbox</md-icon>
-              <div slot="headline">Inbox</div>
-              <div slot="end">24</div>
-            </md-list-item>
-            <md-list-item href="/outbox">
-              <md-icon slot="start">outbox</md-icon>
-              <div slot="headline">Outbox</div>
-            </md-list-item>
-            <md-list-item href="/" style="width: 100%;">
-              <md-icon slot="start">home</md-icon>
-              <div slot="headline">Home</div>
-            </md-list-item>
-            <md-list-item href="/inbox">
-              <md-icon slot="start">inbox</md-icon>
-              <div slot="headline">Inbox</div>
-              <div slot="end">24</div>
-            </md-list-item>
-            <md-list-item href="/outbox">
-              <md-icon slot="start">outbox</md-icon>
-              <div slot="headline">Outbox</div>
-            </md-list-item>
-            <md-list-item href="/" style="width: 100%;">
-              <md-icon slot="start">home</md-icon>
-              <div slot="headline">Home</div>
-            </md-list-item>
-            <md-list-item href="/inbox">
-              <md-icon slot="start">inbox</md-icon>
-              <div slot="headline">Inbox</div>
-              <div slot="end">24</div>
-            </md-list-item>
-            <md-list-item href="/outbox">
-              <md-icon slot="start">outbox</md-icon>
-              <div slot="headline">Outbox</div>
-            </md-list-item>
-          </md-navigation-drawer>
-          <!-- </div> -->
-        </div>
+
+
+
+        <!-- This one is non-modal, fixed menu, for bigger screens -->
+        <md-navigation-drawer id="nav-drawer">
+          <md-list-item href="/" style="width: 100%;">
+            <md-icon slot="start">home</md-icon>
+            <div slot="headline">Home</div>
+          </md-list-item>
+          <md-list-item href="/inbox">
+            <md-icon slot="start">inbox</md-icon>
+            <div slot="headline">Inbox</div>
+            <div slot="end">24</div>
+          </md-list-item>
+          <md-list-item href="/outbox">
+            <md-icon slot="start">outbox</md-icon>
+            <div slot="headline">Outbox</div>
+          </md-list-item>
+          <md-list-item href="/" style="width: 100%;">
+            <md-icon slot="start">home</md-icon>
+            <div slot="headline">Home</div>
+          </md-list-item>
+          <md-list-item href="/inbox">
+            <md-icon slot="start">inbox</md-icon>
+            <div slot="headline">Inbox</div>
+            <div slot="end">24</div>
+          </md-list-item>
+          <md-list-item href="/outbox">
+            <md-icon slot="start">outbox</md-icon>
+            <div slot="headline">Outbox</div>
+          </md-list-item>
+          <md-list-item href="/" style="width: 100%;">
+            <md-icon slot="start">home</md-icon>
+            <div slot="headline">Home</div>
+          </md-list-item>
+          <md-list-item href="/inbox">
+            <md-icon slot="start">inbox</md-icon>
+            <div slot="headline">Inbox</div>
+            <div slot="end">24</div>
+          </md-list-item>
+          <md-list-item href="/outbox">
+            <md-icon slot="start">outbox</md-icon>
+            <div slot="headline">Outbox</div>
+          </md-list-item>
+          <md-list-item href="/" style="width: 100%;">
+            <md-icon slot="start">home</md-icon>
+            <div slot="headline">Home</div>
+          </md-list-item>
+          <md-list-item href="/inbox">
+            <md-icon slot="start">inbox</md-icon>
+            <div slot="headline">Inbox</div>
+            <div slot="end">24</div>
+          </md-list-item>
+          <md-list-item href="/outbox">
+            <md-icon slot="start">outbox</md-icon>
+            <div slot="headline">Outbox</div>
+          </md-list-item>
+          <md-list-item href="/" style="width: 100%;">
+            <md-icon slot="start">home</md-icon>
+            <div slot="headline">Home</div>
+          </md-list-item>
+          <md-list-item href="/inbox">
+            <md-icon slot="start">inbox</md-icon>
+            <div slot="headline">Inbox</div>
+            <div slot="end">24</div>
+          </md-list-item>
+          <md-list-item href="/outbox">
+            <md-icon slot="start">outbox</md-icon>
+            <div slot="headline">Outbox</div>
+          </md-list-item>
+        </md-navigation-drawer>
+        <script>
+          if (window.matchMedia("(width >=840px)").matches) {
+            // expanded:
+            document.getElementById('nav-drawer').opened = true
+          } 
+        </script>
       </div>
     </div>
 
@@ -211,18 +216,8 @@
         })
 
         document.getElementById('rail-menu-button').addEventListener('click', () => {
-          console.log('rail menu button clicked')
-          let el = document.getElementById('nav-drawer-container')
-          let display = el.style.display
-          console.log(display, typeof display, display == undefined, display == '', display == 'none')
-          console.log(el.checkVisibility())
-          if (el.checkVisibility()) {
-            document.getElementById('nav-drawer-container').style.display = 'none'
-            document.getElementById('nav-drawer').opened = false
-          } else {
-            document.getElementById('nav-drawer-container').style.display = 'block'
-            document.getElementById('nav-drawer').opened = true
-          }
+          let nd = document.getElementById('nav-drawer')
+          nd.opened = !nd.opened
         })
       </script>
 

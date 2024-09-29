@@ -3,12 +3,12 @@
  * Copyright 2021 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import '../../elevation/elevation.js';
-import { html, LitElement, nothing } from 'lit';
-import { property } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { requestUpdateOnAriaChange } from '../../internal/aria/delegate.js';
+import { __decorate } from "tslib"
+import '../../elevation/elevation.js'
+import { html, LitElement, nothing } from 'lit'
+import { property } from 'lit/decorators.js'
+import { classMap } from 'lit/directives/class-map.js'
+import { requestUpdateOnAriaChange } from '../../internal/aria/delegate.js'
 /**
  * b/265346501 - add docs
  *
@@ -17,15 +17,15 @@ import { requestUpdateOnAriaChange } from '../../internal/aria/delegate.js';
  */
 export class NavigationDrawer extends LitElement {
     constructor() {
-        super(...arguments);
-        this.opened = false;
-        this.pivot = 'end';
+        super(...arguments)
+        this.opened = false
+        this.pivot = 'end'
     }
     render() {
-        const ariaExpanded = this.opened ? 'true' : 'false';
-        const ariaHidden = !this.opened ? 'true' : 'false';
+        const ariaExpanded = this.opened ? 'true' : 'false'
+        const ariaHidden = !this.opened ? 'true' : 'false'
         // Needed for closure conformance
-        const { ariaLabel, ariaModal } = this;
+        const { ariaLabel, ariaModal } = this
         return html`
       <div
         aria-expanded="${ariaExpanded}"
@@ -39,33 +39,39 @@ export class NavigationDrawer extends LitElement {
           <slot></slot>
         </div>
       </div>
-    `;
+    `
     }
     getRenderClasses() {
         return classMap({
             'md3-navigation-drawer--opened': this.opened,
             'md3-navigation-drawer--pivot-at-start': this.pivot === 'start',
-        });
+        })
     }
     updated(changedProperties) {
+        // console.log("changedproperties:", changedProperties)
         if (changedProperties.has('opened')) {
+            if (this.opened) {
+                this.style.display = 'block'
+            } else {
+                this.style.display = 'none'
+            }
             setTimeout(() => {
                 this.dispatchEvent(new CustomEvent('navigation-drawer-changed', {
                     detail: { opened: this.opened },
                     bubbles: true,
                     composed: true,
-                }));
-            }, 250);
+                }))
+            }, 250)
         }
     }
 }
 (() => {
-    requestUpdateOnAriaChange(NavigationDrawer);
-})();
+    requestUpdateOnAriaChange(NavigationDrawer)
+})()
 __decorate([
     property({ type: Boolean })
-], NavigationDrawer.prototype, "opened", void 0);
+], NavigationDrawer.prototype, "opened", void 0)
 __decorate([
     property()
-], NavigationDrawer.prototype, "pivot", void 0);
+], NavigationDrawer.prototype, "pivot", void 0)
 //# sourceMappingURL=navigation-drawer.js.map
