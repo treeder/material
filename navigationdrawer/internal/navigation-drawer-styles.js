@@ -7,7 +7,7 @@
 import { css } from 'lit'
 export const styles = css`
 :host {
-    display: block;
+    /* display: block; */
     --_container-color: var(--md-navigation-drawer-container-color, var(--md-sys-color-surface-container-low, #fff));
     --_container-height: var(--md-navigation-drawer-container-height, 100vh);
     --_container-shape: var(--md-navigation-drawer-container-shape, 0 16px 16px 0);
@@ -20,6 +20,7 @@ export const styles = css`
 }
 
 .md3-navigation-drawer {
+    display: none;
     width: var(--_container-width);
     /*height: 100%;*/
     height: var(--_container-height);
@@ -27,7 +28,7 @@ export const styles = css`
     border-radius: var(--_container-shape);
 /*    inline-size: 0; */
     box-sizing: border-box;
-    display: flex;
+    /* display: flex; */
 /*    justify-content: flex-end; */
     position: sticky; 
     top: 0; 
@@ -43,7 +44,8 @@ md-elevation {
 
 .md3-navigation-drawer--opened {
     visibility: visible;
-    transition: inline-size .25s cubic-bezier(0.4, 0, 0.2, 1) 0s, visibility 0s cubic-bezier(0.4, 0, 0.2, 1) 0s
+    display: block;
+    transition: inline-size .25s cubic-bezier(0.4, 0, 0.2, 1) 0s, visibility 0s cubic-bezier(0.4, 0, 0.2, 1) 0s;
 }
 
 .md3-navigation-drawer--pivot-at-start {
