@@ -50,6 +50,11 @@ export class NavigationDrawer extends LitElement {
     updated(changedProperties) {
         // console.log("changedproperties:", changedProperties)
         if (changedProperties.has('opened')) {
+            if (this.opened) {
+                this.style.display = 'block'
+            } else {
+                this.style.display = 'none'
+            }
             setTimeout(() => {
                 this.dispatchEvent(new CustomEvent('navigation-drawer-changed', {
                     detail: { opened: this.opened },

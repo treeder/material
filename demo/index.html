@@ -109,10 +109,11 @@
           </md-navigation-rail>
         </div>
 
-        <!-- <div id="nav-drawer-container"> -->
-        <!-- <div> -->
+
+
+
         <!-- This one is non-modal, fixed menu, for bigger screens -->
-        <md-navigation-drawer id="nav-drawer" class="gte-expanded">
+        <md-navigation-drawer id="nav-drawer">
           <md-list-item href="/" style="width: 100%;">
             <md-icon slot="start">home</md-icon>
             <div slot="headline">Home</div>
@@ -179,8 +180,12 @@
             <div slot="headline">Outbox</div>
           </md-list-item>
         </md-navigation-drawer>
-        <!-- </div> -->
-        <!-- </div> -->
+        <script>
+          if (window.matchMedia("(width >=840px)").matches) {
+            // expanded:
+            document.getElementById('nav-drawer').opened = true
+          } 
+        </script>
       </div>
     </div>
 
