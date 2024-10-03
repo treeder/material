@@ -24,6 +24,12 @@ Please [consider sponsoring](https://github.com/sponsors/treeder) before creatin
 
 Demo is here: https://treeder.github.io/material/demo/
 
+## Documentation
+
+All the documentation here still applies: https://material-web.dev/
+
+And we are adding README's in this repository for the new components that aren't in those docs.  
+
 ## Quick start
 
 ### NPM
