@@ -7,8 +7,6 @@ Example:
 ```js
 import "material/divider/divider.js"
 
-// Then in render()
-
 <md-divider></md-divider>
 ```
 
