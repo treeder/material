@@ -3,6 +3,8 @@ import 'material/textfield/outlined-text-field.js'
 import 'material/button/filled-button.js'
 import 'material/button/outlined-button.js'
 import 'material/iconbutton/icon-button.js'
+import 'material/iconbutton/filled-icon-button.js'
+import 'material/iconbutton/filled-tonal-icon-button.js'
 import 'material/card/outlined-card.js'
 import 'material/chips/chip-set.js'
 import 'material/chips/assist-chip.js'
@@ -49,16 +51,26 @@ class DemoComponent extends LitElement {
             </div>
         </form>
 
-        <div class="flex g12">
+        <div class="flex g12 aic">
             <md-icon-button>
                 <md-icon>search</md-icon>
             </md-icon-button>
-            <md-icon-button>
-                <md-icon>more_vert</md-icon>
+            <md-icon-button style="--md-icon-button-icon-color: red;">
+                <md-icon>favorite</md-icon>
             </md-icon-button>
+            <md-filled-tonal-icon-button>
+                <md-icon>more_vert</md-icon>
+            </md-filled-tonal-icon-button>
             <md-icon-button href="https://thingster.app" target="_blank">
                 <md-icon>open_in_new</md-icon>
             </md-icon-button>
+            <div>small:</div>
+            <md-icon-button style="--md-icon-button-icon-size: 16px; --md-icon-button-container-width: 24px; --md-icon-button-container-height: 24px;">
+                <md-icon>content_copy</md-icon>
+            </md-icon-button>
+            <md-filled-icon-button style="--md-filled-icon-button-icon-size: 16px; --md-filled-icon-button-container-width: 24px; --md-filled-icon-button-container-height: 24px;">
+                <md-icon>content_copy</md-icon>
+            </md-filled-icon-button>
         </div>
 
         <md-chip-set>

@@ -3,11 +3,11 @@
  * Copyright 2021 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import { customElement } from 'lit/decorators.js';
-import { IconButton } from './internal/icon-button.js';
-import { styles as sharedStyles } from './internal/shared-styles.js';
-import { styles } from './internal/standard-styles.js';
+import { __decorate } from "tslib"
+import { customElement } from 'lit/decorators.js'
+import { IconButton } from './internal/icon-button.js'
+import { styles } from './internal/standard-styles.js'
+import { styles as sharedStyles } from './internal/shared-styles.js'
 /**
  * @summary Icon buttons help people take supplementary actions with a single
  * tap.
@@ -31,11 +31,11 @@ export let MdIconButton = class MdIconButton extends IconButton {
         return {
             ...super.getRenderClasses(),
             'standard': true,
-        };
+        }
     }
-};
-MdIconButton.styles = [sharedStyles, styles];
+}
+MdIconButton.styles = [sharedStyles, styles]
 MdIconButton = __decorate([
     customElement('md-icon-button')
-], MdIconButton);
+], MdIconButton)
 //# sourceMappingURL=icon-button.js.map

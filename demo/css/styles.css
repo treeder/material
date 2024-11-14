@@ -69,6 +69,14 @@ body {
     display: flex;
 }
 
+.aic {
+    align-items: center;
+}
+
+.jcc {
+    justify-content: center;
+}
+
 .col {
     flex-direction: column;
 }

@@ -11,6 +11,14 @@ export const styles = css`
     flex-direction: column;
 }
 
+
+.aic {
+    align-items: center;
+}
+
+.jcc {
+    justify-content: center;
+}
 .jcr {
     justify-content: right;
 }
