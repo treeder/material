@@ -127,7 +127,7 @@ class SnackBar extends LitElement {
       setTimeout(() => {
         console.log("CLOSING")
         // check if X is slotted
-        let islot = this.shadowRoot.querySelector('slot[name="icon"]')
+        let islot = this.renderRoot.querySelector('slot[name="icon"]')
         console.log(islot)
         if (!islot) return // race condition between explicit closing and timed closing
         console.log(islot.assignedElements())

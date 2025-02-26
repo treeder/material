@@ -3,10 +3,8 @@
  * Copyright 2021 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import { customElement } from 'lit/decorators.js';
-import { List } from './internal/list.js';
-import { styles } from './internal/list-styles.js';
+import { List } from './internal/list.js'
+import { styles } from './internal/list-styles.js'
 /**
  * @summary Lists are continuous, vertical indexes of text or images.
  *
@@ -27,9 +25,6 @@ import { styles } from './internal/list-styles.js';
  * @suppress {visibility}
  */
 export let MdList = class MdList extends List {
-};
-MdList.styles = [styles];
-MdList = __decorate([
-    customElement('md-list')
-], MdList);
-//# sourceMappingURL=list.js.map
+}
+MdList.styles = [styles]
+customElements.define('md-list', MdList)

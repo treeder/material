@@ -3,7 +3,6 @@
  * Copyright 2021 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
 import '../../focus/md-focus-ring.js';
 import '../../ripple/ripple.js';
 import { html, LitElement, nothing } from 'lit';
@@ -20,6 +19,13 @@ import { requestUpdateOnAriaChange } from '../../internal/aria/delegate.js';
  * clicked. --bubbles --composed
  */
 export class SegmentedButton extends LitElement {
+  static properties = {
+    disabled: { type: Boolean },
+    selected: { type: Boolean },
+    label: { type: String },
+    noCheckmark: { type: Boolean, attribute: 'no-checkmark' },
+    hasIcon: { type: Boolean, attribute: 'has-icon' },
+  }
   constructor() {
     super(...arguments);
     this.disabled = false;
@@ -147,25 +153,3 @@ export class SegmentedButton extends LitElement {
 (() => {
   requestUpdateOnAriaChange(SegmentedButton);
 })();
-__decorate([
-  property({ type: Boolean })
-], SegmentedButton.prototype, "disabled", void 0);
-__decorate([
-  property({ type: Boolean })
-], SegmentedButton.prototype, "selected", void 0);
-__decorate([
-  property()
-], SegmentedButton.prototype, "label", void 0);
-__decorate([
-  property({ type: Boolean, attribute: 'no-checkmark' })
-], SegmentedButton.prototype, "noCheckmark", void 0);
-__decorate([
-  property({ type: Boolean, attribute: 'has-icon' })
-], SegmentedButton.prototype, "hasIcon", void 0);
-__decorate([
-  state()
-], SegmentedButton.prototype, "animState", void 0);
-__decorate([
-  queryAssignedElements({ slot: 'icon', flatten: true })
-], SegmentedButton.prototype, "iconElement", void 0);
-//# sourceMappingURL=segmented-button.js.map

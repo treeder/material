@@ -3,7 +3,6 @@
  * Copyright 2022 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib"
 import '../../elevation/elevation.js'
 import { html, LitElement, nothing } from 'lit'
 import { property, queryAssignedElements } from 'lit/decorators.js'
@@ -17,6 +16,9 @@ import { NavigationBar } from '../../navigationbar/internal/navigation-bar.js'
  * Dispatched whenever the `activeIndex` changes. --bubbles --composed
  */
 export class NavigationRail extends NavigationBar {
+    static properties = {
+        ...NavigationBar.properties,
+    }
     constructor() {
         super(...arguments)
     }
@@ -123,8 +125,10 @@ export class NavigationRail extends NavigationBar {
         }
     }
     onActiveIndexChange(value) {
+        console.log(this.tabs)
+        console.log(value)
         if (!this.tabs[value]) {
-            throw new Error('NavigationBar: activeIndex is out of bounds.')
+            throw new Error('NavigationRail: activeIndex is out of bounds.')
         }
         for (let i = 0; i < this.tabs.length; i++) {
             this.tabs[i].active = i === value
@@ -135,17 +139,18 @@ export class NavigationRail extends NavigationBar {
             tab.hideInactiveLabel = value
         }
     }
+
+    get tabsElement() {
+        // let els = this.renderRoot?.querySelector('slot')
+        // let els = this.renderRoot?.querySelector('slot')?.assignedElements({ flatten: true })
+        // return els.filter((e) => e.tagName === 'md-navigation-tab')
+        // return els.assignedElements({ flatten: true })
+        let els = this.renderRoot?.querySelector('slot')
+        // let els = this.renderRoot?.querySelector('slot')?.assignedElements({ flatten: true })
+        // return els.filter((e) => e.tagName === 'MD-NAVIGATION-TAB')
+        return els.assignedElements({ flatten: true })
+    }
 }
 (() => {
     requestUpdateOnAriaChange(NavigationBar)
 })()
-__decorate([
-    property({ type: Number, attribute: 'active-index' })
-], NavigationBar.prototype, "activeIndex", void 0)
-__decorate([
-    property({ type: Boolean, attribute: 'hide-inactive-labels' })
-], NavigationBar.prototype, "hideInactiveLabels", void 0)
-__decorate([
-    queryAssignedElements({ flatten: true })
-], NavigationBar.prototype, "tabsElement", void 0)
-//# sourceMappingURL=navigation-bar.js.map

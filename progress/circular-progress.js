@@ -3,10 +3,8 @@
  * Copyright 2023 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import { customElement } from 'lit/decorators.js';
-import { CircularProgress } from './internal/circular-progress.js';
-import { styles } from './internal/circular-progress-styles.js';
+import { CircularProgress } from './internal/circular-progress.js'
+import { styles } from './internal/circular-progress-styles.js'
 /**
  * @summary Circular progress indicators display progress by animating along an
  * invisible circular track in a clockwise direction. They can be applied
@@ -21,9 +19,6 @@ import { styles } from './internal/circular-progress-styles.js';
  * @suppress {visibility}
  */
 export let MdCircularProgress = class MdCircularProgress extends CircularProgress {
-};
-MdCircularProgress.styles = [styles];
-MdCircularProgress = __decorate([
-    customElement('md-circular-progress')
-], MdCircularProgress);
-//# sourceMappingURL=circular-progress.js.map
+}
+MdCircularProgress.styles = [styles]
+customElements.define('md-circular-progress', MdCircularProgress)

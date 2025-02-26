@@ -3,7 +3,6 @@
  * Copyright 2023 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
 import '../../elevation/elevation.js';
 import { html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -12,6 +11,11 @@ import { Chip } from './chip.js';
  * An assist chip component.
  */
 export class AssistChip extends Chip {
+    static properties = {
+        elevated: { type: Boolean },
+        href: { type: String },
+        target: { type: String },
+    };
     constructor() {
         super(...arguments);
         this.elevated = false;
@@ -66,13 +70,3 @@ export class AssistChip extends Chip {
         return super.renderOutline();
     }
 }
-__decorate([
-    property({ type: Boolean })
-], AssistChip.prototype, "elevated", void 0);
-__decorate([
-    property()
-], AssistChip.prototype, "href", void 0);
-__decorate([
-    property()
-], AssistChip.prototype, "target", void 0);
-//# sourceMappingURL=assist-chip.js.map

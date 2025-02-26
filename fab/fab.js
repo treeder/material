@@ -3,8 +3,6 @@
  * Copyright 2022 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import { customElement } from 'lit/decorators.js';
 import { Fab } from './internal/fab.js';
 import { styles } from './internal/fab-styles.js';
 import { styles as forcedColors } from './internal/forced-colors-styles.js';
@@ -39,7 +37,5 @@ import { styles as sharedStyles } from './internal/shared-styles.js';
 export let MdFab = class MdFab extends Fab {
 };
 MdFab.styles = [sharedStyles, styles, forcedColors];
-MdFab = __decorate([
-    customElement('md-fab')
-], MdFab);
-//# sourceMappingURL=fab.js.map
+
+customElements.define('md-fab', MdFab)

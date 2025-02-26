@@ -3,10 +3,8 @@
  * Copyright 2023 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import { customElement } from 'lit/decorators.js';
-import { styles } from '../menu/internal/menuitem/menu-item-styles.js';
-import { SelectOptionEl } from './internal/selectoption/select-option.js';
+import { styles } from '../menu/internal/menuitem/menu-item-styles.js'
+import { SelectOptionEl } from './internal/selectoption/select-option.js'
 /**
  * @summary
  * Select menus display a list of choices on temporary surfaces and display the
@@ -38,9 +36,7 @@ import { SelectOptionEl } from './internal/selectoption/select-option.js';
  * @suppress {visibility}
  */
 export let MdSelectOption = class MdSelectOption extends SelectOptionEl {
-};
-MdSelectOption.styles = [styles];
-MdSelectOption = __decorate([
-    customElement('md-select-option')
-], MdSelectOption);
-//# sourceMappingURL=select-option.js.map
+}
+MdSelectOption.styles = [styles]
+
+customElements.define('md-select-option', MdSelectOption)

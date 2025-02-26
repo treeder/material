@@ -3,7 +3,6 @@
  * Copyright 2022 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib"
 import '../../focus/md-focus-ring.js'
 import '../../ripple/ripple.js'
 import '../../badge/badge.js'
@@ -22,6 +21,15 @@ import { requestUpdateOnAriaChange } from '../../internal/aria/delegate.js'
  * Dispatched when the navigation tab has been clicked. --bubbles --composed
  */
 export class NavigationTab extends LitElement {
+    static properties = {
+        disabled: { type: Boolean },
+        active: { type: Boolean, reflect: true },
+        hideInactiveLabel: { type: Boolean, attribute: 'hide-inactive-label' },
+        label: { type: String },
+        badgeValue: { type: String, attribute: 'badge-value' },
+        showBadge: { type: Boolean, attribute: 'show-badge' },
+        href: { type: String },
+    }
     constructor() {
         super(...arguments)
         this.disabled = false
@@ -129,29 +137,3 @@ export class NavigationTab extends LitElement {
 (() => {
     requestUpdateOnAriaChange(NavigationTab)
 })()
-__decorate([
-    property({ type: Boolean })
-], NavigationTab.prototype, "disabled", void 0)
-__decorate([
-    property({ type: Boolean, reflect: true })
-], NavigationTab.prototype, "active", void 0)
-__decorate([
-    property({ type: Boolean, attribute: 'hide-inactive-label' })
-], NavigationTab.prototype, "hideInactiveLabel", void 0)
-__decorate([
-    property()
-], NavigationTab.prototype, "label", void 0)
-__decorate([
-    property({ attribute: 'badge-value' })
-], NavigationTab.prototype, "badgeValue", void 0)
-__decorate([
-    property({ type: Boolean, attribute: 'show-badge' })
-], NavigationTab.prototype, "showBadge", void 0)
-__decorate([
-    query('button')
-], NavigationTab.prototype, "buttonElement", void 0)
-__decorate([
-    property()
-], NavigationTab.prototype, "href", void 0)
-
-//# sourceMappingURL=navigation-tab.js.map

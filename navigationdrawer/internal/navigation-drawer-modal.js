@@ -3,18 +3,20 @@
  * Copyright 2021 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
 import { html, LitElement, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { requestUpdateOnAriaChange } from '../../internal/aria/delegate.js';
 /**
- * b/265346501 - add docs
  *
  * @fires navigation-drawer-changed {CustomEvent<{opened: boolean}>}
  * Dispatched whenever the drawer opens or closes --bubbles --composed
  */
 export class NavigationDrawerModal extends LitElement {
+    static properties = {
+        opened: { type: Boolean },
+        pivot: { type: String },
+    };
     constructor() {
         super(...arguments);
         this.opened = false;
@@ -79,10 +81,3 @@ export class NavigationDrawerModal extends LitElement {
 (() => {
     requestUpdateOnAriaChange(NavigationDrawerModal);
 })();
-__decorate([
-    property({ type: Boolean })
-], NavigationDrawerModal.prototype, "opened", void 0);
-__decorate([
-    property()
-], NavigationDrawerModal.prototype, "pivot", void 0);
-//# sourceMappingURL=navigation-drawer-modal.js.map

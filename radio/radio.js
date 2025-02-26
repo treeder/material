@@ -1,12 +1,12 @@
+// Suggested code may be subject to a license. Learn more: ~LicenseLog:434939353.
+// Suggested code may be subject to a license. Learn more: ~LicenseLog:320597804.
 /**
  * @license
  * Copyright 2022 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import { customElement } from 'lit/decorators.js';
-import { Radio } from './internal/radio.js';
-import { styles } from './internal/radio-styles.js';
+import { Radio } from './internal/radio.js'
+import { styles } from './internal/radio-styles.js'
 /**
  * @summary Radio buttons allow users to select one option from a set.
  *
@@ -23,10 +23,7 @@ import { styles } from './internal/radio-styles.js';
  * @final
  * @suppress {visibility}
  */
-export let MdRadio = class MdRadio extends Radio {
-};
-MdRadio.styles = [styles];
-MdRadio = __decorate([
-    customElement('md-radio')
-], MdRadio);
+export class MdRadio extends Radio { }
+MdRadio.styles = [styles]
+customElements.define('md-radio', MdRadio)
 //# sourceMappingURL=radio.js.map

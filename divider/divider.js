@@ -3,8 +3,6 @@
  * Copyright 2023 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import { customElement } from 'lit/decorators.js';
 import { Divider } from './internal/divider.js';
 import { styles } from './internal/divider-styles.js';
 /**
@@ -20,7 +18,5 @@ import { styles } from './internal/divider-styles.js';
 export let MdDivider = class MdDivider extends Divider {
 };
 MdDivider.styles = [styles];
-MdDivider = __decorate([
-    customElement('md-divider')
-], MdDivider);
-//# sourceMappingURL=divider.js.map
+
+customElements.define('md-divider', MdDivider)

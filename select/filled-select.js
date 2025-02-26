@@ -3,11 +3,9 @@
  * Copyright 2023 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import { customElement } from 'lit/decorators.js';
-import { FilledSelect } from './internal/filled-select.js';
-import { styles } from './internal/filled-select-styles.js';
-import { styles as sharedStyles } from './internal/shared-styles.js';
+import { FilledSelect } from './internal/filled-select.js'
+import { styles } from './internal/filled-select-styles.js'
+import { styles as sharedStyles } from './internal/shared-styles.js'
 /**
  * @summary
  * Select menus display a list of choices on temporary surfaces and display the
@@ -36,9 +34,7 @@ import { styles as sharedStyles } from './internal/shared-styles.js';
  * @suppress {visibility}
  */
 export let MdFilledSelect = class MdFilledSelect extends FilledSelect {
-};
-MdFilledSelect.styles = [sharedStyles, styles];
-MdFilledSelect = __decorate([
-    customElement('md-filled-select')
-], MdFilledSelect);
-//# sourceMappingURL=filled-select.js.map
+}
+MdFilledSelect.styles = [sharedStyles, styles]
+
+customElements.define('md-filled-select', MdFilledSelect)

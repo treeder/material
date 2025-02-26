@@ -3,7 +3,6 @@
  * Copyright 2023 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
 import { html, LitElement, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -12,6 +11,12 @@ import { requestUpdateOnAriaChange } from '../../internal/aria/delegate.js';
  * A progress component.
  */
 export class Progress extends LitElement {
+    static properties = {
+        value: { type: Number },
+        max: { type: Number },
+        indeterminate: { type: Boolean },
+        fourColor: { type: Boolean, attribute: 'four-color' },
+    };
     constructor() {
         super(...arguments);
         /**
@@ -57,16 +62,3 @@ export class Progress extends LitElement {
 (() => {
     requestUpdateOnAriaChange(Progress);
 })();
-__decorate([
-    property({ type: Number })
-], Progress.prototype, "value", void 0);
-__decorate([
-    property({ type: Number })
-], Progress.prototype, "max", void 0);
-__decorate([
-    property({ type: Boolean })
-], Progress.prototype, "indeterminate", void 0);
-__decorate([
-    property({ type: Boolean, attribute: 'four-color' })
-], Progress.prototype, "fourColor", void 0);
-//# sourceMappingURL=progress.js.map

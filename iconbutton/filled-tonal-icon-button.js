@@ -3,8 +3,6 @@
  * Copyright 2022 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import { customElement } from 'lit/decorators.js';
 import { styles } from './internal/filled-tonal-styles.js';
 import { IconButton } from './internal/icon-button.js';
 import { styles as sharedStyles } from './internal/shared-styles.js';
@@ -36,7 +34,5 @@ export let MdFilledTonalIconButton = class MdFilledTonalIconButton extends IconB
     }
 };
 MdFilledTonalIconButton.styles = [sharedStyles, styles];
-MdFilledTonalIconButton = __decorate([
-    customElement('md-filled-tonal-icon-button')
-], MdFilledTonalIconButton);
-//# sourceMappingURL=filled-tonal-icon-button.js.map
+
+customElements.define('md-filled-tonal-icon-button', MdFilledTonalIconButton)

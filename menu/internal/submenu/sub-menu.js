@@ -3,12 +3,11 @@
  * Copyright 2023 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import { html, isServer, LitElement } from 'lit';
-import { property, queryAssignedElements } from 'lit/decorators.js';
-import { createDeactivateItemsEvent, createRequestActivationEvent, deactivateActiveItem, getFirstActivatableItem, } from '../../../list/internal/list-navigation-helpers.js';
-import { CloseReason, createActivateTypeaheadEvent, createDeactivateTypeaheadEvent, KeydownCloseKey, NavigableKey, SelectionKey, } from '../controllers/shared.js';
-import { Corner } from '../menu.js';
+import { html, isServer, LitElement } from 'lit'
+import { property, queryAssignedElements } from 'lit/decorators.js'
+import { createDeactivateItemsEvent, createRequestActivationEvent, deactivateActiveItem, getFirstActivatableItem, } from '../../../list/internal/list-navigation-helpers.js'
+import { CloseReason, createActivateTypeaheadEvent, createDeactivateTypeaheadEvent, KeydownCloseKey, NavigableKey, SelectionKey, } from '../controllers/shared.js'
+import { Corner } from '../menu.js'
 /**
  * @fires deactivate-items {Event} Requests the parent menu to deselect other
  * items when a submenu opens. --bubbles --composed
@@ -20,36 +19,43 @@ import { Corner } from '../menu.js';
  * typeahead functionality when a submenu closes. --bubbles --composed
  */
 export class SubMenu extends LitElement {
+    static properties = {
+        anchorCorner: { type: String },
+        menuCorner: { type: String },
+        hoverOpenDelay: { type: Number },
+        hoverCloseDelay: { type: Number },
+        isSubMenu: { type: Boolean, reflect: true },
+    }
     get item() {
-        return this.items[0] ?? null;
+        return this.items[0] ?? null
     }
     get menu() {
-        return this.menus[0] ?? null;
+        return this.menus[0] ?? null
     }
     constructor() {
-        super();
+        super()
         /**
          * The anchorCorner to set on the submenu.
          */
-        this.anchorCorner = Corner.START_END;
+        this.anchorCorner = Corner.START_END
         /**
          * The menuCorner to set on the submenu.
          */
-        this.menuCorner = Corner.START_START;
+        this.menuCorner = Corner.START_START
         /**
          * The delay between mouseenter and submenu opening.
          */
-        this.hoverOpenDelay = 400;
+        this.hoverOpenDelay = 400
         /**
          * The delay between ponterleave and the submenu closing.
          */
-        this.hoverCloseDelay = 400;
+        this.hoverCloseDelay = 400
         /**
          * READONLY: self-identifies as a menu item and sets its identifying attribute
          */
-        this.isSubMenu = true;
-        this.previousOpenTimeout = 0;
-        this.previousCloseTimeout = 0;
+        this.isSubMenu = true
+        this.previousOpenTimeout = 0
+        this.previousCloseTimeout = 0
         /**
          * Starts the default 400ms countdown to open the submenu.
          *
@@ -60,21 +66,21 @@ export class SubMenu extends LitElement {
          * menu due to pointerleave.
          */
         this.onMouseenter = () => {
-            clearTimeout(this.previousOpenTimeout);
-            clearTimeout(this.previousCloseTimeout);
+            clearTimeout(this.previousOpenTimeout)
+            clearTimeout(this.previousCloseTimeout)
             if (this.menu?.open)
-                return;
+                return
             // Open synchronously if delay is 0. (screenshot tests infra
             // would never resolve otherwise)
             if (!this.hoverOpenDelay) {
-                this.show();
+                this.show()
             }
             else {
                 this.previousOpenTimeout = setTimeout(() => {
-                    this.show();
-                }, this.hoverOpenDelay);
+                    this.show()
+                }, this.hoverOpenDelay)
             }
-        };
+        }
         /**
          * Starts the default 400ms countdown to close the submenu.
          *
@@ -85,26 +91,26 @@ export class SubMenu extends LitElement {
          * menu due to pointerleave.
          */
         this.onMouseleave = () => {
-            clearTimeout(this.previousCloseTimeout);
-            clearTimeout(this.previousOpenTimeout);
+            clearTimeout(this.previousCloseTimeout)
+            clearTimeout(this.previousOpenTimeout)
             // Close synchronously if delay is 0. (screenshot tests infra
             // would never resolve otherwise)
             if (!this.hoverCloseDelay) {
-                this.close();
+                this.close()
             }
             else {
                 this.previousCloseTimeout = setTimeout(() => {
-                    this.close();
-                }, this.hoverCloseDelay);
+                    this.close()
+                }, this.hoverCloseDelay)
             }
-        };
+        }
         if (!isServer) {
-            this.addEventListener('mouseenter', this.onMouseenter);
-            this.addEventListener('mouseleave', this.onMouseleave);
+            this.addEventListener('mouseenter', this.onMouseenter)
+            this.addEventListener('mouseleave', this.onMouseleave)
         }
     }
     render() {
-        return html `
+        return html`
       <slot
         name="item"
         @click=${this.onClick}
@@ -117,19 +123,19 @@ export class SubMenu extends LitElement {
         @close-menu=${this.onCloseSubmenu}
         @slotchange=${this.onSlotchange}>
       </slot>
-    `;
+    `
     }
     firstUpdated() {
         // slotchange is not fired if the contents have been SSRd
-        this.onSlotchange();
+        this.onSlotchange()
     }
     /**
      * Shows the submenu.
      */
     async show() {
-        const menu = this.menu;
+        const menu = this.menu
         if (!menu || menu.open)
-            return;
+            return
         // Ensures that we deselect items when the menu closes and reactivate
         // typeahead when the menu closes, so that we do not have dirty state of
         // `sub-menu > menu-item[selected]` when we reopen.
@@ -139,12 +145,12 @@ export class SubMenu extends LitElement {
         // `close-menu` may not be called via focusout of outside click and not
         // triggered by an item
         menu.addEventListener('closed', () => {
-            this.item.ariaExpanded = 'false';
-            this.dispatchEvent(createActivateTypeaheadEvent());
-            this.dispatchEvent(createDeactivateItemsEvent());
+            this.item.ariaExpanded = 'false'
+            this.dispatchEvent(createActivateTypeaheadEvent())
+            this.dispatchEvent(createDeactivateItemsEvent())
             // aria-hidden required so ChromeVox doesn't announce the closed menu
-            menu.ariaHidden = 'true';
-        }, { once: true });
+            menu.ariaHidden = 'true'
+        }, { once: true })
         // Parent menu is `position: absolute` – this creates a new CSS relative
         // positioning context (similar to doing `position: relative`), so the
         // submenu's `<md-menu slot="submenu" positioning="document">` would be
@@ -152,19 +158,19 @@ export class SubMenu extends LitElement {
         // `position: static` because the submenu it would still be positioning
         // itself relative to the parent menu.
         if (menu.positioning === 'document') {
-            menu.positioning = 'absolute';
+            menu.positioning = 'absolute'
         }
-        menu.quick = true;
+        menu.quick = true
         // Submenus are in overflow when not fixed. Can remove once we have native
         // popup support
-        menu.hasOverflow = true;
-        menu.anchorCorner = this.anchorCorner;
-        menu.menuCorner = this.menuCorner;
-        menu.anchorElement = this.item;
-        menu.defaultFocus = 'first-item';
+        menu.hasOverflow = true
+        menu.anchorCorner = this.anchorCorner
+        menu.menuCorner = this.menuCorner
+        menu.anchorElement = this.item
+        menu.defaultFocus = 'first-item'
         // aria-hidden management required so ChromeVox doesn't announce the closed
         // menu. Remove it here since we are about to show and focus it.
-        menu.removeAttribute('aria-hidden');
+        menu.removeAttribute('aria-hidden')
         // This is required in the case where we have a leaf menu open and and the
         // user hovers a parent menu's item which is not an md-sub-menu item.
         // If this were set to true, then the menu would close and focus would be
@@ -172,135 +178,135 @@ export class SubMenu extends LitElement {
         // `null` since nothing in the menu would be focused anymore due to the
         // leaf menu closing. restoring focus ensures that we keep focus in the
         // submenu tree.
-        menu.skipRestoreFocus = false;
+        menu.skipRestoreFocus = false
         // Menu could already be opened because of mouse interaction
-        const menuAlreadyOpen = menu.open;
-        menu.show();
-        this.item.ariaExpanded = 'true';
-        this.item.ariaHasPopup = 'menu';
+        const menuAlreadyOpen = menu.open
+        menu.show()
+        this.item.ariaExpanded = 'true'
+        this.item.ariaHasPopup = 'menu'
         if (menu.id) {
-            this.item.setAttribute('aria-controls', menu.id);
+            this.item.setAttribute('aria-controls', menu.id)
         }
         // Deactivate other items. This can be the case if the user has tabbed
         // around the menu and then mouses over an md-sub-menu.
-        this.dispatchEvent(createDeactivateItemsEvent());
-        this.dispatchEvent(createDeactivateTypeaheadEvent());
-        this.item.selected = true;
+        this.dispatchEvent(createDeactivateItemsEvent())
+        this.dispatchEvent(createDeactivateTypeaheadEvent())
+        this.item.selected = true
         // This is the case of mouse hovering when already opened via keyboard or
         // vice versa
         if (!menuAlreadyOpen) {
-            let open = (value) => { };
+            let open = (value) => { }
             const opened = new Promise((resolve) => {
-                open = resolve;
-            });
-            menu.addEventListener('opened', open, { once: true });
-            await opened;
+                open = resolve
+            })
+            menu.addEventListener('opened', open, { once: true })
+            await opened
         }
     }
     /**
      * Closes the submenu.
      */
     async close() {
-        const menu = this.menu;
+        const menu = this.menu
         if (!menu || !menu.open)
-            return;
-        this.dispatchEvent(createActivateTypeaheadEvent());
-        menu.quick = true;
-        menu.close();
-        this.dispatchEvent(createDeactivateItemsEvent());
-        let close = (value) => { };
+            return
+        this.dispatchEvent(createActivateTypeaheadEvent())
+        menu.quick = true
+        menu.close()
+        this.dispatchEvent(createDeactivateItemsEvent())
+        let close = (value) => { }
         const closed = new Promise((resolve) => {
-            close = resolve;
-        });
-        menu.addEventListener('closed', close, { once: true });
-        await closed;
+            close = resolve
+        })
+        menu.addEventListener('closed', close, { once: true })
+        await closed
     }
     onSlotchange() {
         if (!this.item) {
-            return;
+            return
         }
         // TODO(b/301296618): clean up old aria values on change
-        this.item.ariaExpanded = 'false';
-        this.item.ariaHasPopup = 'menu';
+        this.item.ariaExpanded = 'false'
+        this.item.ariaHasPopup = 'menu'
         if (this.menu?.id) {
-            this.item.setAttribute('aria-controls', this.menu.id);
+            this.item.setAttribute('aria-controls', this.menu.id)
         }
-        this.item.keepOpen = true;
-        const menu = this.menu;
+        this.item.keepOpen = true
+        const menu = this.menu
         if (!menu)
-            return;
-        menu.isSubmenu = true;
+            return
+        menu.isSubmenu = true
         // Required for ChromeVox to not linearly navigate to the menu while closed
-        menu.ariaHidden = 'true';
+        menu.ariaHidden = 'true'
     }
     onClick() {
-        this.show();
+        this.show()
     }
     /**
      * On item keydown handles opening the submenu.
      */
     async onKeydown(event) {
-        const shouldOpenSubmenu = this.isSubmenuOpenKey(event.code);
+        const shouldOpenSubmenu = this.isSubmenuOpenKey(event.code)
         if (event.defaultPrevented)
-            return;
+            return
         const openedWithLR = shouldOpenSubmenu &&
-            (NavigableKey.LEFT === event.code || NavigableKey.RIGHT === event.code);
+            (NavigableKey.LEFT === event.code || NavigableKey.RIGHT === event.code)
         if (event.code === SelectionKey.SPACE || openedWithLR) {
             // prevent space from scrolling and Left + Right from selecting previous /
             // next items or opening / closing parent menus. Only open the submenu.
-            event.preventDefault();
+            event.preventDefault()
             if (openedWithLR) {
-                event.stopPropagation();
+                event.stopPropagation()
             }
         }
         if (!shouldOpenSubmenu) {
-            return;
+            return
         }
-        const submenu = this.menu;
+        const submenu = this.menu
         if (!submenu)
-            return;
-        const submenuItems = submenu.items;
-        const firstActivatableItem = getFirstActivatableItem(submenuItems);
+            return
+        const submenuItems = submenu.items
+        const firstActivatableItem = getFirstActivatableItem(submenuItems)
         if (firstActivatableItem) {
-            await this.show();
-            firstActivatableItem.tabIndex = 0;
-            firstActivatableItem.focus();
-            return;
+            await this.show()
+            firstActivatableItem.tabIndex = 0
+            firstActivatableItem.focus()
+            return
         }
     }
     onCloseSubmenu(event) {
-        const { itemPath, reason } = event.detail;
-        itemPath.push(this.item);
-        this.dispatchEvent(createActivateTypeaheadEvent());
+        const { itemPath, reason } = event.detail
+        itemPath.push(this.item)
+        this.dispatchEvent(createActivateTypeaheadEvent())
         // Escape should only close one menu not all of the menus unlike space or
         // click selection which should close all menus.
         if (reason.kind === CloseReason.KEYDOWN &&
             reason.key === KeydownCloseKey.ESCAPE) {
-            event.stopPropagation();
-            this.item.dispatchEvent(createRequestActivationEvent());
-            return;
+            event.stopPropagation()
+            this.item.dispatchEvent(createRequestActivationEvent())
+            return
         }
-        this.dispatchEvent(createDeactivateItemsEvent());
+        this.dispatchEvent(createDeactivateItemsEvent())
     }
     async onSubMenuKeydown(event) {
         if (event.defaultPrevented)
-            return;
-        const { close: shouldClose, keyCode } = this.isSubmenuCloseKey(event.code);
+            return
+        const { close: shouldClose, keyCode } = this.isSubmenuCloseKey(event.code)
         if (!shouldClose)
-            return;
+            return
         // Communicate that it's handled so that we don't accidentally close every
         // parent menu. Additionally, we want to isolate things like the typeahead
         // keydowns from bubbling up to the parent menu and confounding things.
-        event.preventDefault();
+        event.preventDefault()
         if (keyCode === NavigableKey.LEFT || keyCode === NavigableKey.RIGHT) {
             // Prevent this from bubbling to parents
-            event.stopPropagation();
+            event.stopPropagation()
         }
-        await this.close();
-        deactivateActiveItem(this.menu.items);
-        this.item?.focus();
-        this.item.tabIndex = 0;
-        this.item.focus();
+        await this.close()
+        deactivateActiveItem(this.menu.items)
+        this.item?.focus()
+        this.item.tabIndex = 0
+        this.item.focus()
     }
     /**
      * Determines whether the given KeyboardEvent code is one that should open
@@ -310,15 +316,15 @@ export class SubMenu extends LitElement {
      * @return Whether or not the key code should open the submenu.
      */
     isSubmenuOpenKey(code) {
-        const isRtl = getComputedStyle(this).direction === 'rtl';
-        const arrowEnterKey = isRtl ? NavigableKey.LEFT : NavigableKey.RIGHT;
+        const isRtl = getComputedStyle(this).direction === 'rtl'
+        const arrowEnterKey = isRtl ? NavigableKey.LEFT : NavigableKey.RIGHT
         switch (code) {
             case arrowEnterKey:
             case SelectionKey.SPACE:
             case SelectionKey.ENTER:
-                return true;
+                return true
             default:
-                return false;
+                return false
         }
     }
     /**
@@ -329,36 +335,14 @@ export class SubMenu extends LitElement {
      * @return Whether or not the key code should close the submenu.
      */
     isSubmenuCloseKey(code) {
-        const isRtl = getComputedStyle(this).direction === 'rtl';
-        const arrowEnterKey = isRtl ? NavigableKey.RIGHT : NavigableKey.LEFT;
+        const isRtl = getComputedStyle(this).direction === 'rtl'
+        const arrowEnterKey = isRtl ? NavigableKey.RIGHT : NavigableKey.LEFT
         switch (code) {
             case arrowEnterKey:
             case KeydownCloseKey.ESCAPE:
-                return { close: true, keyCode: code };
+                return { close: true, keyCode: code }
             default:
-                return { close: false };
+                return { close: false }
         }
     }
 }
-__decorate([
-    property({ attribute: 'anchor-corner' })
-], SubMenu.prototype, "anchorCorner", void 0);
-__decorate([
-    property({ attribute: 'menu-corner' })
-], SubMenu.prototype, "menuCorner", void 0);
-__decorate([
-    property({ type: Number, attribute: 'hover-open-delay' })
-], SubMenu.prototype, "hoverOpenDelay", void 0);
-__decorate([
-    property({ type: Number, attribute: 'hover-close-delay' })
-], SubMenu.prototype, "hoverCloseDelay", void 0);
-__decorate([
-    property({ type: Boolean, reflect: true, attribute: 'md-sub-menu' })
-], SubMenu.prototype, "isSubMenu", void 0);
-__decorate([
-    queryAssignedElements({ slot: 'item', flatten: true })
-], SubMenu.prototype, "items", void 0);
-__decorate([
-    queryAssignedElements({ slot: 'menu', flatten: true })
-], SubMenu.prototype, "menus", void 0);
-//# sourceMappingURL=sub-menu.js.map

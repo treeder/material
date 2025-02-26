@@ -3,21 +3,20 @@
  * Copyright 2019 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import '../../focus/md-focus-ring.js';
-import '../../ripple/ripple.js';
-import { html, isServer, LitElement, nothing } from 'lit';
-import { property, query, state } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { requestUpdateOnAriaChange } from '../../internal/aria/delegate.js';
-import { dispatchActivationClick, isActivationClick, } from '../../internal/events/form-label-activation.js';
-import { redispatchEvent } from '../../internal/events/redispatch-event.js';
-import { createValidator, getValidityAnchor, mixinConstraintValidation, } from '../../labs/behaviors/constraint-validation.js';
-import { mixinElementInternals } from '../../labs/behaviors/element-internals.js';
-import { getFormState, getFormValue, mixinFormAssociated, } from '../../labs/behaviors/form-associated.js';
-import { CheckboxValidator } from '../../labs/behaviors/validators/checkbox-validator.js';
+import '../../focus/md-focus-ring.js'
+import '../../ripple/ripple.js'
+import { html, isServer, LitElement, nothing } from 'lit'
+import { property, query, state } from 'lit/decorators.js'
+import { classMap } from 'lit/directives/class-map.js'
+import { requestUpdateOnAriaChange } from '../../internal/aria/delegate.js'
+import { dispatchActivationClick, isActivationClick, } from '../../internal/events/form-label-activation.js'
+import { redispatchEvent } from '../../internal/events/redispatch-event.js'
+import { createValidator, getValidityAnchor, mixinConstraintValidation, } from '../../labs/behaviors/constraint-validation.js'
+import { mixinElementInternals } from '../../labs/behaviors/element-internals.js'
+import { getFormState, getFormValue, mixinFormAssociated, } from '../../labs/behaviors/form-associated.js'
+import { CheckboxValidator } from '../../labs/behaviors/validators/checkbox-validator.js'
 // Separate variable needed for closure.
-const checkboxBaseClass = mixinConstraintValidation(mixinFormAssociated(mixinElementInternals(LitElement)));
+const checkboxBaseClass = mixinConstraintValidation(mixinFormAssociated(mixinElementInternals(LitElement)))
 /**
  * A checkbox component.
  *
@@ -30,61 +29,71 @@ const checkboxBaseClass = mixinConstraintValidation(mixinFormAssociated(mixinEle
  * --bubbles --composed
  */
 export class Checkbox extends checkboxBaseClass {
+    static properties = {
+        checked: { type: Boolean, reflect: true },
+        indeterminate: { type: Boolean, reflect: true },
+        required: { type: Boolean, reflect: true },
+        value: { type: String },
+        prevChecked: { type: Boolean },
+        prevDisabled: { type: Boolean },
+        prevIndeterminate: { type: Boolean },
+
+    }
     constructor() {
-        super();
+        super()
         /**
          * Whether or not the checkbox is selected.
          */
-        this.checked = false;
+        this.checked = false
         /**
          * Whether or not the checkbox is indeterminate.
          *
          * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#indeterminate_state_checkboxes
          */
-        this.indeterminate = false;
+        this.indeterminate = false
         /**
          * When true, require the checkbox to be selected when participating in
          * form submission.
          *
          * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#validation
          */
-        this.required = false;
+        this.required = false
         /**
          * The value of the checkbox that is submitted with a form when selected.
          *
          * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#value
          */
-        this.value = 'on';
-        this.prevChecked = false;
-        this.prevDisabled = false;
-        this.prevIndeterminate = false;
+        this.value = 'on'
+        this.prevChecked = false
+        this.prevDisabled = false
+        this.prevIndeterminate = false
         if (!isServer) {
             this.addEventListener('click', (event) => {
                 if (!isActivationClick(event) || !this.input) {
-                    return;
+                    return
                 }
-                this.focus();
-                dispatchActivationClick(this.input);
-            });
+                this.focus()
+                dispatchActivationClick(this.input)
+            })
         }
     }
     update(changed) {
         if (changed.has('checked') ||
             changed.has('disabled') ||
             changed.has('indeterminate')) {
-            this.prevChecked = changed.get('checked') ?? this.checked;
-            this.prevDisabled = changed.get('disabled') ?? this.disabled;
+            this.prevChecked = changed.get('checked') ?? this.checked
+            this.prevDisabled = changed.get('disabled') ?? this.disabled
             this.prevIndeterminate =
-                changed.get('indeterminate') ?? this.indeterminate;
+                changed.get('indeterminate') ?? this.indeterminate
         }
-        super.update(changed);
+        super.update(changed)
     }
     render() {
-        const prevNone = !this.prevChecked && !this.prevIndeterminate;
-        const prevChecked = this.prevChecked && !this.prevIndeterminate;
-        const prevIndeterminate = this.prevIndeterminate;
-        const isChecked = this.checked && !this.indeterminate;
-        const isIndeterminate = this.indeterminate;
+        const prevNone = !this.prevChecked && !this.prevIndeterminate
+        const prevChecked = this.prevChecked && !this.prevIndeterminate
+        const prevIndeterminate = this.prevIndeterminate
+        const isChecked = this.checked && !this.indeterminate
+        const isIndeterminate = this.indeterminate
         const containerClasses = classMap({
             'disabled': this.disabled,
             'selected': isChecked || isIndeterminate,
@@ -95,12 +104,12 @@ export class Checkbox extends checkboxBaseClass {
             'prev-checked': prevChecked,
             'prev-indeterminate': prevIndeterminate,
             'prev-disabled': this.prevDisabled,
-        });
+        })
         // Needed for closure conformance
-        const { ariaLabel, ariaInvalid } = this;
+        const { ariaLabel, ariaInvalid } = this
         // Note: <input> needs to be rendered before the <svg> for
         // form.reportValidity() to work in Chrome.
-        return html `
+        return html`
       <div class="container ${containerClasses}">
         <input
           type="checkbox"
@@ -124,72 +133,47 @@ export class Checkbox extends checkboxBaseClass {
           <rect class="mark long" />
         </svg>
       </div>
-    `;
+    `
     }
     handleInput(event) {
-        const target = event.target;
-        this.checked = target.checked;
-        this.indeterminate = target.indeterminate;
+        const target = event.target
+        this.checked = target.checked
+        this.indeterminate = target.indeterminate
         // <input> 'input' event bubbles and is composed, don't re-dispatch it.
     }
     handleChange(event) {
         // <input> 'change' event is not composed, re-dispatch it.
-        redispatchEvent(this, event);
+        redispatchEvent(this, event)
     }
     [getFormValue]() {
         if (!this.checked || this.indeterminate) {
-            return null;
+            return null
         }
-        return this.value;
+        return this.value
     }
     [getFormState]() {
-        return String(this.checked);
+        return String(this.checked)
     }
     formResetCallback() {
         // The checked property does not reflect, so the original attribute set by
         // the user is used to determine the default value.
-        this.checked = this.hasAttribute('checked');
+        this.checked = this.hasAttribute('checked')
     }
     formStateRestoreCallback(state) {
-        this.checked = state === 'true';
+        this.checked = state === 'true'
     }
     [createValidator]() {
-        return new CheckboxValidator(() => this);
+        return new CheckboxValidator(() => this)
     }
     [getValidityAnchor]() {
-        return this.input;
+        return this.input
     }
 }
 (() => {
-    requestUpdateOnAriaChange(Checkbox);
-})();
+    requestUpdateOnAriaChange(Checkbox)
+})()
 /** @nocollapse */
 Checkbox.shadowRootOptions = {
     ...LitElement.shadowRootOptions,
     delegatesFocus: true,
-};
-__decorate([
-    property({ type: Boolean })
-], Checkbox.prototype, "checked", void 0);
-__decorate([
-    property({ type: Boolean })
-], Checkbox.prototype, "indeterminate", void 0);
-__decorate([
-    property({ type: Boolean })
-], Checkbox.prototype, "required", void 0);
-__decorate([
-    property()
-], Checkbox.prototype, "value", void 0);
-__decorate([
-    state()
-], Checkbox.prototype, "prevChecked", void 0);
-__decorate([
-    state()
-], Checkbox.prototype, "prevDisabled", void 0);
-__decorate([
-    state()
-], Checkbox.prototype, "prevIndeterminate", void 0);
-__decorate([
-    query('input')
-], Checkbox.prototype, "input", void 0);
-//# sourceMappingURL=checkbox.js.map
+}

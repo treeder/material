@@ -3,8 +3,6 @@
  * Copyright 2023 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import { property } from 'lit/decorators.js';
 import { internals } from './element-internals.js';
 /**
  * A symbol property to retrieve the form value for an element.
@@ -94,6 +92,11 @@ export const getFormState = Symbol('getFormState');
  */
 export function mixinFormAssociated(base) {
     class FormAssociatedElement extends base {
+        static properties = {
+            disabled: { type: Boolean, reflect: true },
+            name: { type: String },
+        };
+        
         get form() {
             return this[internals].form;
         }
@@ -164,12 +167,6 @@ export function mixinFormAssociated(base) {
     }
     /** @nocollapse */
     FormAssociatedElement.formAssociated = true;
-    __decorate([
-        property({ noAccessor: true })
-    ], FormAssociatedElement.prototype, "name", null);
-    __decorate([
-        property({ type: Boolean, noAccessor: true })
-    ], FormAssociatedElement.prototype, "disabled", null);
     return FormAssociatedElement;
 }
 //# sourceMappingURL=form-associated.js.map

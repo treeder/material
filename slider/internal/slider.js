@@ -3,24 +3,23 @@
  * Copyright 2023 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import '../../elevation/elevation.js';
-import '../../focus/md-focus-ring.js';
-import '../../ripple/ripple.js';
-import { html, isServer, LitElement, nothing } from 'lit';
-import { property, query, queryAsync, state } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { styleMap } from 'lit/directives/style-map.js';
-import { when } from 'lit/directives/when.js';
-import { requestUpdateOnAriaChange } from '../../internal/aria/delegate.js';
-import { dispatchActivationClick, isActivationClick, } from '../../internal/events/form-label-activation.js';
-import { redispatchEvent } from '../../internal/events/redispatch-event.js';
-import { mixinElementInternals } from '../../labs/behaviors/element-internals.js';
-import { getFormValue, mixinFormAssociated, } from '../../labs/behaviors/form-associated.js';
+import '../../elevation/elevation.js'
+import '../../focus/md-focus-ring.js'
+import '../../ripple/ripple.js'
+import { html, isServer, LitElement, nothing } from 'lit'
+import { property, query, queryAsync, state } from 'lit/decorators.js'
+import { classMap } from 'lit/directives/class-map.js'
+import { styleMap } from 'lit/directives/style-map.js'
+import { when } from 'lit/directives/when.js'
+import { requestUpdateOnAriaChange } from '../../internal/aria/delegate.js'
+import { dispatchActivationClick, isActivationClick, } from '../../internal/events/form-label-activation.js'
+import { redispatchEvent } from '../../internal/events/redispatch-event.js'
+import { mixinElementInternals } from '../../labs/behaviors/element-internals.js'
+import { getFormValue, mixinFormAssociated, } from '../../labs/behaviors/form-associated.js'
 // Disable warning for classMap with destructuring
 // tslint:disable:no-implicit-dictionary-conversion
 // Separate variable needed for closure.
-const sliderBaseClass = mixinFormAssociated(mixinElementInternals(LitElement));
+const sliderBaseClass = mixinFormAssociated(mixinElementInternals(LitElement))
 /**
  * Slider component.
  *
@@ -33,16 +32,40 @@ const sliderBaseClass = mixinFormAssociated(mixinElementInternals(LitElement));
  * --bubbles --composed
  */
 export class Slider extends sliderBaseClass {
+    static properties = {
+        /**
+         * The slider minimum value
+         */
+        min: { type: Number },
+        /**
+         * The slider maximum value
+         */
+        max: { type: Number },
+        value: { type: Number },
+        valueStart: { type: Number, attribute: 'value-start' },
+        valueEnd: { type: Number, attribute: 'value-end' },
+        valueLabel: { type: String, attribute: 'value-label' },
+        valueLabelStart: { type: String, attribute: 'value-label-start' },
+        valueLabelEnd: { type: String, attribute: 'value-label-end' },
+        ariaLabelStart: { type: String, attribute: 'aria-label-start' },
+        ariaValueTextStart: { type: String, attribute: 'aria-valuetext-start' },
+        ariaLabelEnd: { type: String, attribute: 'aria-label-end' },
+        ariaValueTextEnd: { type: String, attribute: 'aria-valuetext-end' },
+        step: { type: Number },
+        ticks: { type: Boolean },
+        labeled: { type: Boolean },
+        range: { type: Boolean },
+    }
     /**
      * The HTML name to use in form submission for a range slider's starting
      * value. Use `name` instead if both the start and end values should use the
      * same name.
      */
     get nameStart() {
-        return this.getAttribute('name-start') ?? this.name;
+        return this.getAttribute('name-start') ?? this.name
     }
     set nameStart(name) {
-        this.setAttribute('name-start', name);
+        this.setAttribute('name-start', name)
     }
     /**
      * The HTML name to use in form submission for a range slider's ending value.
@@ -50,150 +73,150 @@ export class Slider extends sliderBaseClass {
      * name.
      */
     get nameEnd() {
-        return this.getAttribute('name-end') ?? this.nameStart;
+        return this.getAttribute('name-end') ?? this.nameStart
     }
     set nameEnd(name) {
-        this.setAttribute('name-end', name);
+        this.setAttribute('name-end', name)
     }
     // Note: start aria-* properties are only applied when range=true, which is
     // why they do not need to handle both cases.
     get renderAriaLabelStart() {
         // Needed for closure conformance
-        const { ariaLabel } = this;
+        const { ariaLabel } = this
         return (this.ariaLabelStart ||
             (ariaLabel && `${ariaLabel} start`) ||
             this.valueLabelStart ||
-            String(this.valueStart));
+            String(this.valueStart))
     }
     get renderAriaValueTextStart() {
-        return (this.ariaValueTextStart || this.valueLabelStart || String(this.valueStart));
+        return (this.ariaValueTextStart || this.valueLabelStart || String(this.valueStart))
     }
     // Note: end aria-* properties are applied for single and range sliders, which
     // is why it needs to handle `this.range` (while start aria-* properties do
     // not).
     get renderAriaLabelEnd() {
         // Needed for closure conformance
-        const { ariaLabel } = this;
+        const { ariaLabel } = this
         if (this.range) {
             return (this.ariaLabelEnd ||
                 (ariaLabel && `${ariaLabel} end`) ||
                 this.valueLabelEnd ||
-                String(this.valueEnd));
+                String(this.valueEnd))
         }
-        return ariaLabel || this.valueLabel || String(this.value);
+        return ariaLabel || this.valueLabel || String(this.value)
     }
     get renderAriaValueTextEnd() {
         if (this.range) {
-            return (this.ariaValueTextEnd || this.valueLabelEnd || String(this.valueEnd));
+            return (this.ariaValueTextEnd || this.valueLabelEnd || String(this.valueEnd))
         }
         // Needed for conformance
-        const { ariaValueText } = this;
-        return ariaValueText || this.valueLabel || String(this.value);
+        const { ariaValueText } = this
+        return ariaValueText || this.valueLabel || String(this.value)
     }
     constructor() {
-        super();
+        super()
         /**
          * The slider minimum value
          */
-        this.min = 0;
+        this.min = 0
         /**
          * The slider maximum value
          */
-        this.max = 100;
+        this.max = 100
         /**
          * An optional label for the slider's value displayed when range is
          * false; if not set, the label is the value itself.
          */
-        this.valueLabel = '';
+        this.valueLabel = ''
         /**
          * An optional label for the slider's start value displayed when
          * range is true; if not set, the label is the valueStart itself.
          */
-        this.valueLabelStart = '';
+        this.valueLabelStart = ''
         /**
          * An optional label for the slider's end value displayed when
          * range is true; if not set, the label is the valueEnd itself.
          */
-        this.valueLabelEnd = '';
+        this.valueLabelEnd = ''
         /**
          * Aria label for the slider's start handle displayed when
          * range is true.
          */
-        this.ariaLabelStart = '';
+        this.ariaLabelStart = ''
         /**
          * Aria value text for the slider's start value displayed when
          * range is true.
          */
-        this.ariaValueTextStart = '';
+        this.ariaValueTextStart = ''
         /**
          * Aria label for the slider's end handle displayed when
          * range is true.
          */
-        this.ariaLabelEnd = '';
+        this.ariaLabelEnd = ''
         /**
          * Aria value text for the slider's end value displayed when
          * range is true.
          */
-        this.ariaValueTextEnd = '';
+        this.ariaValueTextEnd = ''
         /**
          * The step between values.
          */
-        this.step = 1;
+        this.step = 1
         /**
          * Whether or not to show tick marks.
          */
-        this.ticks = false;
+        this.ticks = false
         /**
          * Whether or not to show a value label when activated.
          */
-        this.labeled = false;
+        this.labeled = false
         /**
          * Whether or not to show a value range. When false, the slider displays
          * a slideable handle for the value property; when true, it displays
          * slideable handles for the valueStart and valueEnd properties.
          */
-        this.range = false;
+        this.range = false
         // handle hover/pressed states are set manually since the handle
         // does not receive pointer events so that the native inputs are
         // interaction targets.
-        this.handleStartHover = false;
-        this.handleEndHover = false;
-        this.startOnTop = false;
-        this.handlesOverlapping = false;
+        this.handleStartHover = false
+        this.handleEndHover = false
+        this.startOnTop = false
+        this.handlesOverlapping = false
         // used in synthetic events generated to control ripple hover state.
-        this.ripplePointerId = 1;
+        this.ripplePointerId = 1
         // flag to prevent processing of re-dispatched input event.
-        this.isRedispatchingEvent = false;
+        this.isRedispatchingEvent = false
         if (!isServer) {
             this.addEventListener('click', (event) => {
                 if (!isActivationClick(event) || !this.inputEnd) {
-                    return;
+                    return
                 }
-                this.focus();
-                dispatchActivationClick(this.inputEnd);
-            });
+                this.focus()
+                dispatchActivationClick(this.inputEnd)
+            })
         }
     }
     focus() {
-        this.inputEnd?.focus();
+        this.inputEnd?.focus()
     }
     willUpdate(changed) {
         this.renderValueStart = changed.has('valueStart')
             ? this.valueStart
-            : this.inputStart?.valueAsNumber;
-        const endValueChanged = (changed.has('valueEnd') && this.range) || changed.has('value');
+            : this.inputStart?.valueAsNumber
+        const endValueChanged = (changed.has('valueEnd') && this.range) || changed.has('value')
         this.renderValueEnd = endValueChanged
             ? this.range
                 ? this.valueEnd
                 : this.value
-            : this.inputEnd?.valueAsNumber;
+            : this.inputEnd?.valueAsNumber
         // manually handle ripple hover state since the handle is pointer events
         // none.
         if (changed.get('handleStartHover') !== undefined) {
-            this.toggleRippleHover(this.rippleStart, this.handleStartHover);
+            this.toggleRippleHover(this.rippleStart, this.handleStartHover)
         }
         else if (changed.get('handleEndHover') !== undefined) {
-            this.toggleRippleHover(this.rippleEnd, this.handleEndHover);
+            this.toggleRippleHover(this.rippleEnd, this.handleEndHover)
         }
     }
     updated(changed) {
@@ -202,29 +225,29 @@ export class Slider extends sliderBaseClass {
         // interaction. These can get out of sync if a supplied value does not
         // map to an exactly stepped value between min and max.
         if (this.range) {
-            this.renderValueStart = this.inputStart.valueAsNumber;
+            this.renderValueStart = this.inputStart.valueAsNumber
         }
-        this.renderValueEnd = this.inputEnd.valueAsNumber;
+        this.renderValueEnd = this.inputEnd.valueAsNumber
         // update values if they are unset
         // when using a range, default to equi-distant between
         // min - valueStart - valueEnd - max
         if (this.range) {
-            const segment = (this.max - this.min) / 3;
+            const segment = (this.max - this.min) / 3
             if (this.valueStart === undefined) {
-                this.inputStart.valueAsNumber = this.min + segment;
+                this.inputStart.valueAsNumber = this.min + segment
                 // read actual value from input
-                const v = this.inputStart.valueAsNumber;
-                this.valueStart = this.renderValueStart = v;
+                const v = this.inputStart.valueAsNumber
+                this.valueStart = this.renderValueStart = v
             }
             if (this.valueEnd === undefined) {
-                this.inputEnd.valueAsNumber = this.min + 2 * segment;
+                this.inputEnd.valueAsNumber = this.min + 2 * segment
                 // read actual value from input
-                const v = this.inputEnd.valueAsNumber;
-                this.valueEnd = this.renderValueEnd = v;
+                const v = this.inputEnd.valueAsNumber
+                this.valueEnd = this.renderValueEnd = v
             }
         }
         else {
-            this.value ?? (this.value = this.renderValueEnd);
+            this.value ?? (this.value = this.renderValueEnd)
         }
         if (changed.has('range') ||
             changed.has('renderValueStart') ||
@@ -232,33 +255,33 @@ export class Slider extends sliderBaseClass {
             this.isUpdatePending) {
             // Only check if the handle nubs are overlapping, as the ripple touch
             // target extends subtantially beyond the boundary of the handle nub.
-            const startNub = this.handleStart?.querySelector('.handleNub');
-            const endNub = this.handleEnd?.querySelector('.handleNub');
-            this.handlesOverlapping = isOverlapping(startNub, endNub);
+            const startNub = this.handleStart?.querySelector('.handleNub')
+            const endNub = this.handleEnd?.querySelector('.handleNub')
+            this.handlesOverlapping = isOverlapping(startNub, endNub)
         }
         // called to finish the update imediately;
         // note, this is a no-op unless an update is scheduled
-        this.performUpdate();
+        this.performUpdate()
     }
     render() {
-        const step = this.step === 0 ? 1 : this.step;
-        const range = Math.max(this.max - this.min, step);
+        const step = this.step === 0 ? 1 : this.step
+        const range = Math.max(this.max - this.min, step)
         const startFraction = this.range
             ? ((this.renderValueStart ?? this.min) - this.min) / range
-            : 0;
-        const endFraction = ((this.renderValueEnd ?? this.min) - this.min) / range;
+            : 0
+        const endFraction = ((this.renderValueEnd ?? this.min) - this.min) / range
         const containerStyles = {
             // for clipping inputs and active track.
             '--_start-fraction': String(startFraction),
             '--_end-fraction': String(endFraction),
             // for generating tick marks
             '--_tick-count': String(range / step),
-        };
-        const containerClasses = { ranged: this.range };
+        }
+        const containerClasses = { ranged: this.range }
         // optional label values to show in place of the value.
-        const labelStart = this.valueLabelStart || String(this.renderValueStart);
+        const labelStart = this.valueLabelStart || String(this.renderValueStart)
         const labelEnd = (this.range ? this.valueLabelEnd : this.valueLabel) ||
-            String(this.renderValueEnd);
+            String(this.renderValueEnd)
         const inputStartProps = {
             start: true,
             value: this.renderValueStart,
@@ -266,7 +289,7 @@ export class Slider extends sliderBaseClass {
             ariaValueText: this.renderAriaValueTextStart,
             ariaMin: this.min,
             ariaMax: this.valueEnd ?? this.max,
-        };
+        }
         const inputEndProps = {
             start: false,
             value: this.renderValueEnd,
@@ -274,21 +297,21 @@ export class Slider extends sliderBaseClass {
             ariaValueText: this.renderAriaValueTextEnd,
             ariaMin: this.range ? this.valueStart ?? this.min : this.min,
             ariaMax: this.max,
-        };
+        }
         const handleStartProps = {
             start: true,
             hover: this.handleStartHover,
             label: labelStart,
-        };
+        }
         const handleEndProps = {
             start: false,
             hover: this.handleEndHover,
             label: labelEnd,
-        };
+        }
         const handleContainerClasses = {
             hover: this.handleStartHover || this.handleEndHover,
-        };
-        return html ` <div
+        }
+        return html` <div
       class="container ${classMap(containerClasses)}"
       style=${styleMap(containerStyles)}>
       ${when(this.range, () => this.renderInput(inputStartProps))}
@@ -301,24 +324,24 @@ export class Slider extends sliderBaseClass {
           </div>
         </div>
       </div>
-    </div>`;
+    </div>`
     }
     renderTrack() {
-        return html `
+        return html`
       <div class="track"></div>
-      ${this.ticks ? html `<div class="tickmarks"></div>` : nothing}
-    `;
+      ${this.ticks ? html`<div class="tickmarks"></div>` : nothing}
+    `
     }
     renderLabel(value) {
-        return html `<div class="label" aria-hidden="true">
+        return html`<div class="label" aria-hidden="true">
       <span class="labelContent" part="label">${value}</span>
-    </div>`;
+    </div>`
     }
     renderHandle({ start, hover, label, }) {
-        const onTop = !this.disabled && start === this.startOnTop;
-        const isOverlapping = !this.disabled && this.handlesOverlapping;
-        const name = start ? 'start' : 'end';
-        return html `<div
+        const onTop = !this.disabled && start === this.startOnTop
+        const isOverlapping = !this.disabled && this.handlesOverlapping
+        const name = start ? 'start' : 'end'
+        return html`<div
       class="handle ${classMap({
             [name]: true,
             hover,
@@ -334,14 +357,14 @@ export class Slider extends sliderBaseClass {
         <md-elevation part="elevation"></md-elevation>
       </div>
       ${when(this.labeled, () => this.renderLabel(label))}
-    </div>`;
+    </div>`
     }
     renderInput({ start, value, ariaLabel, ariaValueText, ariaMin, ariaMax, }) {
         // Slider requires min/max set to the overall min/max for both inputs.
         // This is reported to screen readers, which is why we need aria-valuemin
         // and aria-valuemax.
-        const name = start ? `start` : `end`;
-        return html `<input
+        const name = start ? `start` : `end`
+        return html`<input
       type="range"
       class="${classMap({
             start,
@@ -367,33 +390,33 @@ export class Slider extends sliderBaseClass {
       .value=${String(value)}
       .tabIndex=${start ? 1 : 0}
       aria-label=${ariaLabel || nothing}
-      aria-valuetext=${ariaValueText} />`;
+      aria-valuetext=${ariaValueText} />`
     }
     async toggleRippleHover(ripple, hovering) {
-        const rippleEl = await ripple;
+        const rippleEl = await ripple
         if (!rippleEl) {
-            return;
+            return
         }
         // TODO(b/269799771): improve slider ripple connection
         if (hovering) {
             rippleEl.handlePointerenter(new PointerEvent('pointerenter', {
                 isPrimary: true,
                 pointerId: this.ripplePointerId,
-            }));
+            }))
         }
         else {
             rippleEl.handlePointerleave(new PointerEvent('pointerleave', {
                 isPrimary: true,
                 pointerId: this.ripplePointerId,
-            }));
+            }))
         }
     }
     handleFocus(event) {
-        this.updateOnTop(event.target);
+        this.updateOnTop(event.target)
     }
     startAction(event) {
-        const target = event.target;
-        const fixed = target === this.inputStart ? this.inputEnd : this.inputStart;
+        const target = event.target
+        const fixed = target === this.inputStart ? this.inputEnd : this.inputStart
         this.action = {
             canFlip: event.type === 'pointerdown',
             flipped: false,
@@ -403,46 +426,46 @@ export class Slider extends sliderBaseClass {
                 [target, target.valueAsNumber],
                 [fixed, fixed?.valueAsNumber],
             ]),
-        };
+        }
     }
     finishAction(event) {
-        this.action = undefined;
+        this.action = undefined
     }
     handleKeydown(event) {
-        this.startAction(event);
+        this.startAction(event)
     }
     handleKeyup(event) {
-        this.finishAction(event);
+        this.finishAction(event)
     }
     handleDown(event) {
-        this.startAction(event);
-        this.ripplePointerId = event.pointerId;
-        const isStart = event.target === this.inputStart;
+        this.startAction(event)
+        this.ripplePointerId = event.pointerId
+        const isStart = event.target === this.inputStart
         // Since handle moves to pointer on down and there may not be a move,
         // it needs to be considered hovered..
         this.handleStartHover =
-            !this.disabled && isStart && Boolean(this.handleStart);
-        this.handleEndHover = !this.disabled && !isStart && Boolean(this.handleEnd);
+            !this.disabled && isStart && Boolean(this.handleStart)
+        this.handleEndHover = !this.disabled && !isStart && Boolean(this.handleEnd)
     }
     async handleUp(event) {
         if (!this.action) {
-            return;
+            return
         }
-        const { target, values, flipped } = this.action;
+        const { target, values, flipped } = this.action
         //  Async here for Firefox because input can be after pointerup
         //  when value is calmped.
-        await new Promise(requestAnimationFrame);
+        await new Promise(requestAnimationFrame)
         if (target !== undefined) {
             // Ensure Safari focuses input so label renders.
             // Ensure any flipped input is focused so the tab order is right.
-            target.focus();
+            target.focus()
             // When action is flipped, change must be fired manually since the
             // real event target did not change.
             if (flipped && target.valueAsNumber !== values.get(target)) {
-                target.dispatchEvent(new Event('change', { bubbles: true }));
+                target.dispatchEvent(new Event('change', { bubbles: true }))
             }
         }
-        this.finishAction(event);
+        this.finishAction(event)
     }
     /**
      * The move handler tracks handle hovering to facilitate proper ripple
@@ -458,260 +481,176 @@ export class Slider extends sliderBaseClass {
      * slider is updated.
      */
     handleMove(event) {
-        this.handleStartHover = !this.disabled && inBounds(event, this.handleStart);
-        this.handleEndHover = !this.disabled && inBounds(event, this.handleEnd);
+        this.handleStartHover = !this.disabled && inBounds(event, this.handleStart)
+        this.handleEndHover = !this.disabled && inBounds(event, this.handleEnd)
     }
     handleEnter(event) {
-        this.handleMove(event);
+        this.handleMove(event)
     }
     handleLeave() {
-        this.handleStartHover = false;
-        this.handleEndHover = false;
+        this.handleStartHover = false
+        this.handleEndHover = false
     }
     updateOnTop(input) {
-        this.startOnTop = input.classList.contains('start');
+        this.startOnTop = input.classList.contains('start')
     }
     needsClamping() {
         if (!this.action) {
-            return false;
+            return false
         }
-        const { target, fixed } = this.action;
-        const isStart = target === this.inputStart;
+        const { target, fixed } = this.action
+        const isStart = target === this.inputStart
         return isStart
             ? target.valueAsNumber > fixed.valueAsNumber
-            : target.valueAsNumber < fixed.valueAsNumber;
+            : target.valueAsNumber < fixed.valueAsNumber
     }
     // if start/end start coincident and the first drag input would e.g. move
     // start > end, avoid clamping and "flip" to use the other input
     // as the action target.
     isActionFlipped() {
-        const { action } = this;
+        const { action } = this
         if (!action) {
-            return false;
+            return false
         }
-        const { target, fixed, values } = action;
+        const { target, fixed, values } = action
         if (action.canFlip) {
-            const coincident = values.get(target) === values.get(fixed);
+            const coincident = values.get(target) === values.get(fixed)
             if (coincident && this.needsClamping()) {
-                action.canFlip = false;
-                action.flipped = true;
-                action.target = fixed;
-                action.fixed = target;
+                action.canFlip = false
+                action.flipped = true
+                action.target = fixed
+                action.fixed = target
             }
         }
-        return action.flipped;
+        return action.flipped
     }
     // when flipped, apply the drag input to the flipped target and reset
     // the actual target.
     flipAction() {
         if (!this.action) {
-            return false;
+            return false
         }
-        const { target, fixed, values } = this.action;
-        const changed = target.valueAsNumber !== fixed.valueAsNumber;
-        target.valueAsNumber = fixed.valueAsNumber;
-        fixed.valueAsNumber = values.get(fixed);
-        return changed;
+        const { target, fixed, values } = this.action
+        const changed = target.valueAsNumber !== fixed.valueAsNumber
+        target.valueAsNumber = fixed.valueAsNumber
+        fixed.valueAsNumber = values.get(fixed)
+        return changed
     }
     // clamp such that start does not move beyond end and visa versa.
     clampAction() {
         if (!this.needsClamping() || !this.action) {
-            return false;
+            return false
         }
-        const { target, fixed } = this.action;
-        target.valueAsNumber = fixed.valueAsNumber;
-        return true;
+        const { target, fixed } = this.action
+        target.valueAsNumber = fixed.valueAsNumber
+        return true
     }
     handleInput(event) {
         // avoid processing a re-dispatched event
         if (this.isRedispatchingEvent) {
-            return;
+            return
         }
-        let stopPropagation = false;
-        let redispatch = false;
+        let stopPropagation = false
+        let redispatch = false
         if (this.range) {
             if (this.isActionFlipped()) {
-                stopPropagation = true;
-                redispatch = this.flipAction();
+                stopPropagation = true
+                redispatch = this.flipAction()
             }
             if (this.clampAction()) {
-                stopPropagation = true;
-                redispatch = false;
+                stopPropagation = true
+                redispatch = false
             }
         }
-        const target = event.target;
-        this.updateOnTop(target);
+        const target = event.target
+        this.updateOnTop(target)
         // update value only on interaction
         if (this.range) {
-            this.valueStart = this.inputStart.valueAsNumber;
-            this.valueEnd = this.inputEnd.valueAsNumber;
+            this.valueStart = this.inputStart.valueAsNumber
+            this.valueEnd = this.inputEnd.valueAsNumber
         }
         else {
-            this.value = this.inputEnd.valueAsNumber;
+            this.value = this.inputEnd.valueAsNumber
         }
         // control external visibility of input event
         if (stopPropagation) {
-            event.stopPropagation();
+            event.stopPropagation()
         }
         // ensure event path is correct when flipped.
         if (redispatch) {
-            this.isRedispatchingEvent = true;
-            redispatchEvent(target, event);
-            this.isRedispatchingEvent = false;
+            this.isRedispatchingEvent = true
+            redispatchEvent(target, event)
+            this.isRedispatchingEvent = false
         }
     }
     handleChange(event) {
         // prevent keyboard triggered changes from dispatching for
         // clamped values; note, this only occurs for keyboard
-        const changeTarget = event.target;
-        const { target, values } = this.action ?? {};
-        const squelch = target && target.valueAsNumber === values.get(changeTarget);
+        const changeTarget = event.target
+        const { target, values } = this.action ?? {}
+        const squelch = target && target.valueAsNumber === values.get(changeTarget)
         if (!squelch) {
-            redispatchEvent(this, event);
+            redispatchEvent(this, event)
         }
         // ensure keyboard triggered change clears action.
-        this.finishAction(event);
+        this.finishAction(event)
     }
     [getFormValue]() {
         if (this.range) {
-            const data = new FormData();
-            data.append(this.nameStart, String(this.valueStart));
-            data.append(this.nameEnd, String(this.valueEnd));
-            return data;
+            const data = new FormData()
+            data.append(this.nameStart, String(this.valueStart))
+            data.append(this.nameEnd, String(this.valueEnd))
+            return data
         }
-        return String(this.value);
+        return String(this.value)
     }
     formResetCallback() {
         if (this.range) {
-            const valueStart = this.getAttribute('value-start');
-            this.valueStart = valueStart !== null ? Number(valueStart) : undefined;
-            const valueEnd = this.getAttribute('value-end');
-            this.valueEnd = valueEnd !== null ? Number(valueEnd) : undefined;
-            return;
+            const valueStart = this.getAttribute('value-start')
+            this.valueStart = valueStart !== null ? Number(valueStart) : undefined
+            const valueEnd = this.getAttribute('value-end')
+            this.valueEnd = valueEnd !== null ? Number(valueEnd) : undefined
+            return
         }
-        const value = this.getAttribute('value');
-        this.value = value !== null ? Number(value) : undefined;
+        const value = this.getAttribute('value')
+        this.value = value !== null ? Number(value) : undefined
     }
     formStateRestoreCallback(state) {
         if (Array.isArray(state)) {
-            const [[, valueStart], [, valueEnd]] = state;
-            this.valueStart = Number(valueStart);
-            this.valueEnd = Number(valueEnd);
-            this.range = true;
-            return;
+            const [[, valueStart], [, valueEnd]] = state
+            this.valueStart = Number(valueStart)
+            this.valueEnd = Number(valueEnd)
+            this.range = true
+            return
         }
-        this.value = Number(state);
-        this.range = false;
+        this.value = Number(state)
+        this.range = false
     }
 }
 (() => {
-    requestUpdateOnAriaChange(Slider);
-})();
+    requestUpdateOnAriaChange(Slider)
+})()
 /** @nocollapse */
 Slider.shadowRootOptions = {
     ...LitElement.shadowRootOptions,
     delegatesFocus: true,
-};
-__decorate([
-    property({ type: Number })
-], Slider.prototype, "min", void 0);
-__decorate([
-    property({ type: Number })
-], Slider.prototype, "max", void 0);
-__decorate([
-    property({ type: Number })
-], Slider.prototype, "value", void 0);
-__decorate([
-    property({ type: Number, attribute: 'value-start' })
-], Slider.prototype, "valueStart", void 0);
-__decorate([
-    property({ type: Number, attribute: 'value-end' })
-], Slider.prototype, "valueEnd", void 0);
-__decorate([
-    property({ attribute: 'value-label' })
-], Slider.prototype, "valueLabel", void 0);
-__decorate([
-    property({ attribute: 'value-label-start' })
-], Slider.prototype, "valueLabelStart", void 0);
-__decorate([
-    property({ attribute: 'value-label-end' })
-], Slider.prototype, "valueLabelEnd", void 0);
-__decorate([
-    property({ attribute: 'aria-label-start' })
-], Slider.prototype, "ariaLabelStart", void 0);
-__decorate([
-    property({ attribute: 'aria-valuetext-start' })
-], Slider.prototype, "ariaValueTextStart", void 0);
-__decorate([
-    property({ attribute: 'aria-label-end' })
-], Slider.prototype, "ariaLabelEnd", void 0);
-__decorate([
-    property({ attribute: 'aria-valuetext-end' })
-], Slider.prototype, "ariaValueTextEnd", void 0);
-__decorate([
-    property({ type: Number })
-], Slider.prototype, "step", void 0);
-__decorate([
-    property({ type: Boolean })
-], Slider.prototype, "ticks", void 0);
-__decorate([
-    property({ type: Boolean })
-], Slider.prototype, "labeled", void 0);
-__decorate([
-    property({ type: Boolean })
-], Slider.prototype, "range", void 0);
-__decorate([
-    query('input.start')
-], Slider.prototype, "inputStart", void 0);
-__decorate([
-    query('.handle.start')
-], Slider.prototype, "handleStart", void 0);
-__decorate([
-    queryAsync('md-ripple.start')
-], Slider.prototype, "rippleStart", void 0);
-__decorate([
-    query('input.end')
-], Slider.prototype, "inputEnd", void 0);
-__decorate([
-    query('.handle.end')
-], Slider.prototype, "handleEnd", void 0);
-__decorate([
-    queryAsync('md-ripple.end')
-], Slider.prototype, "rippleEnd", void 0);
-__decorate([
-    state()
-], Slider.prototype, "handleStartHover", void 0);
-__decorate([
-    state()
-], Slider.prototype, "handleEndHover", void 0);
-__decorate([
-    state()
-], Slider.prototype, "startOnTop", void 0);
-__decorate([
-    state()
-], Slider.prototype, "handlesOverlapping", void 0);
-__decorate([
-    state()
-], Slider.prototype, "renderValueStart", void 0);
-__decorate([
-    state()
-], Slider.prototype, "renderValueEnd", void 0);
+}
 function inBounds({ x, y }, element) {
     if (!element) {
-        return false;
+        return false
     }
-    const { top, left, bottom, right } = element.getBoundingClientRect();
-    return x >= left && x <= right && y >= top && y <= bottom;
+    const { top, left, bottom, right } = element.getBoundingClientRect()
+    return x >= left && x <= right && y >= top && y <= bottom
 }
 function isOverlapping(elA, elB) {
     if (!(elA && elB)) {
-        return false;
+        return false
     }
-    const a = elA.getBoundingClientRect();
-    const b = elB.getBoundingClientRect();
+    const a = elA.getBoundingClientRect()
+    const b = elB.getBoundingClientRect()
     return !(a.top > b.bottom ||
         a.right < b.left ||
         a.bottom < b.top ||
-        a.left > b.right);
+        a.left > b.right)
 }
 //# sourceMappingURL=slider.js.map

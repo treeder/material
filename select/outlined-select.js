@@ -3,11 +3,9 @@
  * Copyright 2023 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import { customElement } from 'lit/decorators.js';
-import { OutlinedSelect } from './internal/outlined-select.js';
-import { styles } from './internal/outlined-select-styles.js';
-import { styles as sharedStyles } from './internal/shared-styles.js';
+import { OutlinedSelect } from './internal/outlined-select.js'
+import { styles } from './internal/outlined-select-styles.js'
+import { styles as sharedStyles } from './internal/shared-styles.js'
 /**
  * @summary
  * Select menus display a list of choices on temporary surfaces and display the
@@ -36,9 +34,7 @@ import { styles as sharedStyles } from './internal/shared-styles.js';
  * @suppress {visibility}
  */
 export let MdOutlinedSelect = class MdOutlinedSelect extends OutlinedSelect {
-};
-MdOutlinedSelect.styles = [sharedStyles, styles];
-MdOutlinedSelect = __decorate([
-    customElement('md-outlined-select')
-], MdOutlinedSelect);
-//# sourceMappingURL=outlined-select.js.map
+}
+MdOutlinedSelect.styles = [sharedStyles, styles]
+
+customElements.define('md-outlined-select', MdOutlinedSelect)
