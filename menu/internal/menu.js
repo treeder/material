@@ -58,18 +58,18 @@ export class Menu extends LitElement {
         anchor: { type: String },
         positioning: { type: String },
         quick: { type: Boolean },
-        hasOverflow: { type: Boolean },
-        open: { type: Boolean },
+        hasOverflow: { type: Boolean, attribute: 'has-overflow' },
+        open: { type: Boolean, reflect: true },
         xOffset: { type: Number },
         yOffset: { type: Number },
-        typeaheadDelay: { type: Number },
-        anchorCorner: { type: String },
-        menuCorner: { type: String },
-        stayOpenOnOutsideClick: { type: Boolean },
-        stayOpenOnFocusout: { type: Boolean },
-        skipRestoreFocus: { type: Boolean },
-        defaultFocus: { type: String },
-        noNavigationWrap: { type: Boolean },
+        typeaheadDelay: { type: Number, attribute: 'typeahead-delay' },
+        anchorCorner: { type: String, attribute: 'anchor-corner' },
+        menuCorner: { type: String, attribute: 'menu-corner' },
+        stayOpenOnOutsideClick: { type: Boolean, attribute: 'stay-open-on-outside-click' },
+        stayOpenOnFocusout: { type: Boolean, attribute: 'stay-open-on-focusout' },
+        skipRestoreFocus: { type: Boolean, attribute: 'skip-restore-focus' },
+        defaultFocus: { type: String, attribute: 'default-focus' },
+        noNavigationWrap: { type: Boolean, attribute: 'no-navigation-wrap' },
 
     }
     /**
@@ -492,6 +492,7 @@ export class Menu extends LitElement {
     }
     update(changed) {
         if (changed.has('open')) {
+            console.log("update open")
             if (this.open) {
                 this.setUpGlobalEventListeners()
             }
@@ -809,6 +810,7 @@ export class Menu extends LitElement {
         })
     }
     show() {
+        console.log("show")
         this.open = true
     }
     /**
@@ -845,4 +847,71 @@ export class Menu extends LitElement {
         let slots = this.renderRoot?.querySelector("slot")
         return slots.assignedElements()
     }
+
+    get surfaceEl() {
+        return this.renderRoot.querySelector('.menu')
+    }
+    get slotEl() {
+        return this.renderRoot.querySelector('slot')
+    }
 }
+
+/*
+__decorate([
+    query('.menu')
+], Menu.prototype, "surfaceEl", void 0);
+__decorate([
+    query('slot')
+], Menu.prototype, "slotEl", void 0);
+__decorate([
+    property()
+], Menu.prototype, "anchor", void 0);
+__decorate([
+    property()
+], Menu.prototype, "positioning", void 0);
+__decorate([
+    property({ type: Boolean })
+], Menu.prototype, "quick", void 0);
+__decorate([
+    property({ type: Boolean, attribute: 'has-overflow' })
+], Menu.prototype, "hasOverflow", void 0);
+__decorate([
+    property({ type: Boolean, reflect: true })
+], Menu.prototype, "open", void 0);
+__decorate([
+    property({ type: Number, attribute: 'x-offset' })
+], Menu.prototype, "xOffset", void 0);
+__decorate([
+    property({ type: Number, attribute: 'y-offset' })
+], Menu.prototype, "yOffset", void 0);
+__decorate([
+    property({ type: Number, attribute: 'typeahead-delay' })
+], Menu.prototype, "typeaheadDelay", void 0);
+__decorate([
+    property({ attribute: 'anchor-corner' })
+], Menu.prototype, "anchorCorner", void 0);
+__decorate([
+    property({ attribute: 'menu-corner' })
+], Menu.prototype, "menuCorner", void 0);
+__decorate([
+    property({ type: Boolean, attribute: 'stay-open-on-outside-click' })
+], Menu.prototype, "stayOpenOnOutsideClick", void 0);
+__decorate([
+    property({ type: Boolean, attribute: 'stay-open-on-focusout' })
+], Menu.prototype, "stayOpenOnFocusout", void 0);
+__decorate([
+    property({ type: Boolean, attribute: 'skip-restore-focus' })
+], Menu.prototype, "skipRestoreFocus", void 0);
+__decorate([
+    property({ attribute: 'default-focus' })
+], Menu.prototype, "defaultFocus", void 0);
+__decorate([
+    property({ type: Boolean, attribute: 'no-navigation-wrap' })
+], Menu.prototype, "noNavigationWrap", void 0);
+__decorate([
+    queryAssignedElements({ flatten: true })
+], Menu.prototype, "slotItems", void 0);
+__decorate([
+    state()
+], Menu.prototype, "typeaheadActive", void 0);
+*/
