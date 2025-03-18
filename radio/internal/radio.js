@@ -7,19 +7,17 @@ var _a
 import '../../focus/md-focus-ring.js'
 import '../../ripple/ripple.js'
 import { html, isServer, LitElement } from 'lit'
-import { property, query } from 'lit/decorators.js'
 import { classMap } from 'lit/directives/class-map.js'
 import { isActivationClick } from '../../internal/events/form-label-activation.js'
 import { createValidator, getValidityAnchor, mixinConstraintValidation, } from '../../labs/behaviors/constraint-validation.js'
 import { internals, mixinElementInternals, } from '../../labs/behaviors/element-internals.js'
-import { mixinFocusable } from '../../labs/behaviors/focusable.js'
 import { getFormState, getFormValue, mixinFormAssociated, } from '../../labs/behaviors/form-associated.js'
 import { RadioValidator } from '../../labs/behaviors/validators/radio-validator.js'
 import { SingleSelectionController } from './single-selection-controller.js'
 const CHECKED = Symbol('checked')
 let maskId = 0
 // Separate variable needed for closure.
-const radioBaseClass = mixinConstraintValidation(mixinFormAssociated(mixinElementInternals(mixinFocusable(LitElement))))
+const radioBaseClass = mixinConstraintValidation(mixinFormAssociated(mixinElementInternals((LitElement))))
 /**
  * A radio component.
  *

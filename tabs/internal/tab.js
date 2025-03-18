@@ -8,10 +8,8 @@ import '../../elevation/elevation.js'
 import '../../focus/md-focus-ring.js'
 import '../../ripple/ripple.js'
 import { html, isServer, LitElement, nothing } from 'lit'
-import { property, query, queryAssignedElements, queryAssignedNodes, state, } from 'lit/decorators.js'
 import { classMap } from 'lit/directives/class-map.js'
 import { EASING } from '../../internal/motion/animation.js'
-import { mixinFocusable } from '../../labs/behaviors/focusable.js'
 /**
  * Symbol for tabs to use to animate their indicators based off another tab's
  * indicator.
@@ -23,7 +21,7 @@ const INDICATOR = Symbol('indicator')
  */
 export const ANIMATE_INDICATOR = Symbol('animateIndicator')
 // Separate variable needed for closure.
-const tabBaseClass = mixinFocusable(LitElement)
+const tabBaseClass = (LitElement)
 /**
  * Tab component.
  */
