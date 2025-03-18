@@ -3,17 +3,17 @@ import '../../search/search.js'
 import { styles as sharedStyles } from './styles.js'
 
 export class TopNav extends LitElement {
-    static styles = [
-        sharedStyles,
-        css``]
+  static styles = [
+    sharedStyles,
+    css``]
 
-    constructor() {
-        super()
-    }
+  constructor() {
+    super()
+  }
 
-    render() {
-        return html`
-        <div class="p4">
+  render() {
+    return html`
+        <div class="p4" style="position: relative;">
           <!-- Material search -->
           <md-search placeholder="Search..." @keydown=${this.handleKeyDown}>
             <md-icon-button slot="leading-icon" @click=${this.toggleDrawer}>
@@ -40,35 +40,38 @@ export class TopNav extends LitElement {
                 <md-icon class="startIcon" slot="start">logout</md-icon>
             </md-menu-item>
           </md-menu>
-          </div>
+        </div>
           `
-    }
+  }
 
-    handleKeyDown(e) {
-        console.log(e)
-        console.log(e.target)
-        console.log(e.target.value)
-        if (e.key === "Enter") {
-            let v = e.target.value
-            console.log("search value: ", v)
-        }
+  handleKeyDown(e) {
+    console.log(e)
+    console.log(e.target)
+    console.log(e.target.value)
+    if (e.key === "Enter") {
+      let v = e.target.value
+      console.log("search value: ", v)
     }
+  }
 
-    toggleDrawer() {
-        this.dispatchEvent(new CustomEvent('drawerButtonClicked', {
-            bubbles: true,
-            composed: true,
-        }))
-    }
+  toggleDrawer() {
+    this.dispatchEvent(new CustomEvent('drawerButtonClicked', {
+      bubbles: true,
+      composed: true,
+    }))
+  }
 
-    toggleMenu() {
-        let m = this.renderRoot.querySelector("#user-menu")
-        m.open = !m.open
-    }
+  toggleMenu() {
+    console.log("togglemenu")
+    let m = this.renderRoot.querySelector("#user-menu")
+    console.log("m:", m)
+    m.open = !m.open
+    console.log(m.open)
+  }
 
-    signOut() {
-        window.location.href = '/signout'
-    }
+  signOut() {
+    window.location.href = '/signout'
+  }
 }
 
 customElements.define('top-nav', TopNav)

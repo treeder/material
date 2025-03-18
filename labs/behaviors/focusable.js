@@ -3,17 +3,16 @@
  * Copyright 2023 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import { property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js'
 /**
  * A property symbol that indicates whether or not a `Focusable` element can be
  * focused.
  */
-export const isFocusable = Symbol('isFocusable');
-const privateIsFocusable = Symbol('privateIsFocusable');
-const externalTabIndex = Symbol('externalTabIndex');
-const isUpdatingTabIndex = Symbol('isUpdatingTabIndex');
-const updateTabIndex = Symbol('updateTabIndex');
+export const isFocusable = Symbol('isFocusable')
+const privateIsFocusable = Symbol('privateIsFocusable')
+const externalTabIndex = Symbol('externalTabIndex')
+const isUpdatingTabIndex = Symbol('isUpdatingTabIndex')
+const updateTabIndex = Symbol('updateTabIndex')
 /**
  * Mixes in focusable functionality for a class.
  *
@@ -31,57 +30,60 @@ const updateTabIndex = Symbol('updateTabIndex');
  * @return The provided class with `Focusable` mixed in.
  */
 export function mixinFocusable(base) {
-    var _a, _b, _c;
+    var _a, _b, _c
     class FocusableElement extends base {
+        static properties = {
+            tabIndex: { type: Number },
+        };
         constructor() {
-            super(...arguments);
-            this[_a] = true;
-            this[_b] = null;
-            this[_c] = false;
+            super(...arguments)
+            this[_a] = true
+            this[_b] = null
+            this[_c] = false
         }
         get [isFocusable]() {
-            return this[privateIsFocusable];
+            return this[privateIsFocusable]
         }
         set [isFocusable](value) {
             if (this[isFocusable] === value) {
-                return;
+                return
             }
-            this[privateIsFocusable] = value;
-            this[updateTabIndex]();
+            this[privateIsFocusable] = value
+            this[updateTabIndex]()
         }
         connectedCallback() {
-            super.connectedCallback();
-            this[updateTabIndex]();
+            super.connectedCallback()
+            this[updateTabIndex]()
         }
         attributeChangedCallback(name, old, value) {
             if (name !== 'tabindex') {
-                super.attributeChangedCallback(name, old, value);
-                return;
+                super.attributeChangedCallback(name, old, value)
+                return
             }
-            this.requestUpdate('tabIndex', Number(old ?? -1));
+            this.requestUpdate('tabIndex', Number(old ?? -1))
             if (this[isUpdatingTabIndex]) {
                 // Not an externally-initiated update.
-                return;
+                return
             }
             if (!this.hasAttribute('tabindex')) {
                 // User removed the attribute, can now use internal tabIndex
-                this[externalTabIndex] = null;
-                this[updateTabIndex]();
-                return;
+                this[externalTabIndex] = null
+                this[updateTabIndex]()
+                return
             }
-            this[externalTabIndex] = this.tabIndex;
+            this[externalTabIndex] = this.tabIndex
         }
         [(_a = privateIsFocusable, _b = externalTabIndex, _c = isUpdatingTabIndex, updateTabIndex)]() {
-            const internalTabIndex = this[isFocusable] ? 0 : -1;
-            const computedTabIndex = this[externalTabIndex] ?? internalTabIndex;
-            this[isUpdatingTabIndex] = true;
-            this.tabIndex = computedTabIndex;
-            this[isUpdatingTabIndex] = false;
+            const internalTabIndex = this[isFocusable] ? 0 : -1
+            const computedTabIndex = this[externalTabIndex] ?? internalTabIndex
+            this[isUpdatingTabIndex] = true
+            this.tabIndex = computedTabIndex
+            this[isUpdatingTabIndex] = false
         }
     }
     __decorate([
         property({ noAccessor: true })
-    ], FocusableElement.prototype, "tabIndex", void 0);
-    return FocusableElement;
+    ], FocusableElement.prototype, "tabIndex", void 0)
+    return FocusableElement
 }
 //# sourceMappingURL=focusable.js.map

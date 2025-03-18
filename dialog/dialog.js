@@ -3,8 +3,6 @@
  * Copyright 2023 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import { customElement } from 'lit/decorators.js';
 import { Dialog } from './internal/dialog.js';
 import { styles } from './internal/dialog-styles.js';
 /**
@@ -37,7 +35,5 @@ import { styles } from './internal/dialog-styles.js';
 export let MdDialog = class MdDialog extends Dialog {
 };
 MdDialog.styles = [styles];
-MdDialog = __decorate([
-    customElement('md-dialog')
-], MdDialog);
-//# sourceMappingURL=dialog.js.map
+
+customElements.define('md-dialog', MdDialog)

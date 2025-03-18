@@ -3,7 +3,6 @@
  * Copyright 2021 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib"
 import '../../elevation/elevation.js'
 import { html, LitElement, nothing } from 'lit'
 import { property } from 'lit/decorators.js'
@@ -16,6 +15,10 @@ import { requestUpdateOnAriaChange } from '../../internal/aria/delegate.js'
  * Dispatched whenever the drawer opens or closes --bubbles --composed
  */
 export class NavigationDrawer extends LitElement {
+    static properties = {
+        opened: { type: Boolean },
+        pivot: { type: String },
+    }
     constructor() {
         super(...arguments)
         this.opened = false
@@ -68,10 +71,3 @@ export class NavigationDrawer extends LitElement {
 (() => {
     requestUpdateOnAriaChange(NavigationDrawer)
 })()
-__decorate([
-    property({ type: Boolean })
-], NavigationDrawer.prototype, "opened", void 0)
-__decorate([
-    property()
-], NavigationDrawer.prototype, "pivot", void 0)
-//# sourceMappingURL=navigation-drawer.js.map

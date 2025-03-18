@@ -3,11 +3,9 @@
  * Copyright 2023 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import { customElement } from 'lit/decorators.js';
-import { styles as forcedColorsStyles } from './internal/forced-colors-styles.js';
-import { Slider } from './internal/slider.js';
-import { styles } from './internal/slider-styles.js';
+import { styles as forcedColorsStyles } from './internal/forced-colors-styles.js'
+import { Slider } from './internal/slider.js'
+import { styles } from './internal/slider-styles.js'
 /**
  * @summary Sliders allow users to view and select a value (or range) along
  * a track.
@@ -26,9 +24,7 @@ import { styles } from './internal/slider-styles.js';
  * @suppress {visibility}
  */
 export let MdSlider = class MdSlider extends Slider {
-};
-MdSlider.styles = [styles, forcedColorsStyles];
-MdSlider = __decorate([
-    customElement('md-slider')
-], MdSlider);
-//# sourceMappingURL=slider.js.map
+}
+MdSlider.styles = [styles, forcedColorsStyles]
+
+customElements.define('md-slider', MdSlider)

@@ -3,10 +3,8 @@
  * Copyright 2023 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import { customElement } from 'lit/decorators.js';
-import { Item } from './internal/item.js';
-import { styles } from './internal/item-styles.js';
+import { Item } from './internal/item.js'
+import { styles } from './internal/item-styles.js'
 /**
  * An item layout component that can be used inside list items to give them
  * their customizable structure.
@@ -67,9 +65,7 @@ import { styles } from './internal/item-styles.js';
  * @suppress {visibility}
  */
 export let MdItem = class MdItem extends Item {
-};
-MdItem.styles = [styles];
-MdItem = __decorate([
-    customElement('md-item')
-], MdItem);
-//# sourceMappingURL=item.js.map
+}
+MdItem.styles = [styles]
+
+customElements.define('md-item', MdItem)

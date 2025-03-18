@@ -3,8 +3,6 @@
  * Copyright 2021 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import { customElement } from 'lit/decorators.js';
 import { OutlinedSegmentedButton } from './internal/outlined-segmented-button.js';
 import { styles as outlinedStyles } from './internal/outlined-styles.js';
 import { styles as sharedStyles } from './internal/shared-styles.js';
@@ -17,7 +15,5 @@ import { styles as sharedStyles } from './internal/shared-styles.js';
 export let MdOutlinedSegmentedButton = class MdOutlinedSegmentedButton extends OutlinedSegmentedButton {
 };
 MdOutlinedSegmentedButton.styles = [sharedStyles, outlinedStyles];
-MdOutlinedSegmentedButton = __decorate([
-    customElement('md-outlined-segmented-button')
-], MdOutlinedSegmentedButton);
-//# sourceMappingURL=outlined-segmented-button.js.map
+
+customElements.define('md-outlined-segmented-button', MdOutlinedSegmentedButton)

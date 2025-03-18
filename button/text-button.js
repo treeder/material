@@ -3,11 +3,9 @@
  * Copyright 2021 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import { customElement } from 'lit/decorators.js';
-import { styles as sharedStyles } from './internal/shared-styles.js';
-import { TextButton } from './internal/text-button.js';
-import { styles as textStyles } from './internal/text-styles.js';
+import { styles as sharedStyles } from './internal/shared-styles.js'
+import { TextButton } from './internal/text-button.js'
+import { styles as textStyles } from './internal/text-styles.js'
 /**
  * @summary Buttons help people take action, such as sending an email, sharing a
  * document, or liking a comment.
@@ -29,9 +27,8 @@ import { styles as textStyles } from './internal/text-styles.js';
  * @suppress {visibility}
  */
 export let MdTextButton = class MdTextButton extends TextButton {
-};
-MdTextButton.styles = [sharedStyles, textStyles];
-MdTextButton = __decorate([
-    customElement('md-text-button')
-], MdTextButton);
+}
+MdTextButton.styles = [sharedStyles, textStyles]
+customElements.define('md-text-button', MdTextButton)
+
 //# sourceMappingURL=text-button.js.map

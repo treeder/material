@@ -3,14 +3,12 @@
  * Copyright 2023 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import '../../divider/divider.js';
-import { html, isServer, LitElement, nothing } from 'lit';
-import { property, query, state } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { requestUpdateOnAriaChange } from '../../internal/aria/delegate.js';
-import { redispatchEvent } from '../../internal/events/redispatch-event.js';
-import { DIALOG_DEFAULT_CLOSE_ANIMATION, DIALOG_DEFAULT_OPEN_ANIMATION, } from './animations.js';
+import '../../divider/divider.js'
+import { html, isServer, LitElement, nothing } from 'lit'
+import { classMap } from 'lit/directives/class-map.js'
+import { requestUpdateOnAriaChange } from '../../internal/aria/delegate.js'
+import { redispatchEvent } from '../../internal/events/redispatch-event.js'
+import { DIALOG_DEFAULT_CLOSE_ANIMATION, DIALOG_DEFAULT_OPEN_ANIMATION, } from './animations.js'
 /**
  * A dialog component.
  *
@@ -22,59 +20,69 @@ import { DIALOG_DEFAULT_CLOSE_ANIMATION, DIALOG_DEFAULT_OPEN_ANIMATION, } from '
  * on the scrim or pressing Escape.
  */
 export class Dialog extends LitElement {
+
+    static properties = {
+
+        open: { type: Boolean, reflect: true },
+        quick: { type: Boolean, reflect: true },
+        returnValue: { type: String },
+        type: { type: String },
+
+    }
+
     /**
      * Opens the dialog when set to `true` and closes it when set to `false`.
      */
     get open() {
-        return this.isOpen;
+        return this.isOpen
     }
     set open(open) {
         if (open === this.isOpen) {
-            return;
+            return
         }
-        this.isOpen = open;
+        this.isOpen = open
         if (open) {
-            this.setAttribute('open', '');
-            this.show();
+            this.setAttribute('open', '')
+            this.show()
         }
         else {
-            this.removeAttribute('open');
-            this.close();
+            this.removeAttribute('open')
+            this.close()
         }
     }
     constructor() {
-        super();
+        super()
         /**
          * Skips the opening and closing animations.
          */
-        this.quick = false;
+        this.quick = false
         /**
          * Gets or sets the dialog's return value, usually to indicate which button
          * a user pressed to close it.
          *
          * https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/returnValue
          */
-        this.returnValue = '';
+        this.returnValue = ''
         /**
          * Gets the opening animation for a dialog. Set to a new function to customize
          * the animation.
          */
-        this.getOpenAnimation = () => DIALOG_DEFAULT_OPEN_ANIMATION;
+        this.getOpenAnimation = () => DIALOG_DEFAULT_OPEN_ANIMATION
         /**
          * Gets the closing animation for a dialog. Set to a new function to customize
          * the animation.
          */
-        this.getCloseAnimation = () => DIALOG_DEFAULT_CLOSE_ANIMATION;
-        this.isOpen = false;
-        this.isOpening = false;
-        this.isConnectedPromise = this.getIsConnectedPromise();
-        this.isAtScrollTop = false;
-        this.isAtScrollBottom = false;
-        this.nextClickIsFromContent = false;
+        this.getCloseAnimation = () => DIALOG_DEFAULT_CLOSE_ANIMATION
+        this.isOpen = false
+        this.isOpening = false
+        this.isConnectedPromise = this.getIsConnectedPromise()
+        this.isAtScrollTop = false
+        this.isAtScrollBottom = false
+        this.nextClickIsFromContent = false
         // Dialogs should not be SSR'd while open, so we can just use runtime checks.
-        this.hasHeadline = false;
-        this.hasActions = false;
-        this.hasIcon = false;
+        this.hasHeadline = false
+        this.hasActions = false
+        this.hasIcon = false
         // See https://bugs.chromium.org/p/chromium/issues/detail?id=1512224
         // Chrome v120 has a bug where escape keys do not trigger cancels. If we get
         // a dialog "close" event that is triggered without a "cancel" after an escape
@@ -88,9 +96,9 @@ export class Dialog extends LitElement {
         // This can be removed when full CloseWatcher support added and the above bug
         // in Chromium is fixed to fire 'cancel' with one escape press and close with
         // multiple.
-        this.escapePressedWithoutCancel = false;
+        this.escapePressedWithoutCancel = false
         if (!isServer) {
-            this.addEventListener('submit', this.handleSubmit);
+            this.addEventListener('submit', this.handleSubmit)
             // We do not use `delegatesFocus: true` due to a Chromium bug with
             // selecting text.
             // See https://bugs.chromium.org/p/chromium/issues/detail?id=950357
@@ -105,11 +113,11 @@ export class Dialog extends LitElement {
             // Listen to focus/blur instead of focusin/focusout since those can bubble
             // from content.
             this.addEventListener('focus', () => {
-                this.dialog?.focus();
-            });
+                this.dialog?.focus()
+            })
             this.addEventListener('blur', () => {
-                this.dialog?.blur();
-            });
+                this.dialog?.blur()
+            })
         }
     }
     /**
@@ -123,36 +131,36 @@ export class Dialog extends LitElement {
      *     `opened` event was fired.
      */
     async show() {
-        this.isOpening = true;
+        this.isOpening = true
         // Dialogs can be opened before being attached to the DOM, so we need to
         // wait until we're connected before calling `showModal()`.
-        await this.isConnectedPromise;
-        await this.updateComplete;
-        const dialog = this.dialog;
+        await this.isConnectedPromise
+        await this.updateComplete
+        const dialog = this.dialog
         // Check if already opened or if `dialog.close()` was called while awaiting.
         if (dialog.open || !this.isOpening) {
-            this.isOpening = false;
-            return;
+            this.isOpening = false
+            return
         }
-        const preventOpen = !this.dispatchEvent(new Event('open', { cancelable: true }));
+        const preventOpen = !this.dispatchEvent(new Event('open', { cancelable: true }))
         if (preventOpen) {
-            this.open = false;
-            return;
+            this.open = false
+            return
         }
         // All Material dialogs are modal.
-        dialog.showModal();
-        this.open = true;
+        dialog.showModal()
+        this.open = true
         // Reset scroll position if re-opening a dialog with the same content.
         if (this.scroller) {
-            this.scroller.scrollTop = 0;
+            this.scroller.scrollTop = 0
         }
         // Native modal dialogs ignore autofocus and instead force focus to the
         // first focusable child. Override this behavior if there is a child with
         // an autofocus attribute.
-        this.querySelector('[autofocus]')?.focus();
-        await this.animateDialog(this.getOpenAnimation());
-        this.dispatchEvent(new Event('opened'));
-        this.isOpening = false;
+        this.querySelector('[autofocus]')?.focus()
+        await this.animateDialog(this.getOpenAnimation())
+        this.dispatchEvent(new Event('opened'))
+        this.isOpening = false
     }
     /**
      * Closes the dialog and fires a cancelable `close` event. After a dialog's
@@ -165,41 +173,41 @@ export class Dialog extends LitElement {
      *     `closed` event was fired.
      */
     async close(returnValue = this.returnValue) {
-        this.isOpening = false;
+        this.isOpening = false
         if (!this.isConnected) {
             // Disconnected dialogs do not fire close events or animate.
-            this.open = false;
-            return;
+            this.open = false
+            return
         }
-        await this.updateComplete;
-        const dialog = this.dialog;
+        await this.updateComplete
+        const dialog = this.dialog
         // Check if already closed or if `dialog.show()` was called while awaiting.
         if (!dialog.open || this.isOpening) {
-            this.open = false;
-            return;
+            this.open = false
+            return
         }
-        const prevReturnValue = this.returnValue;
-        this.returnValue = returnValue;
-        const preventClose = !this.dispatchEvent(new Event('close', { cancelable: true }));
+        const prevReturnValue = this.returnValue
+        this.returnValue = returnValue
+        const preventClose = !this.dispatchEvent(new Event('close', { cancelable: true }))
         if (preventClose) {
-            this.returnValue = prevReturnValue;
-            return;
+            this.returnValue = prevReturnValue
+            return
         }
-        await this.animateDialog(this.getCloseAnimation());
-        dialog.close(returnValue);
-        this.open = false;
-        this.dispatchEvent(new Event('closed'));
+        await this.animateDialog(this.getCloseAnimation())
+        dialog.close(returnValue)
+        this.open = false
+        this.dispatchEvent(new Event('closed'))
     }
     connectedCallback() {
-        super.connectedCallback();
-        this.isConnectedPromiseResolve();
+        super.connectedCallback()
+        this.isConnectedPromiseResolve()
     }
     disconnectedCallback() {
-        super.disconnectedCallback();
-        this.isConnectedPromise = this.getIsConnectedPromise();
+        super.disconnectedCallback()
+        this.isConnectedPromise = this.getIsConnectedPromise()
     }
     render() {
-        const scrollable = this.open && !(this.isAtScrollTop && this.isAtScrollBottom);
+        const scrollable = this.open && !(this.isAtScrollTop && this.isAtScrollBottom)
         const classes = {
             'has-headline': this.hasHeadline,
             'has-actions': this.hasActions,
@@ -207,9 +215,9 @@ export class Dialog extends LitElement {
             'scrollable': scrollable,
             'show-top-divider': scrollable && !this.isAtScrollTop,
             'show-bottom-divider': scrollable && !this.isAtScrollBottom,
-        };
-        const { ariaLabel } = this;
-        return html `
+        }
+        const { ariaLabel } = this
+        return html`
       <div class="scrim"></div>
       <dialog
         class=${classMap(classes)}
@@ -246,95 +254,95 @@ export class Dialog extends LitElement {
           </div>
         </div>
       </dialog>
-    `;
+    `
     }
     firstUpdated() {
         this.intersectionObserver = new IntersectionObserver((entries) => {
             for (const entry of entries) {
-                this.handleAnchorIntersection(entry);
+                this.handleAnchorIntersection(entry)
             }
-        }, { root: this.scroller });
-        this.intersectionObserver.observe(this.topAnchor);
-        this.intersectionObserver.observe(this.bottomAnchor);
+        }, { root: this.scroller })
+        this.intersectionObserver.observe(this.topAnchor)
+        this.intersectionObserver.observe(this.bottomAnchor)
     }
     handleDialogClick() {
         if (this.nextClickIsFromContent) {
             // Avoid doing a layout calculation below if we know the click came from
             // content.
-            this.nextClickIsFromContent = false;
-            return;
+            this.nextClickIsFromContent = false
+            return
         }
         // Click originated on the backdrop. Native `<dialog>`s will not cancel,
         // but Material dialogs do.
-        const preventDefault = !this.dispatchEvent(new Event('cancel', { cancelable: true }));
+        const preventDefault = !this.dispatchEvent(new Event('cancel', { cancelable: true }))
         if (preventDefault) {
-            return;
+            return
         }
-        this.close();
+        this.close()
     }
     handleContentClick() {
-        this.nextClickIsFromContent = true;
+        this.nextClickIsFromContent = true
     }
     handleSubmit(event) {
-        const form = event.target;
-        const { submitter } = event;
+        const form = event.target
+        const { submitter } = event
         if (form.method !== 'dialog' || !submitter) {
-            return;
+            return
         }
         // Close reason is the submitter's value attribute, or the dialog's
         // `returnValue` if there is no attribute.
-        this.close(submitter.getAttribute('value') ?? this.returnValue);
+        this.close(submitter.getAttribute('value') ?? this.returnValue)
     }
     handleCancel(event) {
         if (event.target !== this.dialog) {
             // Ignore any cancel events dispatched by content.
-            return;
+            return
         }
-        this.escapePressedWithoutCancel = false;
-        const preventDefault = !redispatchEvent(this, event);
+        this.escapePressedWithoutCancel = false
+        const preventDefault = !redispatchEvent(this, event)
         // We always prevent default on the original dialog event since we'll
         // animate closing it before it actually closes.
-        event.preventDefault();
+        event.preventDefault()
         if (preventDefault) {
-            return;
+            return
         }
-        this.close();
+        this.close()
     }
     handleClose() {
         if (!this.escapePressedWithoutCancel) {
-            return;
+            return
         }
-        this.escapePressedWithoutCancel = false;
-        this.dialog?.dispatchEvent(new Event('cancel', { cancelable: true }));
+        this.escapePressedWithoutCancel = false
+        this.dialog?.dispatchEvent(new Event('cancel', { cancelable: true }))
     }
     handleKeydown(event) {
         if (event.key !== 'Escape') {
-            return;
+            return
         }
         // An escape key was pressed. If a "close" event fires next without a
         // "cancel" event first, then we know we're in the Chrome v120 bug.
-        this.escapePressedWithoutCancel = true;
+        this.escapePressedWithoutCancel = true
         // Wait a full task for the cancel/close event listeners to fire, then
         // reset the flag.
         setTimeout(() => {
-            this.escapePressedWithoutCancel = false;
-        });
+            this.escapePressedWithoutCancel = false
+        })
     }
     async animateDialog(animation) {
         // Always cancel the previous animations. Animations can include `fill`
         // modes that need to be cleared when `quick` is toggled. If not, content
         // that faded out will remain hidden when a `quick` dialog re-opens after
         // previously opening and closing without `quick`.
-        this.cancelAnimations?.abort();
-        this.cancelAnimations = new AbortController();
+        this.cancelAnimations?.abort()
+        this.cancelAnimations = new AbortController()
         if (this.quick) {
-            return;
+            return
         }
-        const { dialog, scrim, container, headline, content, actions } = this;
+        const { dialog, scrim, container, headline, content, actions } = this
         if (!dialog || !scrim || !container || !headline || !content || !actions) {
-            return;
+            return
         }
-        const { container: containerAnimate, dialog: dialogAnimate, scrim: scrimAnimate, headline: headlineAnimate, content: contentAnimate, actions: actionsAnimate, } = animation;
+        const { container: containerAnimate, dialog: dialogAnimate, scrim: scrimAnimate, headline: headlineAnimate, content: contentAnimate, actions: actionsAnimate, } = animation
         const elementAndAnimation = [
             [dialog, dialogAnimate ?? []],
             [scrim, scrimAnimate ?? []],
@@ -342,103 +350,106 @@ export class Dialog extends LitElement {
             [headline, headlineAnimate ?? []],
             [content, contentAnimate ?? []],
             [actions, actionsAnimate ?? []],
-        ];
-        const animations = [];
+        ]
+        const animations = []
         for (const [element, animation] of elementAndAnimation) {
             for (const animateArgs of animation) {
-                const animation = element.animate(...animateArgs);
+                const animation = element.animate(...animateArgs)
                 this.cancelAnimations.signal.addEventListener('abort', () => {
-                    animation.cancel();
-                });
-                animations.push(animation);
+                    animation.cancel()
+                })
+                animations.push(animation)
             }
         }
         await Promise.all(animations.map((animation) => animation.finished.catch(() => {
             // Ignore intentional AbortErrors when calling `animation.cancel()`.
-        })));
+        })))
     }
     handleHeadlineChange(event) {
-        const slot = event.target;
-        this.hasHeadline = slot.assignedElements().length > 0;
+        const slot = event.target
+        this.hasHeadline = slot.assignedElements().length > 0
     }
     handleActionsChange(event) {
-        const slot = event.target;
-        this.hasActions = slot.assignedElements().length > 0;
+        const slot = event.target
+        this.hasActions = slot.assignedElements().length > 0
     }
     handleIconChange(event) {
-        const slot = event.target;
-        this.hasIcon = slot.assignedElements().length > 0;
+        const slot = event.target
+        this.hasIcon = slot.assignedElements().length > 0
     }
     handleAnchorIntersection(entry) {
-        const { target, isIntersecting } = entry;
+        const { target, isIntersecting } = entry
         if (target === this.topAnchor) {
-            this.isAtScrollTop = isIntersecting;
+            this.isAtScrollTop = isIntersecting
         }
         if (target === this.bottomAnchor) {
-            this.isAtScrollBottom = isIntersecting;
+            this.isAtScrollBottom = isIntersecting
         }
     }
     getIsConnectedPromise() {
         return new Promise((resolve) => {
-            this.isConnectedPromiseResolve = resolve;
-        });
+            this.isConnectedPromiseResolve = resolve
+        })
     }
+    get topAnchor() {
+        return this.renderRoot.querySelector('.top.anchor')
+    }
+    get bottomAnchor() {
+        return this.renderRoot.querySelector('.bottom.anchor')
+    }
+
+    get dialog() {
+        return this.renderRoot.querySelector('dialog')
+    }
+
+    get scrim() {
+        return this.renderRoot.querySelector('.scrim')
+    }
+
 }
 (() => {
-    requestUpdateOnAriaChange(Dialog);
-})();
-__decorate([
-    property({ type: Boolean })
-], Dialog.prototype, "open", null);
-__decorate([
-    property({ type: Boolean })
-], Dialog.prototype, "quick", void 0);
-__decorate([
-    property({ attribute: false })
-], Dialog.prototype, "returnValue", void 0);
-__decorate([
-    property()
-], Dialog.prototype, "type", void 0);
-__decorate([
-    query('dialog')
-], Dialog.prototype, "dialog", void 0);
-__decorate([
-    query('.scrim')
-], Dialog.prototype, "scrim", void 0);
-__decorate([
-    query('.container')
-], Dialog.prototype, "container", void 0);
-__decorate([
-    query('.headline')
-], Dialog.prototype, "headline", void 0);
-__decorate([
-    query('.content')
-], Dialog.prototype, "content", void 0);
-__decorate([
-    query('.actions')
-], Dialog.prototype, "actions", void 0);
-__decorate([
-    state()
-], Dialog.prototype, "isAtScrollTop", void 0);
-__decorate([
-    state()
-], Dialog.prototype, "isAtScrollBottom", void 0);
-__decorate([
-    query('.scroller')
-], Dialog.prototype, "scroller", void 0);
-__decorate([
-    query('.top.anchor')
-], Dialog.prototype, "topAnchor", void 0);
-__decorate([
-    query('.bottom.anchor')
-], Dialog.prototype, "bottomAnchor", void 0);
-__decorate([
-    state()
-], Dialog.prototype, "hasHeadline", void 0);
-__decorate([
-    state()
-], Dialog.prototype, "hasActions", void 0);
-__decorate([
-    state()
-], Dialog.prototype, "hasIcon", void 0);
-//# sourceMappingURL=dialog.js.map
+    requestUpdateOnAriaChange(Dialog)
+})()
+
+// __decorate([
+//     query('dialog')
+// ], Dialog.prototype, "dialog", void 0);
+// __decorate([
+//     query('.scrim')
+// ], Dialog.prototype, "scrim", void 0);
+// __decorate([
+//     query('.container')
+// ], Dialog.prototype, "container", void 0);
+// __decorate([
+//     query('.headline')
+// ], Dialog.prototype, "headline", void 0);
+// __decorate([
+//     query('.content')
+// ], Dialog.prototype, "content", void 0);
+// __decorate([
+//     query('.actions')
+// ], Dialog.prototype, "actions", void 0);
+// __decorate([
+//     state()
+// ], Dialog.prototype, "isAtScrollTop", void 0);
+// __decorate([
+//     state()
+// ], Dialog.prototype, "isAtScrollBottom", void 0);
+// __decorate([
+//     query('.scroller')
+// ], Dialog.prototype, "scroller", void 0);
+// __decorate([
+//     query('.top.anchor')
+// ], Dialog.prototype, "topAnchor", void 0);
+// __decorate([
+//     query('.bottom.anchor')
+// ], Dialog.prototype, "bottomAnchor", void 0);
+// __decorate([
+//     state()
+// ], Dialog.prototype, "hasHeadline", void 0);
+// __decorate([
+//     state()
+// ], Dialog.prototype, "hasActions", void 0);
+// __decorate([
+//     state()
+// ], Dialog.prototype, "hasIcon", void 0);

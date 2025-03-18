@@ -3,12 +3,10 @@
  * Copyright 2021 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import { customElement } from 'lit/decorators.js';
-import { FilledTonalButton } from './internal/filled-tonal-button.js';
-import { styles as tonalStyles } from './internal/filled-tonal-styles.js';
-import { styles as sharedElevationStyles } from './internal/shared-elevation-styles.js';
-import { styles as sharedStyles } from './internal/shared-styles.js';
+import { FilledTonalButton } from './internal/filled-tonal-button.js'
+import { styles as tonalStyles } from './internal/filled-tonal-styles.js'
+import { styles as sharedElevationStyles } from './internal/shared-elevation-styles.js'
+import { styles as sharedStyles } from './internal/shared-styles.js'
 /**
  * @summary Buttons help people take action, such as sending an email, sharing a
  * document, or liking a comment.
@@ -31,13 +29,13 @@ import { styles as sharedStyles } from './internal/shared-styles.js';
  * @suppress {visibility}
  */
 export let MdFilledTonalButton = class MdFilledTonalButton extends FilledTonalButton {
-};
+}
 MdFilledTonalButton.styles = [
     sharedStyles,
     sharedElevationStyles,
     tonalStyles,
-];
-MdFilledTonalButton = __decorate([
-    customElement('md-filled-tonal-button')
-], MdFilledTonalButton);
+]
+
+customElements.define('md-filled-tonal-button', MdFilledTonalButton)
+
 //# sourceMappingURL=filled-tonal-button.js.map

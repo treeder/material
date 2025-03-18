@@ -3,10 +3,9 @@
  * Copyright 2022 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import { customElement } from 'lit/decorators.js';
-import { Ripple } from './internal/ripple.js';
-import { styles } from './internal/ripple-styles.js';
+import { customElement } from 'lit/decorators.js'
+import { Ripple } from './internal/ripple.js'
+import { styles } from './internal/ripple-styles.js'
 /**
  * @summary Ripples, also known as state layers, are visual indicators used to
  * communicate the status of a component or interactive element.
@@ -21,9 +20,7 @@ import { styles } from './internal/ripple-styles.js';
  * @suppress {visibility}
  */
 export let MdRipple = class MdRipple extends Ripple {
-};
-MdRipple.styles = [styles];
-MdRipple = __decorate([
-    customElement('md-ripple')
-], MdRipple);
-//# sourceMappingURL=ripple.js.map
+}
+MdRipple.styles = [styles]
+
+customElements.define('md-ripple', MdRipple)

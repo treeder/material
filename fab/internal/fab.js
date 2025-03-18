@@ -3,11 +3,12 @@
  * Copyright 2023 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import { property } from 'lit/decorators.js';
 import { SharedFab } from './shared.js';
 // tslint:disable-next-line:enforce-comments-on-exported-symbols
 export class Fab extends SharedFab {
+    static properties = {
+        variant: { type: String, reflect: true },
+    };
     constructor() {
         super(...arguments);
         /**
@@ -24,7 +25,3 @@ export class Fab extends SharedFab {
         };
     }
 }
-__decorate([
-    property()
-], Fab.prototype, "variant", void 0);
-//# sourceMappingURL=fab.js.map

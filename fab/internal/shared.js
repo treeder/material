@@ -3,7 +3,6 @@
  * Copyright 2023 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib"
 import '../../elevation/elevation.js'
 import '../../focus/md-focus-ring.js'
 import '../../ripple/ripple.js'
@@ -14,6 +13,12 @@ import { classMap } from 'lit/directives/class-map.js'
 import { requestUpdateOnAriaChange } from '../../internal/aria/delegate.js'
 // tslint:disable-next-line:enforce-comments-on-exported-symbols
 export class SharedFab extends LitElement {
+    static properties = {
+        size: { type: String, reflect: true },
+        label: { type: String },
+        lowered: { type: Boolean },
+        href: { type: String },
+    }
     constructor() {
         super(...arguments)
         /**
@@ -102,16 +107,3 @@ SharedFab.shadowRootOptions = {
     mode: 'open',
     delegatesFocus: true,
 }
-__decorate([
-    property({ reflect: true })
-], SharedFab.prototype, "size", void 0)
-__decorate([
-    property()
-], SharedFab.prototype, "label", void 0)
-__decorate([
-    property({ type: Boolean })
-], SharedFab.prototype, "lowered", void 0)
-__decorate([
-    property({ type: String })
-], SharedFab.prototype, "href", void 0)
-//# sourceMappingURL=shared.js.map

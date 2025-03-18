@@ -3,8 +3,6 @@
  * Copyright 2022 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import { customElement } from 'lit/decorators.js';
 import { MenuItemEl } from './internal/menuitem/menu-item.js';
 import { styles } from './internal/menuitem/menu-item-styles.js';
 /**
@@ -25,7 +23,4 @@ import { styles } from './internal/menuitem/menu-item-styles.js';
 export let MdMenuItem = class MdMenuItem extends MenuItemEl {
 };
 MdMenuItem.styles = [styles];
-MdMenuItem = __decorate([
-    customElement('md-menu-item')
-], MdMenuItem);
-//# sourceMappingURL=menu-item.js.map
+customElements.define('md-menu-item', MdMenuItem);

@@ -3,9 +3,7 @@
  * Copyright 2021 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
 import { html, LitElement, nothing } from 'lit';
-import { property, queryAssignedElements } from 'lit/decorators.js';
 import { requestUpdateOnAriaChange } from '../../internal/aria/delegate.js';
 /**
  * SegmentedButtonSet is the parent component for two or more
@@ -18,6 +16,9 @@ import { requestUpdateOnAriaChange } from '../../internal/aria/delegate.js';
  * interaction. --bubbles --composed
  */
 export class SegmentedButtonSet extends LitElement {
+    static properties = {
+        multiselect: { type: Boolean },
+    };
     constructor() {
         super(...arguments);
         this.multiselect = false;
@@ -104,10 +105,3 @@ export class SegmentedButtonSet extends LitElement {
 (() => {
     requestUpdateOnAriaChange(SegmentedButtonSet);
 })();
-__decorate([
-    property({ type: Boolean })
-], SegmentedButtonSet.prototype, "multiselect", void 0);
-__decorate([
-    queryAssignedElements({ flatten: true })
-], SegmentedButtonSet.prototype, "buttons", void 0);
-//# sourceMappingURL=segmented-button-set.js.map

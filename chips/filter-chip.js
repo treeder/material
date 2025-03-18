@@ -3,8 +3,6 @@
  * Copyright 2023 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import { customElement } from 'lit/decorators.js';
 import { styles as elevatedStyles } from './internal/elevated-styles.js';
 import { FilterChip } from './internal/filter-chip.js';
 import { styles } from './internal/filter-styles.js';
@@ -26,7 +24,5 @@ MdFilterChip.styles = [
     selectableStyles,
     styles,
 ];
-MdFilterChip = __decorate([
-    customElement('md-filter-chip')
-], MdFilterChip);
-//# sourceMappingURL=filter-chip.js.map
+
+customElements.define('md-filter-chip', MdFilterChip)

@@ -3,11 +3,9 @@
  * Copyright 2022 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import { customElement } from 'lit/decorators.js';
-import { styles } from './internal/filled-styles.js';
-import { IconButton } from './internal/icon-button.js';
-import { styles as sharedStyles } from './internal/shared-styles.js';
+import { styles } from './internal/filled-styles.js'
+import { IconButton } from './internal/icon-button.js'
+import { styles as sharedStyles } from './internal/shared-styles.js'
 /**
  * @summary Icon buttons help people take supplementary actions with a single
  * tap.
@@ -32,11 +30,9 @@ export let MdFilledIconButton = class MdFilledIconButton extends IconButton {
             ...super.getRenderClasses(),
             'filled': true,
             'toggle-filled': this.toggle,
-        };
+        }
     }
-};
-MdFilledIconButton.styles = [sharedStyles, styles];
-MdFilledIconButton = __decorate([
-    customElement('md-filled-icon-button')
-], MdFilledIconButton);
-//# sourceMappingURL=filled-icon-button.js.map
+}
+MdFilledIconButton.styles = [sharedStyles, styles]
+
+customElements.define('md-filled-icon-button', MdFilledIconButton)

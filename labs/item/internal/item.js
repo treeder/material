@@ -3,15 +3,17 @@
  * Copyright 2023 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import { html, LitElement } from 'lit';
-import { property, queryAll } from 'lit/decorators.js';
+import { html, LitElement } from 'lit'
+import { property, queryAll } from 'lit/decorators.js'
 /**
  * An item layout component.
  */
 export class Item extends LitElement {
+    static properties = {
+        multiline: { type: Boolean, reflect: true },
+    }
     constructor() {
-        super(...arguments);
+        super(...arguments)
         /**
          * Only needed for SSR.
          *
@@ -19,10 +21,10 @@ export class Item extends LitElement {
          * Content. This attribute is not needed for single line items or items with
          * three or more lines.
          */
-        this.multiline = false;
+        this.multiline = false
     }
     render() {
-        return html `
+        return html`
       <slot name="container"></slot>
       <slot class="non-text" name="start"></slot>
       <div class="text">
@@ -37,42 +39,45 @@ export class Item extends LitElement {
       </div>
       <slot class="non-text" name="trailing-supporting-text"></slot>
       <slot class="non-text" name="end"></slot>
-    `;
+    `
     }
     handleTextSlotChange() {
         // Check if there's more than one text slot with content. If so, the item is
         // multiline, which has a different min-height than single line items.
-        let isMultiline = false;
-        let slotsWithContent = 0;
+        let isMultiline = false
+        let slotsWithContent = 0
         for (const slot of this.textSlots) {
             if (slotHasContent(slot)) {
-                slotsWithContent += 1;
+                slotsWithContent += 1
             }
             if (slotsWithContent > 1) {
-                isMultiline = true;
-                break;
+                isMultiline = true
+                break
             }
         }
-        this.multiline = isMultiline;
+        this.multiline = isMultiline
+    }
+
+    /*
+    // __decorate([
+//     queryAll('.text slot')
+// ], Item.prototype, "textSlots", void 0);
+*/
+    get textSlots() {
+        return this.renderRoot.querySelectorAll('.text slot')
     }
 }
-__decorate([
-    property({ type: Boolean, reflect: true })
-], Item.prototype, "multiline", void 0);
-__decorate([
-    queryAll('.text slot')
-], Item.prototype, "textSlots", void 0);
 function slotHasContent(slot) {
     for (const node of slot.assignedNodes({ flatten: true })) {
         // Assume there's content if there's an element slotted in
-        const isElement = node.nodeType === Node.ELEMENT_NODE;
+        const isElement = node.nodeType === Node.ELEMENT_NODE
         // If there's only text nodes for the default slot, check if there's
         // non-whitespace.
-        const isTextWithContent = node.nodeType === Node.TEXT_NODE && node.textContent?.match(/\S/);
+        const isTextWithContent = node.nodeType === Node.TEXT_NODE && node.textContent?.match(/\S/)
         if (isElement || isTextWithContent) {
-            return true;
+            return true
         }
     }
-    return false;
+    return false
 }
 //# sourceMappingURL=item.js.map

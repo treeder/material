@@ -3,8 +3,6 @@
  * Copyright 2022 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import { customElement } from 'lit/decorators.js';
 import { IconButton } from './internal/icon-button.js';
 import { styles } from './internal/outlined-styles.js';
 import { styles as sharedStyles } from './internal/shared-styles.js';
@@ -35,7 +33,5 @@ export let MdOutlinedIconButton = class MdOutlinedIconButton extends IconButton 
     }
 };
 MdOutlinedIconButton.styles = [sharedStyles, styles];
-MdOutlinedIconButton = __decorate([
-    customElement('md-outlined-icon-button')
-], MdOutlinedIconButton);
-//# sourceMappingURL=outlined-icon-button.js.map
+
+customElements.define('md-outlined-icon-button', MdOutlinedIconButton);

@@ -3,12 +3,10 @@
  * Copyright 2022 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { __decorate } from "tslib";
-import { customElement } from 'lit/decorators.js';
-import { Menu } from './internal/menu.js';
-import { styles } from './internal/menu-styles.js';
-export { FocusState, } from './internal/controllers/shared.js';
-export { Corner } from './internal/menu.js';
+import { Menu } from './internal/menu.js'
+import { styles } from './internal/menu-styles.js'
+export { FocusState, } from './internal/controllers/shared.js'
+export { Corner } from './internal/menu.js'
 /**
  * @summary Menus display a list of choices on a temporary surface.
  *
@@ -59,9 +57,6 @@ export { Corner } from './internal/menu.js';
  * @suppress {visibility}
  */
 export let MdMenu = class MdMenu extends Menu {
-};
-MdMenu.styles = [styles];
-MdMenu = __decorate([
-    customElement('md-menu')
-], MdMenu);
-//# sourceMappingURL=menu.js.map
+}
+MdMenu.styles = [styles]
+customElements.define('md-menu', MdMenu)
