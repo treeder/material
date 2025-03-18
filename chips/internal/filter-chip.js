@@ -20,6 +20,7 @@ export class FilterChip extends MultiActionChip {
         removable: { type: Boolean, reflect: true },
         selected: { type: Boolean, reflect: true },
         hasSelectedIcon: { type: Boolean, reflect: true, attribute: 'has-selected-icon' },
+        value: { type: String },
     }
     constructor() {
         super(...arguments)
@@ -33,6 +34,7 @@ export class FilterChip extends MultiActionChip {
          * a Flash Of Unstyled Content.
          */
         this.hasSelectedIcon = false
+        this.value = ''
     }
     get primaryId() {
         return 'button'
