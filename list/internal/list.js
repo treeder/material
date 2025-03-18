@@ -63,4 +63,9 @@ export class List extends LitElement {
     activatePreviousItem() {
         return this.listController.activatePreviousItem()
     }
+
+    get slotItems() {
+        let slots = this.renderRoot.querySelector("slot")
+        return slots.assignedElements({ flatten: true })
+    }
 }

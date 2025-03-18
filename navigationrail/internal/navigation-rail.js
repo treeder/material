@@ -5,7 +5,6 @@
  */
 import '../../elevation/elevation.js'
 import { html, LitElement, nothing } from 'lit'
-import { property, queryAssignedElements } from 'lit/decorators.js'
 import { requestUpdateOnAriaChange } from '../../internal/aria/delegate.js'
 import { isRtl } from '../../internal/controller/is-rtl.js'
 import { NavigationBar } from '../../navigationbar/internal/navigation-bar.js'
@@ -44,112 +43,8 @@ export class NavigationRail extends NavigationBar {
       </div></div>
       `
     }
-    updated(changedProperties) {
-        if (changedProperties.has('activeIndex')) {
-            this.onActiveIndexChange(this.activeIndex)
-            this.dispatchEvent(new CustomEvent('navigation-bar-activated', {
-                detail: {
-                    tab: this.tabs[this.activeIndex],
-                    activeIndex: this.activeIndex,
-                },
-                bubbles: true,
-                composed: true,
-            }))
-        }
-        if (changedProperties.has('hideInactiveLabels')) {
-            this.onHideInactiveLabelsChange(this.hideInactiveLabels)
-        }
-        if (changedProperties.has('tabs')) {
-            this.onHideInactiveLabelsChange(this.hideInactiveLabels)
-            this.onActiveIndexChange(this.activeIndex)
-        }
-    }
-    firstUpdated(changedProperties) {
-        super.firstUpdated(changedProperties)
-        this.layout()
-    }
-    layout() {
-        if (!this.tabsElement)
-            return
-        const navTabs = []
-        for (const node of this.tabsElement) {
-            navTabs.push(node)
-        }
-        this.tabs = navTabs
-    }
-    handleNavigationTabConnected(event) {
-        const target = event.target
-        if (this.tabs.indexOf(target) === -1) {
-            this.layout()
-        }
-    }
-    handleNavigationTabInteraction(event) {
-        this.activeIndex = this.tabs.indexOf(event.detail.state)
-    }
-    handleKeydown(event) {
-        const key = event.key
-        const focusedTabIndex = this.tabs.findIndex((tab) => {
-            return tab.matches(':focus-within')
-        })
-        const isRTL = isRtl(this)
-        const maxIndex = this.tabs.length - 1
-        if (key === 'Enter' || key === ' ') {
-            this.activeIndex = focusedTabIndex
-            return
-        }
-        if (key === 'Home') {
-            this.tabs[0].focus()
-            return
-        }
-        if (key === 'End') {
-            this.tabs[maxIndex].focus()
-            return
-        }
-        const toNextTab = (key === 'ArrowRight' && !isRTL) || (key === 'ArrowLeft' && isRTL)
-        if (toNextTab && focusedTabIndex === maxIndex) {
-            this.tabs[0].focus()
-            return
-        }
-        if (toNextTab) {
-            this.tabs[focusedTabIndex + 1].focus()
-            return
-        }
-        const toPreviousTab = (key === 'ArrowLeft' && !isRTL) || (key === 'ArrowRight' && isRTL)
-        if (toPreviousTab && focusedTabIndex === 0) {
-            this.tabs[maxIndex].focus()
-            return
-        }
-        if (toPreviousTab) {
-            this.tabs[focusedTabIndex - 1].focus()
-            return
-        }
-    }
-    onActiveIndexChange(value) {
-        console.log(this.tabs)
-        console.log(value)
-        if (!this.tabs[value]) {
-            throw new Error('NavigationRail: activeIndex is out of bounds.')
-        }
-        for (let i = 0; i < this.tabs.length; i++) {
-            this.tabs[i].active = i === value
-        }
-    }
-    onHideInactiveLabelsChange(value) {
-        for (const tab of this.tabs) {
-            tab.hideInactiveLabel = value
-        }
-    }
 
-    get tabsElement() {
-        // let els = this.renderRoot?.querySelector('slot')
-        // let els = this.renderRoot?.querySelector('slot')?.assignedElements({ flatten: true })
-        // return els.filter((e) => e.tagName === 'md-navigation-tab')
-        // return els.assignedElements({ flatten: true })
-        let els = this.renderRoot?.querySelector('slot')
-        // let els = this.renderRoot?.querySelector('slot')?.assignedElements({ flatten: true })
-        // return els.filter((e) => e.tagName === 'MD-NAVIGATION-TAB')
-        return els.assignedElements({ flatten: true })
-    }
+
 }
 (() => {
     requestUpdateOnAriaChange(NavigationBar)

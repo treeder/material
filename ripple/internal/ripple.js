@@ -91,6 +91,11 @@ const FORCED_COLORS = isServer
 export class Ripple extends LitElement {
     static properties = {
         disabled: { type: Boolean, reflect: true },
+        hovered: { type: Boolean, reflect: true },
+        pressed: { type: Boolean, reflect: true },
+        rippleSize: { type: String, reflect: true },
+        rippleScale: { type: String, reflect: true },
+
     };
     constructor() {
         super(...arguments)

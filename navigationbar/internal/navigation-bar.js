@@ -67,6 +67,7 @@ export class NavigationBar extends LitElement {
             return
         const navTabs = []
         for (const node of this.tabsElement) {
+            console.log("tabelement:", node)
             navTabs.push(node)
         }
         this.tabs = navTabs
@@ -119,6 +120,7 @@ export class NavigationBar extends LitElement {
         }
     }
     onActiveIndexChange(value) {
+
         if (!this.tabs[value]) {
             throw new Error('NavigationBar: activeIndex is out of bounds.')
         }
@@ -132,7 +134,10 @@ export class NavigationBar extends LitElement {
         }
     }
     get tabsElement() {
-        let els = this.renderRoot?.querySelector('slot')
+        let slot = ''
+        const slotSelector = `slot${slot ? `[name=${slot}]` : ':not([name])'}`
+        let els = this.renderRoot?.querySelector(slotSelector)
+        // console.log("ELS:", els)
         // let els = this.renderRoot?.querySelector('slot')?.assignedElements({ flatten: true })
         // return els.filter((e) => e.tagName === 'MD-NAVIGATION-TAB')
         return els.assignedElements({ flatten: true })

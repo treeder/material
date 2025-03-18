@@ -398,6 +398,14 @@ export class Dialog extends LitElement {
         return this.renderRoot.querySelector('.bottom.anchor')
     }
 
+    get dialog() {
+        return this.renderRoot.querySelector('dialog')
+    }
+
+    get scrim() {
+        return this.renderRoot.querySelector('.scrim')
+    }
+
 }
 (() => {
     requestUpdateOnAriaChange(Dialog)

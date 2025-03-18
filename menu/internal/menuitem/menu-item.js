@@ -26,10 +26,7 @@ export class MenuItemEl extends LitElement {
         selected: { type: Boolean },
         menuItemController: { type: MenuItemController },
         typeaheadText: { type: String, attribute: 'typeahead-text' },
-        listItemRoot: { type: HTMLElement, query: '.list-item' },
-        headlineElements: { type: Array, query: 'slot[name="headline"]' },
-        supportingTextElements: { type: Array, query: 'slot[name="supporting-text"]' },
-        defaultElements: { type: Array, query: 'slot' },
+
 
     }
     constructor() {
@@ -82,6 +79,24 @@ export class MenuItemEl extends LitElement {
     set typeaheadText(text) {
         this.menuItemController.setTypeaheadText(text)
     }
+
+    // listItemRoot: { type: HTMLElement, query: '.list-item' },
+    // headlineElements: { type: Array, query: 'slot[name="headline"]' },
+    // supportingTextElements: { type: Array, query: 'slot[name="supporting-text"]' },
+    // defaultElements: { type: Array, query: 'slot' },
+    get listItemRoot() {
+        return this.renderRoot.querySelector('.list-item')
+    }
+    get headlineElements() {
+        return this.renderRoot.querySelectorAll('slot[name="headline"]')
+    }
+    get supportingTextElements() {
+        return this.renderRoot.querySelectorAll('slot[name="supporting-text"]')
+    }
+    get defaultElements() {
+        return this.renderRoot.querySelector('slot').assignedElements({ flatten: true })
+    }
+
     render() {
         return this.renderListItem(html`
       <md-item>

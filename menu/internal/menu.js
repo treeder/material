@@ -840,4 +840,9 @@ export class Menu extends LitElement {
             this.menuPositionController.position()
         }
     }
+
+    get slotItems() {
+        let slots = this.renderRoot?.querySelector("slot")
+        return slots.assignedElements()
+    }
 }
