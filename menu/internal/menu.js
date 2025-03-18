@@ -845,7 +845,7 @@ export class Menu extends LitElement {
 
     get slotItems() {
         let slots = this.renderRoot?.querySelector("slot")
-        return slots.assignedElements()
+        return slots.assignedElements({ flatten: true })
     }
 
     get surfaceEl() {

@@ -6,7 +6,6 @@
 var _a
 import '../../menu/menu.js'
 import { html, isServer, LitElement, nothing } from 'lit'
-import { property, query, queryAssignedElements, state } from 'lit/decorators.js'
 import { classMap } from 'lit/directives/class-map.js'
 import { styleMap } from 'lit/directives/style-map.js'
 import { html as staticHtml } from 'lit/static-html.js'
@@ -22,6 +21,8 @@ import { FocusState, isElementInSubtree, isSelectableKey, } from '../../menu/int
 import { TYPEAHEAD_RECORD } from '../../menu/internal/controllers/typeaheadController.js'
 import { DEFAULT_TYPEAHEAD_BUFFER_TIME } from '../../menu/internal/menu.js'
 import { getSelectedItems } from './shared.js'
+import { queryAssignedElements, queryAssignedNodes } from '../../../utils/query.js'
+
 const VALUE = Symbol('value')
 // Separate variable needed for closure.
 const selectBaseClass = mixinOnReportValidity(mixinConstraintValidation(mixinFormAssociated(mixinElementInternals(LitElement))))
@@ -40,6 +41,27 @@ const selectBaseClass = mixinOnReportValidity(mixinConstraintValidation(mixinFor
  * and closed.
  */
 export class Select extends selectBaseClass {
+
+    /*
+    __decorate([
+    property({ type: Boolean, reflect: true })
+], SelectOptionEl.prototype, "disabled", void 0);
+__decorate([
+    property({ type: Boolean, attribute: 'md-menu-item', reflect: true })
+], SelectOptionEl.prototype, "isMenuItem", void 0);
+__decorate([
+    property({ type: Boolean })
+], SelectOptionEl.prototype, "selected", void 0);
+__decorate([
+    property()
+], SelectOptionEl.prototype, "value", void 0);
+__decorate([
+    property({ attribute: 'typeahead-text' })
+], SelectOptionEl.prototype, "typeaheadText", null);
+__decorate([
+    property({ attribute: 'display-text' })
+], SelectOptionEl.prototype, "displayText", null);
+*/
     static properties = {
         quick: { type: Boolean },
         required: { type: Boolean },
@@ -55,6 +77,39 @@ export class Select extends selectBaseClass {
         menuAlign: { type: String, attribute: 'menu-align' },
         value: { type: String },
         selectedIndex: { type: Number, attribute: 'selected-index' },
+        disabled: { type: Boolean, reflect: true },
+        isMenuItem: { type: Boolean, attribute: 'md-menu-item', reflect: true },
+        selected: { type: Boolean, reflect: true },
+        value: { type: String },
+        typeaheadText: { type: String, attribute: 'typeahead-text' },
+        nativeError: { type: Object },
+        nativeErrorText: { type: String },
+        focused: { type: Boolean, reflect: true },
+        open: { type: Boolean, reflect: true },
+        defaultFocus: { type: Number, attribute: 'default-focus' },
+        selectWidth: { type: Number, attribute: 'select-width' },
+        lastUserSetValue: { type: String, attribute: 'last-user-set-value' },
+        lastUserSetSelectedIndex: { type: Number, attribute: 'last-user-set-selected-index' },
+        lastSelectedOption: { type: Object, attribute: 'last-selected-option' },
+        lastSelectedOptionRecords: { type: Array, attribute: 'last-selected-option-records' },
+
+        /*
+        __decorate([
+    state()
+], Select.prototype, "nativeError", void 0);
+__decorate([
+    state()
+], Select.prototype, "nativeErrorText", void 0);
+__decorate([
+    state()
+], Select.prototype, "focused", void 0);
+__decorate([
+    state()
+], Select.prototype, "open", void 0);
+__decorate([
+    state()
+], Select.prototype, "defaultFocus", void 0);
+*/
     }
 
     /**
@@ -126,6 +181,7 @@ export class Select extends selectBaseClass {
          * The floating label for the field.
          */
         this.label = ''
+        this.value = ''
         /**
          * Conveys additional information below the select, such as how it should
          * be used.
@@ -364,6 +420,7 @@ export class Select extends selectBaseClass {
     renderLabel() {
         // need to render &nbsp; so that line-height can apply and give it a
         // non-zero height
+        console.log("renderLabel:", this.displayText)
         return html`<div id="label">${this.displayText || html`&nbsp;`}</div>`
     }
     renderMenu() {
@@ -494,7 +551,9 @@ export class Select extends selectBaseClass {
             return null
         }
         const items = this.menu.items
+        console.log("items:", items)
         this.lastSelectedOptionRecords = getSelectedItems(items)
+        console.log("selected items:", this.lastSelectedOptionRecords)
         return this.lastSelectedOptionRecords
     }
     async getUpdateComplete() {
@@ -515,6 +574,7 @@ export class Select extends selectBaseClass {
         let hasSelectedOptionChanged = false
         if (selectedOptions.length) {
             const [firstSelectedOption] = selectedOptions[0]
+            console.log("selectedOptions yo", firstSelectedOption.displayText)
             hasSelectedOptionChanged =
                 this.lastSelectedOption !== firstSelectedOption
             this.lastSelectedOption = firstSelectedOption
@@ -595,6 +655,7 @@ export class Select extends selectBaseClass {
      * @return Whether the last selected option has changed.
      */
     selectItem(item) {
+        console.log("selectItem", item)
         const selectedOptions = this.getSelectedOptions() ?? []
         selectedOptions.forEach(([option]) => {
             if (item !== option) {
@@ -679,6 +740,43 @@ export class Select extends selectBaseClass {
     [getValidityAnchor]() {
         return this.field
     }
+
+    get listItemRoot() {
+        return this.renderRoot?.querySelector('.list-item')
+    }
+    get headlineElements() {
+        // return this.renderRoot?.querySelectorAll('slot[name="headline"]')
+        return queryAssignedElements(this, { slot: 'headline' })
+    }
+    get supportingTextElements() {
+        // return this.renderRoot?.querySelectorAll('slot[name="supporting-text"]')
+        return queryAssignedElements(this, { slot: 'supporting-text' })
+    }
+    get defaultElements() {
+        // return this.renderRoot?.querySelector('slot').assignedElements({ flatten: true })
+        return queryAssignedElements(this, { flatten: true })
+
+    }
+
+    get field() {
+        return this.renderRoot?.querySelector('.field')
+    }
+    get menu() {
+        return this.renderRoot?.querySelector('md-menu')
+    }
+    get labelEl() {
+        return this.renderRoot?.querySelector('#label')
+    }
+    get leadingIcons() {
+        // return this.renderRoot?.querySelector('slot[name="leading-icon"]').assignedElements({ flatten: true })
+        return queryAssignedElements(this, { slot: 'leading-icon', flatten: true })
+    }
+    get trailingIcons() {
+        return queryAssignedElements(this, { slot: 'trailing-icon', flatten: true })
+
+    }
+
+
 }
 (() => {
     requestUpdateOnAriaChange(Select)
@@ -688,3 +786,75 @@ Select.shadowRootOptions = {
     ...LitElement.shadowRootOptions,
     delegatesFocus: true,
 }
+
+/*
+_decorate([
+    property({ type: Boolean })
+], Select.prototype, "quick", void 0);
+__decorate([
+    property({ type: Boolean })
+], Select.prototype, "required", void 0);
+__decorate([
+    property({ type: String, attribute: 'error-text' })
+], Select.prototype, "errorText", void 0);
+__decorate([
+    property()
+], Select.prototype, "label", void 0);
+__decorate([
+    property({ type: String, attribute: 'supporting-text' })
+], Select.prototype, "supportingText", void 0);
+__decorate([
+    property({ type: Boolean, reflect: true })
+], Select.prototype, "error", void 0);
+__decorate([
+    property({ attribute: 'menu-positioning' })
+], Select.prototype, "menuPositioning", void 0);
+__decorate([
+    property({ type: Boolean, attribute: 'clamp-menu-width' })
+], Select.prototype, "clampMenuWidth", void 0);
+__decorate([
+    property({ type: Number, attribute: 'typeahead-delay' })
+], Select.prototype, "typeaheadDelay", void 0);
+__decorate([
+    property({ type: Boolean, attribute: 'has-leading-icon' })
+], Select.prototype, "hasLeadingIcon", void 0);
+__decorate([
+    property({ attribute: 'display-text' })
+], Select.prototype, "displayText", void 0);
+__decorate([
+    property({ attribute: 'menu-align' })
+], Select.prototype, "menuAlign", void 0);
+__decorate([
+    property()
+], Select.prototype, "value", null);
+__decorate([
+    property({ type: Number, attribute: 'selected-index' })
+], Select.prototype, "selectedIndex", null);
+__decorate([
+    state()
+], Select.prototype, "nativeError", void 0);
+__decorate([
+    state()
+], Select.prototype, "nativeErrorText", void 0);
+__decorate([
+    state()
+], Select.prototype, "focused", void 0);
+__decorate([
+    state()
+], Select.prototype, "open", void 0);
+__decorate([
+    state()
+], Select.prototype, "defaultFocus", void 0);
+__decorate([
+    query('.field')
+], Select.prototype, "field", void 0);
+__decorate([
+    query('md-menu')
+], Select.prototype, "menu", void 0);
+__decorate([
+    query('#label')
+], Select.prototype, "labelEl", void 0);
+__decorate([
+    queryAssignedElements({ slot: 'leading-icon', flatten: true })
+], Select.prototype, "leadingIcons", void 0);
+*/

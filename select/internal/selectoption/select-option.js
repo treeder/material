@@ -7,10 +7,10 @@ import '../../../focus/md-focus-ring.js'
 import '../../../labs/item/item.js'
 import '../../../ripple/ripple.js'
 import { html, LitElement, nothing } from 'lit'
-import { property, query, queryAssignedElements, queryAssignedNodes, } from 'lit/decorators.js'
 import { classMap } from 'lit/directives/class-map.js'
 import { requestUpdateOnAriaChange } from '../../../internal/aria/delegate.js'
 import { SelectOptionController } from './selectOptionController.js'
+import { queryAssignedElements, queryAssignedNodes } from '../../../utils/query.js'
 /**
  * @fires close-menu {CustomEvent<{initiator: SelectOption, reason: Reason, itemPath: SelectOption[]}>}
  * Closes the encapsulating menu on closable interaction. --bubbles --composed
@@ -26,9 +26,10 @@ export class SelectOptionEl extends LitElement {
         isMenuItem: { type: Boolean, attribute: 'md-menu-item', reflect: true },
         selected: { type: Boolean },
         value: { type: String },
-        typeaheadText: { type: String, attribute: 'typeahead-text' },
-        displayText: { type: String, attribute: 'display-text' },
-    };
+        typeaheadText: { attribute: 'typeahead-text' },
+        displayText: { attribute: 'display-text' },
+    }
+
     constructor() {
         super(...arguments)
         /**
@@ -48,6 +49,8 @@ export class SelectOptionEl extends LitElement {
          */
         this.value = ''
         this.type = 'option'
+        // this.typeaheadText = ''
+        // this.displayText = ''
         this.selectOptionController = new SelectOptionController(this, {
             getHeadlineElements: () => {
                 return this.headlineElements
@@ -70,6 +73,7 @@ export class SelectOptionEl extends LitElement {
     }
     set typeaheadText(text) {
         this.selectOptionController.setTypeaheadText(text)
+        // this.requestUpdate()
     }
     /**
      * The text that is displayed in the select field when selected. If not set,
@@ -79,7 +83,9 @@ export class SelectOptionEl extends LitElement {
         return this.selectOptionController.displayText
     }
     set displayText(text) {
+        console.log("SelectOptionEl set displayText", text)
         this.selectOptionController.setDisplayText(text)
+        // this.requestUpdate()
     }
     render() {
         return this.renderListItem(html`
@@ -162,6 +168,21 @@ export class SelectOptionEl extends LitElement {
         // work programmatically like in FF and select-option
         this.listItemRoot?.focus()
     }
+
+    get listItemRoot() {
+        return this.renderRoot.querySelector('.list-item')
+    }
+    get headlineElements() {
+        console.log("headline elements:", this.renderRoot.querySelectorAll('slot[name="headline"]'))
+        return queryAssignedElements(this, { slot: 'headline' })
+    }
+    get supportingTextElements() {
+        return queryAssignedElements(this, { slot: 'supporting-text' })
+    }
+    get defaultElements() {
+        return queryAssignedNodes(this, { slot: '' })
+    }
+
 }
 (() => {
     requestUpdateOnAriaChange(SelectOptionEl)
@@ -171,3 +192,24 @@ SelectOptionEl.shadowRootOptions = {
     ...LitElement.shadowRootOptions,
     delegatesFocus: true,
 }
+
+/*
+__decorate([
+    query('.list-item')
+], SelectOptionEl.prototype, "listItemRoot", void 0);
+__decorate([
+    queryAssignedElements({ slot: 'headline' })
+], SelectOptionEl.prototype, "headlineElements", void 0);
+__decorate([
+    queryAssignedElements({ slot: 'supporting-text' })
+], SelectOptionEl.prototype, "supportingTextElements", void 0);
+__decorate([
+    queryAssignedNodes({ slot: '' })
+], SelectOptionEl.prototype, "defaultElements", void 0);
+__decorate([
+    property({ attribute: 'typeahead-text' })
+], SelectOptionEl.prototype, "typeaheadText", null);
+__decorate([
+    property({ attribute: 'display-text' })
+], SelectOptionEl.prototype, "displayText", null);
+*/

@@ -3,7 +3,7 @@
  * Copyright 2023 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { MenuItemController, } from '../../../menu/internal/controllers/menuItemController.js';
+import { MenuItemController, } from '../../../menu/internal/controllers/menuItemController.js'
 /**
  * Creates an event fired by a SelectOption to request selection from md-select.
  * Typically fired after `selected` changes from `false` to `true`.
@@ -12,7 +12,7 @@ export function createRequestSelectionEvent() {
     return new Event('request-selection', {
         bubbles: true,
         composed: true,
-    });
+    })
 }
 /**
  * Creates an event fired by a SelectOption to request deselection from
@@ -22,7 +22,7 @@ export function createRequestDeselectionEvent() {
     return new Event('request-deselection', {
         bubbles: true,
         composed: true,
-    });
+    })
 }
 /**
  * A controller that provides most functionality and md-select compatibility for
@@ -33,7 +33,7 @@ export class SelectOptionController {
      * The recommended role of the select option.
      */
     get role() {
-        return this.menuItemController.role;
+        return this.menuItemController.role
     }
     /**
      * The text that is selectable via typeahead. If not set, defaults to the
@@ -42,10 +42,10 @@ export class SelectOptionController {
      * then the `"supporting-text"` slot if nothing is in _default_.
      */
     get typeaheadText() {
-        return this.menuItemController.typeaheadText;
+        return this.menuItemController.typeaheadText
     }
     setTypeaheadText(text) {
-        this.menuItemController.setTypeaheadText(text);
+        this.menuItemController.setTypeaheadText(text)
     }
     /**
      * The text that is displayed in the select field when selected. If not set,
@@ -55,43 +55,45 @@ export class SelectOptionController {
      * _default_.
      */
     get displayText() {
+        console.log("SelectOptionController.displayText", this.internalDisplayText)
         if (this.internalDisplayText !== null) {
-            return this.internalDisplayText;
+            return this.internalDisplayText
         }
-        return this.menuItemController.typeaheadText;
+        return this.menuItemController.typeaheadText
     }
     setDisplayText(text) {
-        this.internalDisplayText = text;
+        console.log("SelectOptionController.setDisplayText", text)
+        this.internalDisplayText = text
     }
     /**
      * @param host The SelectOption in which to attach this controller to.
      * @param config The object that configures this controller's behavior.
      */
     constructor(host, config) {
-        this.host = host;
-        this.internalDisplayText = null;
-        this.lastSelected = this.host.selected;
-        this.firstUpdate = true;
+        this.host = host
+        this.internalDisplayText = null
+        this.lastSelected = this.host.selected
+        this.firstUpdate = true
         /**
          * Bind this click listener to the interactive element. Handles closing the
          * menu.
          */
         this.onClick = () => {
-            this.menuItemController.onClick();
-        };
+            this.menuItemController.onClick()
+        }
         /**
          * Bind this click listener to the interactive element. Handles closing the
          * menu.
          */
         this.onKeydown = (e) => {
-            this.menuItemController.onKeydown(e);
-        };
-        this.menuItemController = new MenuItemController(host, config);
-        host.addController(this);
+            this.menuItemController.onKeydown(e)
+        }
+        this.menuItemController = new MenuItemController(host, config)
+        host.addController(this)
     }
     hostUpdate() {
         if (this.lastSelected !== this.host.selected) {
-            this.host.ariaSelected = this.host.selected ? 'true' : 'false';
+            this.host.ariaSelected = this.host.selected ? 'true' : 'false'
         }
     }
     hostUpdated() {
@@ -102,14 +104,13 @@ export class SelectOptionController {
             // handled by md-select because it needs to coordinate the
             // single-selection behavior.
             if (this.host.selected) {
-                this.host.dispatchEvent(createRequestSelectionEvent());
+                this.host.dispatchEvent(createRequestSelectionEvent())
             }
             else {
-                this.host.dispatchEvent(createRequestDeselectionEvent());
+                this.host.dispatchEvent(createRequestDeselectionEvent())
             }
         }
-        this.lastSelected = this.host.selected;
-        this.firstUpdate = false;
+        this.lastSelected = this.host.selected
+        this.firstUpdate = false
     }
 }
-//# sourceMappingURL=selectOptionController.js.map

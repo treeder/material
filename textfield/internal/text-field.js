@@ -59,6 +59,10 @@ export class TextField extends textFieldBaseClass {
         step: { type: String },
         type: { type: String, reflect: true },
         autocomplete: { type: String, reflect: true },
+        focused: { type: Boolean, reflect: true },
+        nativeError: { type: Boolean, attribute: 'native-error' },
+        nativeErrorText: { type: String, attribute: 'native-error-text' },
+        dirty: { type: Boolean },
     }
     constructor() {
         super(...arguments)

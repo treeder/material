@@ -7,11 +7,12 @@ import '../../../focus/md-focus-ring.js'
 import '../../../labs/item/item.js'
 import '../../../ripple/ripple.js'
 import { html, LitElement, nothing } from 'lit'
-import { property, query, queryAssignedElements, queryAssignedNodes, } from 'lit/decorators.js'
 import { classMap } from 'lit/directives/class-map.js'
 import { literal, html as staticHtml } from 'lit/static-html.js'
 import { requestUpdateOnAriaChange } from '../../../internal/aria/delegate.js'
 import { MenuItemController, } from '../controllers/menuItemController.js'
+import { queryAssignedElements, queryAssignedNodes } from '../../../utils/query.js'
+
 /**
  * @fires close-menu {CustomEvent<{initiator: SelectOption, reason: Reason, itemPath: SelectOption[]}>}
  * Closes the encapsulating menu on closable interaction. --bubbles --composed
@@ -88,13 +89,15 @@ export class MenuItemEl extends LitElement {
         return this.renderRoot.querySelector('.list-item')
     }
     get headlineElements() {
-        return this.renderRoot.querySelectorAll('slot[name="headline"]')
+        // return this.renderRoot.querySelectorAll('slot[name="headline"]')
+        return queryAssignedElements(this, { slot: 'headline' })
     }
     get supportingTextElements() {
-        return this.renderRoot.querySelectorAll('slot[name="supporting-text"]')
+        // return this.renderRoot.querySelectorAll('slot[name="supporting-text"]')
+        return queryAssignedElements(this, { slot: 'supporting-text' })
     }
     get defaultElements() {
-        return this.renderRoot.querySelector('slot').assignedElements({ flatten: true })
+        return queryAssignedNodes(this, { slot: '' })
     }
 
     render() {

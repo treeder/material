@@ -22,7 +22,7 @@ export const NavigableKeys = {
  */
 export class ListController {
     constructor(config) {
-        console.log("ListController.constructor:", config)
+        // console.log("ListController.constructor:", config)
         /**
          * Handles keyboard navigation. Should be bound to the node that will act as
          * the List.
@@ -140,7 +140,7 @@ export class ListController {
     get items() {
         const maybeItems = this.getPossibleItems()
         const items = []
-        console.log("maybeItems:", maybeItems)
+        // console.log("maybeItems:", maybeItems)
         for (const itemOrParent of maybeItems) {
             const isItem = this.isItem(itemOrParent)
             // if the item is a list item, add it to the list of items

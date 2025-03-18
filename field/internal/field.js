@@ -307,6 +307,17 @@ export class Field extends LitElement {
         return slots?.assignedElements() || []
     }
 
+    get floatingLabelEl() {
+        return this.renderRoot?.querySelector('.label.floating')
+    }
+
+    get restingLabelEl() {
+        return this.renderRoot?.querySelector('.label.resting')
+    }
+    get containerEl() {
+        return this.renderRoot?.querySelector('.container')
+    }
+
 }
 
 // __decorate([

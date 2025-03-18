@@ -67,7 +67,7 @@ export class NavigationBar extends LitElement {
             return
         const navTabs = []
         for (const node of this.tabsElement) {
-            console.log("tabelement:", node)
+            // console.log("tabelement:", node)
             navTabs.push(node)
         }
         this.tabs = navTabs

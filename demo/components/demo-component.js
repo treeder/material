@@ -12,6 +12,9 @@ import 'material/chips/filter-chip.js'
 import 'material/chips/input-chip.js'
 import 'material/chips/suggestion-chip.js'
 import 'material/dialog/dialog.js'
+import 'material/select/outlined-select.js'
+import 'material/select/select-option.js'
+
 import { snack } from 'material/snackbar/snackbar.js'
 
 import { styles as sharedStyles } from './styles.js'
@@ -47,6 +50,15 @@ class DemoComponent extends LitElement {
                 <md-outlined-text-field label="Phone" type="tel" required></md-outlined-text-field>
                 <md-outlined-text-field label="File" type="file" id="file1" required></md-outlined-text-field>
                 <md-outlined-text-field label="Date" type="date" required></md-outlined-text-field>
+                <md-outlined-select required @change=${this.selected}>
+                    <md-select-option aria-label="blank"></md-select-option>
+                    <md-select-option selected value="apple">
+                        <div slot="headline">Apple</div>
+                    </md-select-option>
+                    <md-select-option value="apricot">
+                        <div slot="headline">Apricot</div>
+                    </md-select-option>
+                </md-outlined-select>
                 <md-filled-button type="button" @click=${this.save}>Save</md-filled-button>
             </div>
         </form>
@@ -130,6 +142,10 @@ class DemoComponent extends LitElement {
     `
     }
 
+    selected(e) {
+        console.log("SELECTED!!!!", e.target, e.target.value)
+    }
+
     save(e) {
         e.preventDefault()
         console.log("Save button clicked")
@@ -140,8 +156,6 @@ class DemoComponent extends LitElement {
             console.log("Form is invalid")
             return
         }
-
-
     }
 }
 
