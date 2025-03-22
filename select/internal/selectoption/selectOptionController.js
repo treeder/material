@@ -55,14 +55,12 @@ export class SelectOptionController {
      * _default_.
      */
     get displayText() {
-        console.log("SelectOptionController.displayText", this.internalDisplayText)
         if (this.internalDisplayText !== null) {
             return this.internalDisplayText
         }
         return this.menuItemController.typeaheadText
     }
     setDisplayText(text) {
-        console.log("SelectOptionController.setDisplayText", text)
         this.internalDisplayText = text
     }
     /**

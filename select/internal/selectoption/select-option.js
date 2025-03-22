@@ -173,7 +173,7 @@ export class SelectOptionEl extends LitElement {
         return this.renderRoot.querySelector('.list-item')
     }
     get headlineElements() {
-        console.log("headline elements:", this.renderRoot.querySelectorAll('slot[name="headline"]'))
+        // console.log("headline elements:", this.renderRoot.querySelectorAll('slot[name="headline"]'))
         return queryAssignedElements(this, { slot: 'headline' })
     }
     get supportingTextElements() {

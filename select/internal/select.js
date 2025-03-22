@@ -420,7 +420,6 @@ __decorate([
     renderLabel() {
         // need to render &nbsp; so that line-height can apply and give it a
         // non-zero height
-        console.log("renderLabel:", this.displayText)
         return html`<div id="label">${this.displayText || html`&nbsp;`}</div>`
     }
     renderMenu() {
@@ -551,9 +550,7 @@ __decorate([
             return null
         }
         const items = this.menu.items
-        console.log("items:", items)
         this.lastSelectedOptionRecords = getSelectedItems(items)
-        console.log("selected items:", this.lastSelectedOptionRecords)
         return this.lastSelectedOptionRecords
     }
     async getUpdateComplete() {
@@ -574,7 +571,7 @@ __decorate([
         let hasSelectedOptionChanged = false
         if (selectedOptions.length) {
             const [firstSelectedOption] = selectedOptions[0]
-            console.log("selectedOptions yo", firstSelectedOption.displayText)
+            // console.log("selectedOptions.displayText", firstSelectedOption.displayText)
             hasSelectedOptionChanged =
                 this.lastSelectedOption !== firstSelectedOption
             this.lastSelectedOption = firstSelectedOption
