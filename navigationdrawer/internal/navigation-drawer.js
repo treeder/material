@@ -51,7 +51,6 @@ export class NavigationDrawer extends LitElement {
         })
     }
     updated(changedProperties) {
-        // console.log("changedproperties:", changedProperties)
         if (changedProperties.has('opened')) {
             if (this.opened) {
                 this.style.display = 'block'

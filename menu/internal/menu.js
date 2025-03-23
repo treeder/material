@@ -492,7 +492,6 @@ export class Menu extends LitElement {
     }
     update(changed) {
         if (changed.has('open')) {
-            console.log("update open")
             if (this.open) {
                 this.setUpGlobalEventListeners()
             }
@@ -810,7 +809,6 @@ export class Menu extends LitElement {
         })
     }
     show() {
-        console.log("show")
         this.open = true
     }
     /**

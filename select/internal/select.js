@@ -571,7 +571,6 @@ __decorate([
         let hasSelectedOptionChanged = false
         if (selectedOptions.length) {
             const [firstSelectedOption] = selectedOptions[0]
-            // console.log("selectedOptions.displayText", firstSelectedOption.displayText)
             hasSelectedOptionChanged =
                 this.lastSelectedOption !== firstSelectedOption
             this.lastSelectedOption = firstSelectedOption
@@ -652,7 +651,6 @@ __decorate([
      * @return Whether the last selected option has changed.
      */
     selectItem(item) {
-        console.log("selectItem", item)
         const selectedOptions = this.getSelectedOptions() ?? []
         selectedOptions.forEach(([option]) => {
             if (item !== option) {

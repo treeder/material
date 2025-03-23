@@ -45,9 +45,6 @@ export class TopNav extends LitElement {
   }
 
   handleKeyDown(e) {
-    console.log(e)
-    console.log(e.target)
-    console.log(e.target.value)
     if (e.key === "Enter") {
       let v = e.target.value
       console.log("search value: ", v)
@@ -62,11 +59,8 @@ export class TopNav extends LitElement {
   }
 
   toggleMenu() {
-    console.log("togglemenu")
     let m = this.renderRoot.querySelector("#user-menu")
-    console.log("m:", m)
     m.open = !m.open
-    console.log(m.open)
   }
 
   signOut() {

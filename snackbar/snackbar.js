@@ -2,7 +2,7 @@ import { html, css, LitElement } from 'lit'
 import '../button/text-button.js'
 
 export function snack(message, { duration = 3000, action = null, showCloseIcon = false } = {}) {
-  console.log('duratinon', duration, 'action:', action, 'showCloseIcon', showCloseIcon)
+  // console.log('duration:', duration, 'action:', action, 'showCloseIcon', showCloseIcon)
   let snack = document.createElement('md-snackbar')
   // const x = document.getElementById("snackbar")
   snack.message = message
@@ -125,12 +125,9 @@ class SnackBar extends LitElement {
     // console.log("after show")
     if (this.duration > 0 && !this.showCloseIcon) {
       setTimeout(() => {
-        console.log("CLOSING")
         // check if X is slotted
         let islot = this.renderRoot.querySelector('slot[name="icon"]')
-        console.log(islot)
         if (!islot) return // race condition between explicit closing and timed closing
-        console.log(islot.assignedElements())
         if (islot.assignedElements().length == 0) {
           this.close()
         }
