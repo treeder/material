@@ -54,7 +54,7 @@ Add this importmap to the `<head>` section of you app/site:
       "lit-element/lit-element.js": "https://cdn.jsdelivr.net/npm/lit-element@4/lit-element.js",
       "lit-html": "https://cdn.jsdelivr.net/npm/lit-html@3/lit-html.js",
       "lit-html/": "https://cdn.jsdelivr.net/npm/lit-html@3/",      
-      "material/": "https://cdn.jsdelivr.net/gh/treeder/material@0/"
+      "material/": "https://cdn.jsdelivr.net/gh/treeder/material@1/"
     }
   }
 </script>
