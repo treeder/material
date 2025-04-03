@@ -72,7 +72,7 @@ Then you can start using all the components like this:
 
 <div>
   <md-outlined-text-field label="Name" required minlength="4"></md-outlined-text-field>
-  <md-filled-button @click=${this.save}>Save</md-filled-button>
+  <md-filled-button>Save</md-filled-button>
 </div>
 ```
 
