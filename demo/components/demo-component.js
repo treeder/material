@@ -1,5 +1,6 @@
 import { html, css, LitElement } from 'lit'
 import 'material/textfield/outlined-text-field.js'
+import 'material/textfield/filled-text-field.js'
 import 'material/button/filled-button.js'
 import 'material/button/outlined-button.js'
 import 'material/iconbutton/icon-button.js'
@@ -14,15 +15,13 @@ import 'material/chips/suggestion-chip.js'
 import 'material/dialog/dialog.js'
 import 'material/select/outlined-select.js'
 import 'material/select/select-option.js'
-
 import { snack } from 'material/snackbar/snackbar.js'
-
 import { styles as sharedStyles } from './styles.js'
 
 class DemoComponent extends LitElement {
-    static styles = [
-        sharedStyles,
-        css`
+  static styles = [
+    sharedStyles,
+    css`
         md-outlined-card {
             width: 300px;
             background: var(--md-sys-color-surface); 
@@ -39,11 +38,12 @@ class DemoComponent extends LitElement {
         }
     `]
 
-    render() {
-        return html`
+  render() {
+    return html`
     <div class="flex col g12">
         <form id="form1">
             <div class="flex col g12">
+                <md-filled-text-field label="Name in filled text field" required minlength="4"></md-filled-text-field>
                 <md-outlined-text-field label="Name" required minlength="4"></md-outlined-text-field>
                 <md-outlined-text-field label="Email" type="email" required></md-outlined-text-field>
                 <md-outlined-text-field label="Password" type="password" required></md-outlined-text-field>
@@ -55,8 +55,8 @@ class DemoComponent extends LitElement {
                     <md-select-option selected value="apple">
                         <div slot="headline">Apple</div>
                     </md-select-option>
-                    <md-select-option value="apricot">
-                        <div slot="headline">Apricot</div>
+                    <md-select-option value="orange">
+                        <div slot="headline">Orange</div>
                     </md-select-option>
                 </md-outlined-select>
                 <md-filled-button type="button" @click=${this.save}>Save</md-filled-button>
@@ -140,23 +140,23 @@ class DemoComponent extends LitElement {
         </div>
     </md-dialog>
     `
-    }
+  }
 
-    selected(e) {
-        console.log("SELECTED!!!!", e.target, e.target.value)
-    }
+  selected(e) {
+    console.log("SELECTED!!!!", e.target, e.target.value)
+  }
 
-    save(e) {
-        e.preventDefault()
-        console.log("Save button clicked")
-        let f1 = this.renderRoot.querySelector('#form1')
-        let file1 = this.renderRoot.querySelector('#file1')
-        console.log(file1.value)
-        if (!f1.reportValidity()) {
-            console.log("Form is invalid")
-            return
-        }
+  save(e) {
+    e.preventDefault()
+    console.log("Save button clicked")
+    let f1 = this.renderRoot.querySelector('#form1')
+    let file1 = this.renderRoot.querySelector('#file1')
+    console.log(file1.value)
+    if (!f1.reportValidity()) {
+      console.log("Form is invalid")
+      return
     }
+  }
 }
 
 customElements.define('demo-component', DemoComponent)
