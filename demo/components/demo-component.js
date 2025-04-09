@@ -15,9 +15,7 @@ import 'material/chips/suggestion-chip.js'
 import 'material/dialog/dialog.js'
 import 'material/select/outlined-select.js'
 import 'material/select/select-option.js'
-
 import { snack } from 'material/snackbar/snackbar.js'
-
 import { styles as sharedStyles } from './styles.js'
 
 class DemoComponent extends LitElement {
