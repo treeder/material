@@ -1,0 +1,56 @@
+name: Comment on Non-Sponsor Issue
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Sponsor Status and Comment
+        uses: actions/github-script@v7
+        with:
+          # github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            console.log(context)
+            console.log("issue", context.issue, context.payload.issue)
+            let c = context
+            const issueNumber = c.issue.number
+            const issueCreator = context.payload.sender.login
+            const owner = c.repo.owner 
+            const repo = c.repo.repo
+            if(owner == issueCreator){
+              console.log("owner is issue creator")
+              return
+            }
+
+            const r = await github.graphql(`
+              query {
+                user(login:"${issueCreator}") {
+                  sponsorshipForViewerAsSponsorable(activeOnly:true) {
+                    tier {
+                      name
+                      monthlyPriceInDollars
+                    }  
+                  }
+                }
+              }`)
+            console.log("r:", r)
+            if(r.user?.sponsorshipForViewerAsSponsorable){
+              // then this is a sponsor! 
+              github.rest.issues.createComment({
+                issue_number: c.issue.number,
+                owner: c.repo.owner,
+                repo: c.repo.repo,
+                body: '👋 Thanks for being a sponsor! We will take a look at this issue right away.'
+              })
+            } else {
+              const commentBody = `Thanks for the issue, @${issueCreator}!\n\nPlease consider supporting the project by becoming a sponsor: [GitHub Sponsors](https://github.com/sponsors/${owner}).\n\nSponsor issues get prioritized. If you get paid $100 per hour and this fix will save you an hour or more, then a $10 per month subscription for 10+ months will pay for itself.`
+              github.rest.issues.createComment({
+                issue_number: c.issue.number,
+                owner: c.repo.owner,
+                repo: c.repo.repo,
+                body: commentBody,
+              })
+            }
