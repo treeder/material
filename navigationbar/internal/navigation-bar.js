@@ -5,7 +5,6 @@
  */
 import '../../elevation/elevation.js'
 import { html, LitElement, nothing } from 'lit'
-import { property, queryAssignedElements } from 'lit/decorators.js'
 import { requestUpdateOnAriaChange } from '../../internal/aria/delegate.js'
 import { isRtl } from '../../internal/controller/is-rtl.js'
 /**

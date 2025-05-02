@@ -10,6 +10,7 @@ import '../../ripple/ripple.js'
 import { html, isServer, LitElement, nothing } from 'lit'
 import { classMap } from 'lit/directives/class-map.js'
 import { EASING } from '../../internal/motion/animation.js'
+import { queryAssignedNodes } from '../../utils/query.js'
 /**
  * Symbol for tabs to use to animate their indicators based off another tab's
  * indicator.
@@ -174,6 +175,12 @@ export class Tab extends tabBaseClass {
     }
     handleIconSlotChange() {
         this.hasIcon = this.assignedIcons.length > 0
+    }
+
+    get assignedDefaultNodes() {
+        let r = queryAssignedNodes(this, { flatten: true })
+        // console.log("AR:", r)
+        return r
     }
 }
 

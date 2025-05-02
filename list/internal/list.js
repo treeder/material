@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import { html, isServer, LitElement } from 'lit'
-import { queryAssignedElements } from 'lit/decorators.js'
 import { ListController, NavigableKeys } from './list-controller.js'
 const NAVIGABLE_KEY_SET = new Set(Object.values(NavigableKeys))
 // tslint:disable-next-line:enforce-comments-on-exported-symbols

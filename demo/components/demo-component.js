@@ -15,6 +15,8 @@ import 'material/chips/suggestion-chip.js'
 import 'material/dialog/dialog.js'
 import 'material/select/outlined-select.js'
 import 'material/select/select-option.js'
+import 'material/tabs/tabs.js'
+import 'material/tabs/primary-tab.js'
 import { snack } from 'material/snackbar/snackbar.js'
 import { styles as sharedStyles } from './styles.js'
 
@@ -36,7 +38,20 @@ class DemoComponent extends LitElement {
             font-size: 1.2rem;
             font-weight: 500;
         }
+        .tabpanel {
+            padding: 16px;
+            background: var(--md-sys-color-surface); 
+        }
     `]
+
+  static properties = {
+    activeTab: { type: Number },
+  }
+
+  constructor() {
+    super()
+    this.activeTab = 0
+  }
 
   render() {
     return html`
@@ -126,6 +141,21 @@ class DemoComponent extends LitElement {
             <md-filled-button @click=${() => this.renderRoot.querySelector("#dialog1").show()} show>Dialog</md-filled-button>
         </div>
 
+        <div>
+          <md-tabs @change=${this.tabChanged} id="tabs">
+            <md-primary-tab id="photos-tab"  aria-label="Photos" aria-controls="photos-panel">
+              Photos
+            </md-primary-tab>
+            <md-primary-tab id="videos-tab"  aria-label="Videos" aria-controls="videos-panel">
+              Videos
+            </md-primary-tab>
+            <md-primary-tab id="music-tab" aria-label="Music" aria-controls="music-panel">
+              Music
+            </md-primary-tab>
+          </md-tabs>
+          ${this.renderTabPanel()}
+        </div>
+
     </div>
     
     <md-dialog id="dialog1">
@@ -155,6 +185,35 @@ class DemoComponent extends LitElement {
     if (!f1.reportValidity()) {
       console.log("Form is invalid")
       return
+    }
+  }
+
+
+  tabChanged(e) {
+    console.log("TAB CHANGED!!!!", e.target, e.target.activeTabIndex)
+    this.activeTab = e.target.activeTabIndex
+  }
+
+  renderTabPanel() {
+    console.log("render tab panel", this.activeTab)
+    if (this.activeTab == 0) {
+      return html`
+      <div class="tabpanel" id="photos-panel" role="tabpanel" aria-labelledby="photos-tab">
+        Tab 1 content
+      </div>
+      `
+    }
+    if (this.activeTab == 1) {
+      return html`
+      <div class="tabpanel" id="videos-panel" role="tabpanel" aria-labelledby="videos-tab">
+      Tab 2 content
+    </div>`
+    }
+    if (this.activeTab == 2) {
+      return html`
+      <div class="tabpanel" id="music-panel" role="tabpanel" aria-labelledby="music-tab">
+      Tab 3 content
+    </div>`
     }
   }
 }
