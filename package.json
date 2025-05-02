@@ -1,6 +1,6 @@
 {
   "name": "material",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "publishConfig": {
     "access": "public"
   },
