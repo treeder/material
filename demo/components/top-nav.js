@@ -13,35 +13,35 @@ export class TopNav extends LitElement {
 
   render() {
     return html`
-        <div class="p4" style="position: relative;">
-          <!-- Material search -->
-          <md-search placeholder="Search..." @keydown=${this.handleKeyDown}>
-            <md-icon-button slot="leading-icon" @click=${this.toggleDrawer}>
-                <md-icon>menu</md-icon>
-            </md-icon-button>
-            <div slot="trailing-icon">
-              <img id="profile-pic" src="./images/avatar2.png" class="circle" style="height: 40px;"
-              @click=${this.toggleMenu}>
-            </div>
-          </md-search>
+      <div class="p4" style="position: relative;">
+        <!-- Material search -->
+        <md-search placeholder="Search..." @keydown=${this.handleKeyDown}>
+          <md-icon-button slot="leading-icon" @click=${this.toggleDrawer}>
+              <md-icon>menu</md-icon>
+          </md-icon-button>
+          <div slot="trailing-icon">
+            <img id="profile-pic" src="./images/avatar2.png" class="circle" style="height: 40px;"
+            @click=${this.toggleMenu}>
+          </div>
+        </md-search>
 
-          <md-menu id="user-menu" anchor="profile-pic" ?open=${this.open}
-          @closed=${() => { }}>
-            <md-menu-item href="/profile">
-                <div slot="headline">Profile</div>
-                <md-icon class="startIcon" slot="start">person</md-icon>
-            </md-menu-item>
-            <md-menu-item id="goto-orgs" href="/orgs">
-                <div slot="headline">My&nbsp;Orgs</div>
-                <md-icon class="startIcon" slot="start">storefront</md-icon>
-            </md-menu-item>
-            <md-menu-item id="goto-signout" @click=${this.signOut}>
-                <div slot="headline">Sign&nbsp;out</div>
-                <md-icon class="startIcon" slot="start">logout</md-icon>
-            </md-menu-item>
-          </md-menu>
-        </div>
-          `
+        <md-menu id="user-menu" anchor="profile-pic" ?open=${this.open}
+        @closed=${() => { }}>
+          <md-menu-item href="/profile">
+              <div slot="headline">Profile</div>
+              <md-icon class="startIcon" slot="start">person</md-icon>
+          </md-menu-item>
+          <md-menu-item id="goto-orgs" href="/orgs">
+              <div slot="headline">My Organizations</div>
+              <md-icon class="startIcon" slot="start">storefront</md-icon>
+          </md-menu-item>
+          <md-menu-item id="goto-signout" @click=${this.signOut}>
+              <div slot="headline">Sign out</div>
+              <md-icon class="startIcon" slot="start">logout</md-icon>
+          </md-menu-item>
+        </md-menu>
+      </div>
+    `
   }
 
   handleKeyDown(e) {

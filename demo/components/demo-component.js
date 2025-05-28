@@ -85,9 +85,25 @@ class DemoComponent extends LitElement {
             <md-icon-button style="--md-icon-button-icon-color: red;">
                 <md-icon>favorite</md-icon>
             </md-icon-button>
-            <md-filled-tonal-icon-button>
-                <md-icon>more_vert</md-icon>
-            </md-filled-tonal-icon-button>
+            <div style="position: relative">
+              <md-filled-tonal-icon-button id="more-button" @click=${this.toggleMoreMenu}>
+                  <md-icon>more_vert</md-icon>
+              </md-filled-tonal-icon-button>
+              <md-menu id="more-menu" anchor="more-button">
+                <md-menu-item href="/profile">
+                    <div slot="headline">Profile</div>
+                    <md-icon class="startIcon" slot="start">person</md-icon>
+                </md-menu-item>
+                <md-menu-item id="goto-orgs" href="/orgs">
+                    <div slot="headline">My Organizations</div>
+                    <md-icon class="startIcon" slot="start">storefront</md-icon>
+                </md-menu-item>
+                <md-menu-item id="goto-signout" @click=${this.signOut}>
+                    <div slot="headline">Sign out</div>
+                    <md-icon class="startIcon" slot="start">logout</md-icon>
+                </md-menu-item>
+              </md-menu>
+            </div>
             <md-icon-button href="https://thingster.app" target="_blank">
                 <md-icon>open_in_new</md-icon>
             </md-icon-button>
@@ -99,6 +115,7 @@ class DemoComponent extends LitElement {
                 <md-icon>content_copy</md-icon>
             </md-filled-icon-button>
         </div>
+
 
         <md-chip-set>
             <md-assist-chip label="Assist chip"></md-assist-chip>
@@ -170,6 +187,11 @@ class DemoComponent extends LitElement {
         </div>
     </md-dialog>
     `
+  }
+
+  toggleMoreMenu() {
+    let m = this.renderRoot.querySelector("#more-menu")
+    m.open = !m.open
   }
 
   selected(e) {

@@ -18,90 +18,89 @@ import { queryAssignedElements, queryAssignedNodes } from '../../../utils/query.
  * Closes the encapsulating menu on closable interaction. --bubbles --composed
  */
 export class MenuItemEl extends LitElement {
-    static properties = {
-        disabled: { type: Boolean, reflect: true },
-        type: { type: String },
-        href: { type: String },
-        target: { type: String },
-        keepOpen: { type: Boolean, attribute: 'keep-open' },
-        selected: { type: Boolean },
-        menuItemController: { type: MenuItemController },
-        typeaheadText: { type: String, attribute: 'typeahead-text' },
+  static properties = {
+    disabled: { type: Boolean, reflect: true },
+    type: { type: String },
+    href: { type: String },
+    target: { type: String },
+    keepOpen: { type: Boolean, attribute: 'keep-open' },
+    selected: { type: Boolean },
+    menuItemController: { type: MenuItemController },
+    typeaheadText: { type: String, attribute: 'typeahead-text' },
+  }
 
-
-    }
-    constructor() {
-        super(...arguments)
-        /**
-         * Disables the item and makes it non-selectable and non-interactive.
-         */
-        this.disabled = false
-        /**
-         * Sets the behavior and role of the menu item, defaults to "menuitem".
-         */
-        this.type = 'menuitem'
-        /**
-         * Sets the underlying `HTMLAnchorElement`'s `href` resource attribute.
-         */
-        this.href = ''
-        /**
-         * Sets the underlying `HTMLAnchorElement`'s `target` attribute when `href` is
-         * set.
-         */
-        this.target = ''
-        /**
-         * Keeps the menu open if clicked or keyboard selected.
-         */
-        this.keepOpen = false
-        /**
-         * Sets the item in the selected visual state when a submenu is opened.
-         */
-        this.selected = false
-        this.menuItemController = new MenuItemController(this, {
-            getHeadlineElements: () => {
-                return this.headlineElements
-            },
-            getSupportingTextElements: () => {
-                return this.supportingTextElements
-            },
-            getDefaultElements: () => {
-                return this.defaultElements
-            },
-            getInteractiveElement: () => this.listItemRoot,
-        })
-    }
+  constructor() {
+    super(...arguments)
     /**
-     * The text that is selectable via typeahead. If not set, defaults to the
-     * innerText of the item slotted into the `"headline"` slot.
+     * Disables the item and makes it non-selectable and non-interactive.
      */
-    get typeaheadText() {
-        return this.menuItemController.typeaheadText
-    }
-    set typeaheadText(text) {
-        this.menuItemController.setTypeaheadText(text)
-    }
+    this.disabled = false
+    /**
+     * Sets the behavior and role of the menu item, defaults to "menuitem".
+     */
+    this.type = 'menuitem'
+    /**
+     * Sets the underlying `HTMLAnchorElement`'s `href` resource attribute.
+     */
+    this.href = ''
+    /**
+     * Sets the underlying `HTMLAnchorElement`'s `target` attribute when `href` is
+     * set.
+     */
+    this.target = ''
+    /**
+     * Keeps the menu open if clicked or keyboard selected.
+     */
+    this.keepOpen = false
+    /**
+     * Sets the item in the selected visual state when a submenu is opened.
+     */
+    this.selected = false
+    this.menuItemController = new MenuItemController(this, {
+      getHeadlineElements: () => {
+        return this.headlineElements
+      },
+      getSupportingTextElements: () => {
+        return this.supportingTextElements
+      },
+      getDefaultElements: () => {
+        return this.defaultElements
+      },
+      getInteractiveElement: () => this.listItemRoot,
+    })
+  }
+  /**
+   * The text that is selectable via typeahead. If not set, defaults to the
+   * innerText of the item slotted into the `"headline"` slot.
+   */
+  get typeaheadText() {
+    return this.menuItemController.typeaheadText
+  }
+  set typeaheadText(text) {
+    this.menuItemController.setTypeaheadText(text)
+  }
 
-    // listItemRoot: { type: HTMLElement, query: '.list-item' },
-    // headlineElements: { type: Array, query: 'slot[name="headline"]' },
-    // supportingTextElements: { type: Array, query: 'slot[name="supporting-text"]' },
-    // defaultElements: { type: Array, query: 'slot' },
-    get listItemRoot() {
-        return this.renderRoot.querySelector('.list-item')
-    }
-    get headlineElements() {
-        // return this.renderRoot.querySelectorAll('slot[name="headline"]')
-        return queryAssignedElements(this, { slot: 'headline' })
-    }
-    get supportingTextElements() {
-        // return this.renderRoot.querySelectorAll('slot[name="supporting-text"]')
-        return queryAssignedElements(this, { slot: 'supporting-text' })
-    }
-    get defaultElements() {
-        return queryAssignedNodes(this, { slot: '' })
-    }
+  // listItemRoot: { type: HTMLElement, query: '.list-item' },
+  // headlineElements: { type: Array, query: 'slot[name="headline"]' },
+  // supportingTextElements: { type: Array, query: 'slot[name="supporting-text"]' },
+  // defaultElements: { type: Array, query: 'slot' },
+  get listItemRoot() {
+    return this.renderRoot.querySelector('.list-item')
+  }
+  get headlineElements() {
+    // return this.renderRoot.querySelectorAll('slot[name="headline"]')
+    return queryAssignedElements(this, { slot: 'headline' })
+  }
+  get supportingTextElements() {
+    // return this.renderRoot.querySelectorAll('slot[name="supporting-text"]')
+    return queryAssignedElements(this, { slot: 'supporting-text' })
+  }
+  get defaultElements() {
+    return queryAssignedNodes(this, { slot: '' })
+  }
 
-    render() {
-        return this.renderListItem(html`
+  render() {
+    return this.renderListItem(html`
       <md-item>
         <div slot="container">
           ${this.renderRipple()} ${this.renderFocusRing()}
@@ -111,31 +110,31 @@ export class MenuItemEl extends LitElement {
         ${this.renderBody()}
       </md-item>
     `)
+  }
+  /**
+   * Renders the root list item.
+   *
+   * @param content the child content of the list item.
+   */
+  renderListItem(content) {
+    const isAnchor = this.type === 'link'
+    let tag
+    switch (this.menuItemController.tagName) {
+      case 'a':
+        tag = literal`a`
+        break
+      case 'button':
+        tag = literal`button`
+        break
+      default:
+      case 'li':
+        tag = literal`li`
+        break
     }
-    /**
-     * Renders the root list item.
-     *
-     * @param content the child content of the list item.
-     */
-    renderListItem(content) {
-        const isAnchor = this.type === 'link'
-        let tag
-        switch (this.menuItemController.tagName) {
-            case 'a':
-                tag = literal`a`
-                break
-            case 'button':
-                tag = literal`button`
-                break
-            default:
-            case 'li':
-                tag = literal`li`
-                break
-        }
-        // TODO(b/265339866): announce "button"/"link" inside of a list item. Until
-        // then all are "menuitem" roles for correct announcement.
-        const target = isAnchor && !!this.target ? this.target : nothing
-        return staticHtml`
+    // TODO(b/265339866): announce "button"/"link" inside of a list item. Until
+    // then all are "menuitem" roles for correct announcement.
+    const target = isAnchor && !!this.target ? this.target : nothing
+    return staticHtml`
       <${tag}
         id="item"
         tabindex=${this.disabled && !isAnchor ? -1 : 0}
@@ -152,39 +151,39 @@ export class MenuItemEl extends LitElement {
         @keydown=${this.menuItemController.onKeydown}
       >${content}</${tag}>
     `
-    }
-    /**
-     * Handles rendering of the ripple element.
-     */
-    renderRipple() {
-        return html` <md-ripple
+  }
+  /**
+   * Handles rendering of the ripple element.
+   */
+  renderRipple() {
+    return html` <md-ripple
       part="ripple"
       for="item"
       ?disabled=${this.disabled}></md-ripple>`
-    }
-    /**
-     * Handles rendering of the focus ring.
-     */
-    renderFocusRing() {
-        return html` <md-focus-ring
+  }
+  /**
+   * Handles rendering of the focus ring.
+   */
+  renderFocusRing() {
+    return html` <md-focus-ring
       part="focus-ring"
       for="item"
       inward></md-focus-ring>`
+  }
+  /**
+   * Classes applied to the list item root.
+   */
+  getRenderClasses() {
+    return {
+      'disabled': this.disabled,
+      'selected': this.selected,
     }
-    /**
-     * Classes applied to the list item root.
-     */
-    getRenderClasses() {
-        return {
-            'disabled': this.disabled,
-            'selected': this.selected,
-        }
-    }
-    /**
-     * Handles rendering the headline and supporting text.
-     */
-    renderBody() {
-        return html`
+  }
+  /**
+   * Handles rendering the headline and supporting text.
+   */
+  renderBody() {
+    return html`
       <slot></slot>
       <slot name="overline" slot="overline"></slot>
       <slot name="headline" slot="headline"></slot>
@@ -193,18 +192,18 @@ export class MenuItemEl extends LitElement {
         name="trailing-supporting-text"
         slot="trailing-supporting-text"></slot>
     `
-    }
-    focus() {
-        // TODO(b/300334509): needed for some cases where delegatesFocus doesn't
-        // work programmatically like in FF and select-option
-        this.listItemRoot?.focus()
-    }
+  }
+  focus() {
+    // TODO(b/300334509): needed for some cases where delegatesFocus doesn't
+    // work programmatically like in FF and select-option
+    this.listItemRoot?.focus()
+  }
 }
 (() => {
-    requestUpdateOnAriaChange(MenuItemEl)
+  requestUpdateOnAriaChange(MenuItemEl)
 })()
 /** @nocollapse */
 MenuItemEl.shadowRootOptions = {
-    ...LitElement.shadowRootOptions,
-    delegatesFocus: true,
+  ...LitElement.shadowRootOptions,
+  delegatesFocus: true,
 }
