@@ -17,6 +17,7 @@ import 'material/select/outlined-select.js'
 import 'material/select/select-option.js'
 import 'material/tabs/tabs.js'
 import 'material/tabs/primary-tab.js'
+import 'material/slider/slider.js'
 import { snack } from 'material/snackbar/snackbar.js'
 import { styles as sharedStyles } from './styles.js'
 
@@ -171,6 +172,12 @@ class DemoComponent extends LitElement {
             </md-primary-tab>
           </md-tabs>
           ${this.renderTabPanel()}
+        </div>
+
+        <div class="flex g12">
+          <md-slider @change=${(e) => console.log("Slider changed", e.target.value)}></md-slider>          
+          <md-slider @change=${(e) => console.log("Slider changed", e.target.value)} ticks value="50"></md-slider>
+          <md-slider @change=${(e) => console.log("Slider changed", e.target.valueStart, e.target.valueEnd)} range value-start="25" value-end="75"></md-slider>
         </div>
 
     </div>

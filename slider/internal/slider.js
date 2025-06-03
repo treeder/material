@@ -7,7 +7,6 @@ import '../../elevation/elevation.js'
 import '../../focus/md-focus-ring.js'
 import '../../ripple/ripple.js'
 import { html, isServer, LitElement, nothing } from 'lit'
-import { property, query, queryAsync, state } from 'lit/decorators.js'
 import { classMap } from 'lit/directives/class-map.js'
 import { styleMap } from 'lit/directives/style-map.js'
 import { when } from 'lit/directives/when.js'
@@ -78,6 +77,26 @@ export class Slider extends sliderBaseClass {
     set nameEnd(name) {
         this.setAttribute('name-end', name)
     }
+
+    get inputStart() {
+        return this.renderRoot?.querySelector('input.start')
+    }
+    get handleStart() {
+        return this.renderRoot?.querySelector('.handle.start')
+    }
+    get inputEnd() {
+        return this.renderRoot?.querySelector('input.end')
+    }
+    get handleEnd() {
+        return this.renderRoot?.querySelector('.handle.end')
+    }
+    get rippleStart() {
+        return queryAsync(this, 'md-ripple.start')
+    }
+    get rippleEnd() {
+        return queryAsync(this, 'md-ripple.end')
+    }
+
     // Note: start aria-* properties are only applied when range=true, which is
     // why they do not need to handle both cases.
     get renderAriaLabelStart() {
