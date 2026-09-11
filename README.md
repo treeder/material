@@ -5,7 +5,7 @@
   alt="A collection of Material web components"
   style="border-radius: 32px">
 
-[![jsDelivr hits (npm)](https://img.shields.io/jsdelivr/gh/material-esm/material)](https://www.jsdelivr.com/package/gh/material-esm/material?tab=stats)
+[![](https://data.jsdelivr.com/v1/package/gh/material-esm/material/badge)](https://www.jsdelivr.com/package/gh/material-esm/material)
 
 `material` is a library of
 [web components](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
@@ -29,9 +29,32 @@ To start using it, see [this topic](https://github.com/orgs/material-esm/discuss
 
 ## Documentation
 
-All the documentation here still applies: https://material-web.dev/
+See the README in each component's directory for how to use them:
 
-And we are adding README's in this repository for the new components that aren't in those docs.
+- [App Bar](app/README.md)
+- [Badge](badge/README.md)
+- [Buttons](buttons/README.md)
+- [Card](card/README.md)
+- [Carousel](carousel/README.md)
+- [Checkbox](checkbox/README.md)
+- [Chips](chips/README.md)
+- [Dialog](dialog/README.md)
+- [Divider](divider/README.md)
+- [Icon](icon/README.md)
+- [Indicators](indicators/README.md)
+- [List](list/README.md)
+- [Menu](menu/README.md)
+- [Navigation](nav/README.md)
+- [Pickers](pickers/README.md)
+- [Radio](radio/README.md)
+- [Search](search/README.md)
+- [Select](select/README.md)
+- [Slider](slider/README.md)
+- [Snackbar](snackbar/README.md)
+- [Switch](switch/README.md)
+- [Tabs](tabs/README.md)
+- [Text Field](text/README.md)
+- [Tooltip](tooltip/README.md)
 
 ## Quick start
 
