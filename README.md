@@ -23,10 +23,6 @@ Please [consider sponsoring](https://github.com/sponsors/treeder) before creatin
 
 [Material 3 Expressive demo](https://material-esm.github.io/material/demo/)
 
-We recommend using this going forward.
-
-To start using it, see [this topic](https://github.com/orgs/material-esm/discussions/71).
-
 ## Documentation
 
 See the README in each component's directory for how to use them:
