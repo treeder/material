@@ -1121,39 +1121,39 @@ export class Button extends LitElement {
     `,
     // shapes
     css`
-      :host([shape='square'][size='extra-small']) {
+      :host(:not([group-position])[shape='square'][size='extra-small']) {
         border-radius: 12px;
       }
-      :host([shape='square'][size='small']) {
+      :host(:not([group-position])[shape='square'][size='small']) {
         border-radius: 12px;
       }
-      :host([shape='square'][size='medium']) {
+      :host(:not([group-position])[shape='square'][size='medium']) {
         border-radius: 16px;
       }
-      :host([shape='square'][size='large']) {
+      :host(:not([group-position])[shape='square'][size='large']) {
         border-radius: 28px;
       }
-      :host([shape='square'][size='extra-large']) {
+      :host(:not([group-position])[shape='square'][size='extra-large']) {
         border-radius: 28px;
       }
-      :host([pressed][size='extra-small']),
-      :host([selected][size='extra-small']) {
+      :host(:not([group-position])[pressed][size='extra-small']),
+      :host(:not([group-position])[selected][size='extra-small']) {
         border-radius: 8px;
       }
-      :host([pressed][size='small']),
-      :host([selected][size='small']) {
+      :host(:not([group-position])[pressed][size='small']),
+      :host(:not([group-position])[selected][size='small']) {
         border-radius: 8px;
       }
-      :host([pressed][size='medium']),
-      :host([selected][size='medium']) {
+      :host(:not([group-position])[pressed][size='medium']),
+      :host(:not([group-position])[selected][size='medium']) {
         border-radius: 12px;
       }
-      :host([pressed][size='large']),
-      :host([selected][size='large']) {
+      :host(:not([group-position])[pressed][size='large']),
+      :host(:not([group-position])[selected][size='large']) {
         border-radius: 16px;
       }
-      :host([pressed][size='extra-large']),
-      :host([selected][size='extra-large']) {
+      :host(:not([group-position])[pressed][size='extra-large']),
+      :host(:not([group-position])[selected][size='extra-large']) {
         border-radius: 16px;
       }
 
