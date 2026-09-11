@@ -134,8 +134,8 @@
     <script type="module">
       const embeddedPicker = document.getElementById('embedded-picker')
       const embeddedValue = document.getElementById('embedded-value')
-      embeddedPicker.addEventListener('change', (e) => {
-        embeddedValue.textContent = e.target.value
+      embeddedPicker.addEventListener('change', () => {
+        embeddedValue.textContent = embeddedPicker.value || 'None'
       })
 
       const dialogTrigger = document.getElementById('dialog-trigger')

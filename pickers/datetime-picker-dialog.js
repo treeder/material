@@ -134,14 +134,18 @@ export class DateTimePickerDialog extends LitElement {
       const pickerDate = this._date || this.renderRoot.querySelector('md-date-picker')?.value || ''
       const pickerTime = this._time || this.renderRoot.querySelector('md-time-picker')?.value || '00:00'
       if (!pickerDate) return // Date is mandatory
+      this._date = pickerDate
+      this._time = pickerTime
       this.value = `${pickerDate}T${pickerTime}`
     } else if (this.type === 'date') {
       const pickerDate = this._date || this.renderRoot.querySelector('md-date-picker')?.value || ''
       if (pickerDate) {
+        this._date = pickerDate
         this.value = pickerDate
       }
     } else if (this.type === 'time') {
       const pickerTime = this._time || this.renderRoot.querySelector('md-time-picker')?.value || '00:00'
+      this._time = pickerTime
       this.value = pickerTime
     }
 
