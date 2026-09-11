@@ -1,6 +1,7 @@
 import { html, css, LitElement } from 'lit'
 import '../../text/text-field.js'
 import '../../buttons/button.js'
+import '../../buttons/button-group.js'
 import '../../buttons/icon-button.js'
 import '../../buttons/split-button.js'
 import '../../card/card.js'
@@ -266,6 +267,28 @@ class ExpressiveComponent extends LitElement {
           <md-button toggle color="tonal">Tonal</md-button>
           <md-button toggle color="outlined">Outlined</md-button>
           <md-button toggle shape="square">Toggle me</md-button>
+        </div>
+
+        <h3>Button groups</h3>
+        <div class="flex col g12">
+          <h4>Standard</h4>
+          <div class="flexw g12 aic">
+            <md-button-group aria-label="Standard button group">
+              <md-button>One</md-button>
+              <md-button>Two</md-button>
+              <md-button>Three</md-button>
+            </md-button-group>
+          </div>
+
+          <h4>Connected</h4>
+          <div class="flexw g12 aic">
+            <md-button-group connected aria-label="Connected outlined group">
+              <md-button color="outlined" toggle>Day</md-button>
+              <md-button color="outlined" toggle selected>Week</md-button>
+              <md-button color="outlined" toggle>Month</md-button>
+              <md-button color="outlined" toggle>Year</md-button>
+            </md-button-group>
+          </div>
         </div>
 
         <h3>Chips</h3>

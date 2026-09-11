@@ -32,6 +32,33 @@ Changes from previous version:
 </div>
 ```
 
+## Button Groups
+
+[Material 3 Button Groups](https://m3.material.io/components/button-groups/overview)
+
+Standard Button Group:
+
+```html
+<md-button-group>
+  <md-button>One</md-button>
+  <md-button>Two</md-button>
+  <md-button>Three</md-button>
+</md-button-group>
+```
+
+Connected Button Group:
+
+```html
+<md-button-group connected aria-label="View options">
+  <md-button color="outlined">One</md-button>
+  <md-button color="outlined">Two</md-button>
+  <md-button color="outlined">Three</md-button>
+</md-button-group>
+```
+
+> **Accessibility**: Provide an `aria-label` attribute on `<md-button-group>` to identify the group's purpose to assistive technologies.
+> The `connected` variant is primarily intended for use with `outlined` buttons so borders overlap seamlessly per the Material 3 specification.
+
 ## Floating Action Button - FAB
 
 [Material 3 Floating Action Button](https://m3.material.io/components/floating-action-button/overview)]
