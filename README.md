@@ -5,7 +5,7 @@
   alt="A collection of Material web components"
   style="border-radius: 32px">
 
-[![jsDelivr hits (npm)](https://img.shields.io/jsdelivr/gh/hm/material-esm/material)](https://www.jsdelivr.com/package/gh/material-esm/material?tab=stats)
+[![jsDelivr hits (npm)](https://img.shields.io/jsdelivr/gh/material-esm/material)](https://www.jsdelivr.com/package/gh/material-esm/material?tab=stats)
 
 `material` is a library of
 [web components](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
@@ -19,19 +19,13 @@ don't want to stop using these material components we've grown to love.
 
 Please [consider sponsoring](https://github.com/sponsors/treeder) before creating issues for us.
 
-## Material 3 Expressive 🔥
-
-Material 3 Expressive is in progress! We recommend using this going forward.
-
-To start using it, see [this topic](https://github.com/orgs/material-esm/discussions/71).
-
-[Follow along here](https://github.com/material-esm/material/issues/36).
+## Demo
 
 [Material 3 Expressive demo](https://material-esm.github.io/material/demo/)
 
-## V1 Demo
+We recommend using this going forward.
 
-This is the previous version [demo](https://material-esm.github.io/material/demo/v1.html)
+To start using it, see [this topic](https://github.com/orgs/material-esm/discussions/71).
 
 ## Documentation
 
@@ -51,19 +45,19 @@ npm install material-esm/material
 
 Add this importmap to the `<head>` section of your app/site:
 
-```js
+```html
 <script type="importmap">
   {
     "imports": {
       "lit": "https://cdn.jsdelivr.net/npm/lit@3/index.js",
       "lit/": "https://cdn.jsdelivr.net/npm/lit@3/",
       "@lit/localize": "https://cdn.jsdelivr.net/npm/@lit/localize/lit-localize.js",
-      "@lit/reactive-element": "https://cdn.jsdelivr.net/npm/@lit/reactive-element@1/reactive-element.js",
-      "@lit/reactive-element/": "https://cdn.jsdelivr.net/npm/@lit/reactive-element@1/",
+      "@lit/reactive-element": "https://cdn.jsdelivr.net/npm/@lit/reactive-element@2/reactive-element.js",
+      "@lit/reactive-element/": "https://cdn.jsdelivr.net/npm/@lit/reactive-element@2/",
       "lit-element/lit-element.js": "https://cdn.jsdelivr.net/npm/lit-element@4/lit-element.js",
       "lit-html": "https://cdn.jsdelivr.net/npm/lit-html@3/lit-html.js",
       "lit-html/": "https://cdn.jsdelivr.net/npm/lit-html@3/",
-      "material/": "https://cdn.jsdelivr.net/gh/material-esm/material@1/"
+      "material/": "https://cdn.jsdelivr.net/gh/material-esm/material@3/"
     }
   }
 </script>
@@ -75,12 +69,12 @@ Then you can start using all the components like this:
 
 ```html
 <script type="module">
-  import 'material/text-field/text-field.js'
+  import 'material/text/text-field.js'
   import 'material/buttons/button.js'
 </script>
 
 <div>
-  <md-text-field type="outlined" label="Name" required minlength="4"></md-text-field>
+  <md-text-field color="outlined" label="Name" required minlength="4"></md-text-field>
   <md-button color="filled">Save</md-button>
 </div>
 ```
@@ -91,8 +85,8 @@ Create a component with the material components in it:
 
 ```js
 import { html, css, LitElement } from 'lit'
-import 'material/text-field/text-field.js'
-import 'material/buttons/filled-button.js'
+import 'material/text/text-field.js'
+import 'material/buttons/button.js'
 
 class DemoComponent extends LitElement {
   static styles = css`
@@ -101,7 +95,7 @@ class DemoComponent extends LitElement {
 
   render() {
     return html`<div style="display: flex; flex-direction: column; gap: 12px;">
-      <md-text-field type="outlined" label="Name" required minlength="4"></md-text-field>
+      <md-text-field color="outlined" label="Name" required minlength="4"></md-text-field>
       <md-button color="filled" @click=${this.save}>Save</md-button>
     </div>`
   }
@@ -172,6 +166,6 @@ Demo code is here: https://github.com/material-esm/material/tree/main/demo
 
 You can run it locally by checking out this repo and:
 
-```js
+```sh
 make run
 ```
