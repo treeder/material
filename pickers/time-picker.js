@@ -96,7 +96,8 @@ export class TimePicker extends LitElement {
         class="clock-face"
         @pointerdown=${this.handlePointerDown}
         @pointermove=${this.handlePointerMove}
-        @pointerup=${this.handlePointerUp}>
+        @pointerup=${this.handlePointerUp}
+        @pointercancel=${this.handlePointerUp}>
         <div class="center-dot"></div>
         <div class="hand" style="transform: rotate(${rotation}deg)">
           <div class="hand-line"></div>

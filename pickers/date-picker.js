@@ -196,8 +196,8 @@ export class DatePicker extends LitElement {
   selectDate(date) {
     if (this.isDateDisabled(date)) return
     this.value = this.formatDate(date)
-    this.dispatchEvent(new Event('change', { bubbles: true, composed: true }))
     this.dispatchEvent(new Event('input', { bubbles: true, composed: true }))
+    this.dispatchEvent(new Event('change', { bubbles: true, composed: true }))
   }
 
   selectYear(year) {
