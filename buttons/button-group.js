@@ -14,11 +14,9 @@ export class ButtonGroup extends LitElement {
     }
 
     /* Target all buttons except the first one */
-    :host([connected]) ::slotted(*:not(:first-child)) {
-      /* Make flat on the left side */
-      --_container-shape-start-start: 0;
-      --_container-shape-end-start: 0;
-
+    :host([connected]) ::slotted([group-position='middle']),
+    :host([connected]) ::slotted([group-position='last']),
+    :host([connected]) ::slotted(*:not(:first-child):not([group-position='first'])) {
       /* Target variant-specific variables explicitly */
       --md-button-container-shape-start-start: 0;
       --md-button-container-shape-end-start: 0;
@@ -31,20 +29,14 @@ export class ButtonGroup extends LitElement {
       --md-icon-button-container-shape-start-start: 0;
       --md-icon-button-container-shape-end-start: 0;
 
-      /* Explicit border radius as fallback */
-      border-start-start-radius: 0;
-      border-end-start-radius: 0;
-
       /* Overlap borders */
       margin-inline-start: -1px;
     }
 
     /* Target all buttons except the last one */
-    :host([connected]) ::slotted(*:not(:last-child)) {
-      /* Make flat on the right side */
-      --_container-shape-start-end: 0;
-      --_container-shape-end-end: 0;
-
+    :host([connected]) ::slotted([group-position='middle']),
+    :host([connected]) ::slotted([group-position='first']),
+    :host([connected]) ::slotted(*:not(:last-child):not([group-position='last'])) {
       /* Target variant-specific variables explicitly */
       --md-button-container-shape-start-end: 0;
       --md-button-container-shape-end-end: 0;
@@ -56,17 +48,13 @@ export class ButtonGroup extends LitElement {
       --md-outlined-button-container-shape-end-end: 0;
       --md-icon-button-container-shape-start-end: 0;
       --md-icon-button-container-shape-end-end: 0;
-
-      /* Explicit border radius as fallback */
-      border-start-end-radius: 0;
-      border-end-end-radius: 0;
     }
 
     /* Ensure the active/hovered/focused button is on top to show full border */
     :host([connected]) ::slotted(*:hover),
     :host([connected]) ::slotted(*:focus-within),
     :host([connected]) ::slotted(*:active) {
-      z-index: 1;
+      z-index: 2;
       position: relative;
     }
 
@@ -78,16 +66,65 @@ export class ButtonGroup extends LitElement {
   `
 
   static properties = {
-    connected: { type: Boolean, reflect: true }
+    connected: { type: Boolean, reflect: true },
   }
 
   constructor() {
     super()
     this.connected = false
+    if (!this.hasAttribute('role')) {
+      this.setAttribute('role', 'group')
+    }
+  }
+
+  connectedCallback() {
+    super.connectedCallback()
+    if (!this.hasAttribute('role')) {
+      this.setAttribute('role', 'group')
+    }
+  }
+
+  firstUpdated(changedProperties) {
+    super.firstUpdated(changedProperties)
+    this.updateConnectedPositions()
+  }
+
+  updated(changedProperties) {
+    super.updated(changedProperties)
+    if (changedProperties.has('connected')) {
+      this.updateConnectedPositions()
+    }
+  }
+
+  handleSlotChange() {
+    this.updateConnectedPositions()
+  }
+
+  get buttons() {
+    const slot = this.renderRoot?.querySelector('slot')
+    const elements = slot?.assignedElements({ flatten: true }) ?? []
+    return elements.filter((el) => !['STYLE', 'SCRIPT', 'TEMPLATE'].includes(el.tagName))
+  }
+
+  updateConnectedPositions() {
+    const buttons = this.buttons
+    const count = buttons.length
+
+    buttons.forEach((button, index) => {
+      if (!this.connected || count <= 1) {
+        button.removeAttribute('group-position')
+      } else if (index === 0) {
+        button.setAttribute('group-position', 'first')
+      } else if (index === count - 1) {
+        button.setAttribute('group-position', 'last')
+      } else {
+        button.setAttribute('group-position', 'middle')
+      }
+    })
   }
 
   render() {
-    return html`<slot></slot>`
+    return html`<slot @slotchange=${this.handleSlotChange}></slot>`
   }
 }
 

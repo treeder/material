@@ -49,12 +49,15 @@ Standard Button Group:
 Connected Button Group:
 
 ```html
-<md-button-group connected>
+<md-button-group connected aria-label="View options">
   <md-button color="outlined">One</md-button>
   <md-button color="outlined">Two</md-button>
   <md-button color="outlined">Three</md-button>
 </md-button-group>
 ```
+
+> **Accessibility**: Provide an `aria-label` attribute on `<md-button-group>` to identify the group's purpose to assistive technologies.
+> The `connected` variant is primarily intended for use with `outlined` buttons so borders overlap seamlessly per the Material 3 specification.
 
 ## Floating Action Button - FAB
 
