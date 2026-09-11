@@ -1163,7 +1163,6 @@ export class Button extends LitElement {
         border-start-end-radius: var(--_container-shape-start-end);
         border-end-start-radius: var(--_container-shape-end-start);
         border-end-end-radius: var(--_container-shape-end-end);
-        border-radius: unset;
       }
     `,
   ]
