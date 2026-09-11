@@ -156,7 +156,7 @@ export class ButtonGroup extends LitElement {
       this.setAttribute('role', 'group')
     }
 
-    this.addEventListener('click', this.handleClick.bind(this))
+    this.handleClick = this.handleClick.bind(this)
   }
 
   connectedCallback() {
@@ -164,6 +164,12 @@ export class ButtonGroup extends LitElement {
     if (!this.hasAttribute('role')) {
       this.setAttribute('role', 'group')
     }
+    this.addEventListener('click', this.handleClick)
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback()
+    this.removeEventListener('click', this.handleClick)
   }
 
   firstUpdated(changedProperties) {
@@ -278,13 +284,14 @@ export class ButtonGroup extends LitElement {
         return
       }
 
+      const shouldBeSelected = !this.selectionRequired && !button.selected ? false : true
       // Deselect other buttons
       this.buttons.forEach((b) => {
         if (b !== button) {
           b.selected = false
         }
       })
-      button.selected = true
+      button.selected = shouldBeSelected
     }
 
     this.dispatchEvent(
