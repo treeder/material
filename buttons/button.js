@@ -34,6 +34,7 @@ export class Button extends LitElement {
     type: { type: String },
     selected: { type: Boolean, reflect: true },
     toggle: { type: Boolean, reflect: true },
+    checkmark: { type: Boolean, reflect: true },
   }
 
   get name() {
@@ -107,6 +108,10 @@ export class Button extends LitElement {
      * Set to turn this into a toggle button.
      */
     this.toggle = false
+    /**
+     * Whether to show a checkmark icon when selected.
+     */
+    this.checkmark = false
 
     this.handleActivationClick = (event) => {
       if (!isActivationClick(event) || !this.buttonElement) {
@@ -211,9 +216,15 @@ export class Button extends LitElement {
   }
   renderContent() {
     const icon = html`<slot name="icon" @slotchange="${this.handleSlotChange}"></slot>`
+    const checkmark =
+      this.checkmark && this.selected
+        ? html`<svg class="checkmark" viewBox="0 0 18 18" aria-hidden="true">
+            <path d="M6.75 12.127L3.623 9l-1.06 1.057L6.75 14.25l9-9-1.057-1.06z"></path>
+          </svg>`
+        : nothing
     return html`
       <span class="touch"></span>
-      ${this.trailingIcon ? nothing : icon}
+      ${this.trailingIcon ? nothing : checkmark || icon}
       <span class="label"><slot></slot></span>
       ${this.trailingIcon ? icon : nothing}
     `
@@ -1013,6 +1024,33 @@ export class Button extends LitElement {
         opacity: var(--_disabled-icon-opacity);
       }
 
+      .checkmark {
+        writing-mode: horizontal-tb;
+        fill: currentColor;
+        flex-shrink: 0;
+        color: var(--_icon-color);
+        font-size: var(--_icon-size, 18px);
+        inline-size: var(--_icon-size, 18px);
+        block-size: var(--_icon-size, 18px);
+      }
+
+      :host(:hover) .checkmark {
+        color: var(--_hover-icon-color);
+      }
+
+      :host(:focus-within) .checkmark {
+        color: var(--_focus-icon-color);
+      }
+
+      :host(:active) .checkmark {
+        color: var(--_pressed-icon-color);
+      }
+
+      :host([disabled]) .checkmark {
+        color: var(--_disabled-icon-color);
+        opacity: var(--_disabled-icon-opacity);
+      }
+
       .touch {
         position: absolute;
         top: 50%;
@@ -1117,6 +1155,21 @@ export class Button extends LitElement {
       :host([pressed][size='extra-large']),
       :host([selected][size='extra-large']) {
         border-radius: 16px;
+      }
+
+      :host([group-position]) {
+        border-start-start-radius: var(--_container-shape-start-start);
+        border-start-end-radius: var(--_container-shape-start-end);
+        border-end-start-radius: var(--_container-shape-end-start);
+        border-end-end-radius: var(--_container-shape-end-end);
+        border-radius: unset;
+      }
+      :host([group-position][selected]) {
+        border-start-start-radius: var(--_container-shape-start-start);
+        border-start-end-radius: var(--_container-shape-start-end);
+        border-end-start-radius: var(--_container-shape-end-start);
+        border-end-end-radius: var(--_container-shape-end-end);
+        border-radius: unset;
       }
     `,
   ]
