@@ -49,15 +49,22 @@ Standard Button Group:
 Connected Button Group:
 
 ```html
-<md-button-group connected aria-label="View options">
-  <md-button color="outlined">One</md-button>
-  <md-button color="outlined">Two</md-button>
-  <md-button color="outlined">Three</md-button>
+<!-- Single-select connected button group (Material 3 Expressive) -->
+<md-button-group connected aria-label="Folders">
+  <md-button color="tonal" selected>My files</md-button>
+  <md-button color="tonal">Shared</md-button>
+  <md-button color="tonal">Computers</md-button>
+</md-button-group>
+
+<!-- Connected button group with checkmark on selected button -->
+<md-button-group connected checkmark aria-label="Select size">
+  <md-button color="tonal" selected>8oz</md-button>
+  <md-button color="tonal">12oz</md-button>
+  <md-button color="tonal">16oz</md-button>
 </md-button-group>
 ```
 
-> **Accessibility**: Provide an `aria-label` attribute on `<md-button-group>` to identify the group's purpose to assistive technologies.
-> The `connected` variant is primarily intended for use with `outlined` buttons so borders overlap seamlessly per the Material 3 specification.
+> **Material 3 Expressive Specification**: Connected button groups replace the baseline segmented button. They feature 2px gap, fully round outer corners, and inner corner radii (8px for small/medium, 4px for XS, 16px for L, 20px for XL), with single-select or multi-select toggle coordination. Provide an `aria-label` attribute on `<md-button-group>` for accessibility.
 
 ## Floating Action Button - FAB
 

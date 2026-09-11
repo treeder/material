@@ -280,13 +280,32 @@ class ExpressiveComponent extends LitElement {
             </md-button-group>
           </div>
 
-          <h4>Connected</h4>
-          <div class="flexw g12 aic">
-            <md-button-group connected aria-label="Connected outlined group">
-              <md-button color="outlined" toggle>Day</md-button>
-              <md-button color="outlined" toggle selected>Week</md-button>
-              <md-button color="outlined" toggle>Month</md-button>
-              <md-button color="outlined" toggle>Year</md-button>
+          <h4>Folders (Connected Tonal)</h4>
+          <div style="max-width: 420px;">
+            <md-button-group connected aria-label="Folders" style="width: 100%;">
+              <md-button color="tonal" selected>My files</md-button>
+              <md-button color="tonal">Shared</md-button>
+              <md-button color="tonal">Computers</md-button>
+            </md-button-group>
+          </div>
+
+          <h4>Select size (Connected with Checkmark)</h4>
+          <div style="max-width: 360px;" class="flex col g12">
+            <md-button-group connected checkmark aria-label="Select size" style="width: 100%;">
+              <md-button color="tonal" selected>8oz</md-button>
+              <md-button color="tonal">12oz</md-button>
+              <md-button color="tonal">16oz</md-button>
+            </md-button-group>
+            <md-button style="width: 100%;">Add to cart</md-button>
+          </div>
+
+          <h4>View (Connected Outlined)</h4>
+          <div style="max-width: 420px;">
+            <md-button-group connected aria-label="View options" style="width: 100%;">
+              <md-button color="outlined">Day</md-button>
+              <md-button color="outlined" selected>Week</md-button>
+              <md-button color="outlined">Month</md-button>
+              <md-button color="outlined">Year</md-button>
             </md-button-group>
           </div>
         </div>
