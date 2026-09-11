@@ -141,7 +141,7 @@ Then in your HTML:
 In your CSS, set the default font family and sizes, set the following attributes in your CSS:
 
 ```css
-@import url(light.css) (prefers-color-scheme: light);
+@import url(light.css);
 @import url(dark.css) (prefers-color-scheme: dark);
 
 :root {
