@@ -28,6 +28,7 @@ export class ButtonGroup extends LitElement {
     :host([connected]) {
       gap: var(--md-button-group-connected-gap, 2px);
       --_inner-radius: 8px;
+      --_outer-radius: 24px;
     }
 
     /* Connected buttons expand to share container width equally */
@@ -35,50 +36,88 @@ export class ButtonGroup extends LitElement {
       flex: 1 1 0%;
     }
 
-    /* Inner corner sizes by button group size */
+    /* Inner and outer corner sizes by button group size */
     :host([connected][size='extra-small']) {
       --_inner-radius: 4px;
+      --_outer-radius: 16px;
     }
     :host([connected][size='small']) {
       --_inner-radius: 8px;
+      --_outer-radius: 20px;
     }
     :host([connected][size='medium']) {
       --_inner-radius: 8px;
+      --_outer-radius: 28px;
     }
     :host([connected][size='large']) {
       --_inner-radius: 16px;
+      --_outer-radius: 48px;
     }
     :host([connected][size='extra-large']) {
       --_inner-radius: 20px;
+      --_outer-radius: 68px;
     }
 
     /* Also support child size attributes */
     :host([connected]) ::slotted([size='extra-small']) {
       --_inner-radius: 4px;
+      --_outer-radius: 16px;
     }
     :host([connected]) ::slotted([size='small']) {
       --_inner-radius: 8px;
+      --_outer-radius: 20px;
     }
     :host([connected]) ::slotted([size='medium']) {
       --_inner-radius: 8px;
+      --_outer-radius: 28px;
     }
     :host([connected]) ::slotted([size='large']) {
       --_inner-radius: 16px;
+      --_outer-radius: 48px;
     }
     :host([connected]) ::slotted([size='extra-large']) {
       --_inner-radius: 20px;
+      --_outer-radius: 68px;
     }
 
-    /* First button: inner (end) corners rounded to _inner-radius, start corners fully round */
+    /* Square shapes */
+    :host([connected][shape='square']),
+    :host([connected]) ::slotted([shape='square']) {
+      --_outer-radius: 16px;
+    }
+    :host([connected][shape='square'][size='extra-small']),
+    :host([connected]) ::slotted([shape='square'][size='extra-small']),
+    :host([connected][shape='square'][size='small']),
+    :host([connected]) ::slotted([shape='square'][size='small']) {
+      --_outer-radius: 12px;
+    }
+    :host([connected][shape='square'][size='large']),
+    :host([connected]) ::slotted([shape='square'][size='large']),
+    :host([connected][shape='square'][size='extra-large']),
+    :host([connected]) ::slotted([shape='square'][size='extra-large']) {
+      --_outer-radius: 28px;
+    }
+
+    /* First button: inner (end) corners rounded to _inner-radius, start corners rounded to _outer-radius */
     :host([connected]) ::slotted([group-position='first']) {
+      --md-button-container-shape-start-start: var(--_outer-radius, 24px);
+      --md-button-container-shape-end-start: var(--_outer-radius, 24px);
       --md-button-container-shape-start-end: var(--_inner-radius, 8px);
       --md-button-container-shape-end-end: var(--_inner-radius, 8px);
+      --md-filled-tonal-button-container-shape-start-start: var(--_outer-radius, 24px);
+      --md-filled-tonal-button-container-shape-end-start: var(--_outer-radius, 24px);
       --md-filled-tonal-button-container-shape-start-end: var(--_inner-radius, 8px);
       --md-filled-tonal-button-container-shape-end-end: var(--_inner-radius, 8px);
+      --md-elevated-button-container-shape-start-start: var(--_outer-radius, 24px);
+      --md-elevated-button-container-shape-end-start: var(--_outer-radius, 24px);
       --md-elevated-button-container-shape-start-end: var(--_inner-radius, 8px);
       --md-elevated-button-container-shape-end-end: var(--_inner-radius, 8px);
+      --md-outlined-button-container-shape-start-start: var(--_outer-radius, 24px);
+      --md-outlined-button-container-shape-end-start: var(--_outer-radius, 24px);
       --md-outlined-button-container-shape-start-end: var(--_inner-radius, 8px);
       --md-outlined-button-container-shape-end-end: var(--_inner-radius, 8px);
+      --md-icon-button-container-shape-start-start: var(--_outer-radius, 24px);
+      --md-icon-button-container-shape-end-start: var(--_outer-radius, 24px);
       --md-icon-button-container-shape-start-end: var(--_inner-radius, 8px);
       --md-icon-button-container-shape-end-end: var(--_inner-radius, 8px);
     }
@@ -107,18 +146,52 @@ export class ButtonGroup extends LitElement {
       --md-icon-button-container-shape-end-end: var(--_inner-radius, 8px);
     }
 
-    /* Last button: inner (start) corners rounded to _inner-radius, end corners fully round */
+    /* Last button: inner (start) corners rounded to _inner-radius, end corners rounded to _outer-radius */
     :host([connected]) ::slotted([group-position='last']) {
       --md-button-container-shape-start-start: var(--_inner-radius, 8px);
       --md-button-container-shape-end-start: var(--_inner-radius, 8px);
+      --md-button-container-shape-start-end: var(--_outer-radius, 24px);
+      --md-button-container-shape-end-end: var(--_outer-radius, 24px);
       --md-filled-tonal-button-container-shape-start-start: var(--_inner-radius, 8px);
       --md-filled-tonal-button-container-shape-end-start: var(--_inner-radius, 8px);
+      --md-filled-tonal-button-container-shape-start-end: var(--_outer-radius, 24px);
+      --md-filled-tonal-button-container-shape-end-end: var(--_outer-radius, 24px);
       --md-elevated-button-container-shape-start-start: var(--_inner-radius, 8px);
       --md-elevated-button-container-shape-end-start: var(--_inner-radius, 8px);
+      --md-elevated-button-container-shape-start-end: var(--_outer-radius, 24px);
+      --md-elevated-button-container-shape-end-end: var(--_outer-radius, 24px);
       --md-outlined-button-container-shape-start-start: var(--_inner-radius, 8px);
       --md-outlined-button-container-shape-end-start: var(--_inner-radius, 8px);
+      --md-outlined-button-container-shape-start-end: var(--_outer-radius, 24px);
+      --md-outlined-button-container-shape-end-end: var(--_outer-radius, 24px);
       --md-icon-button-container-shape-start-start: var(--_inner-radius, 8px);
       --md-icon-button-container-shape-end-start: var(--_inner-radius, 8px);
+      --md-icon-button-container-shape-start-end: var(--_outer-radius, 24px);
+      --md-icon-button-container-shape-end-end: var(--_outer-radius, 24px);
+    }
+
+    /* Single button: all corners rounded to _outer-radius */
+    :host([connected]) ::slotted([group-position='single']) {
+      --md-button-container-shape-start-start: var(--_outer-radius, 24px);
+      --md-button-container-shape-end-start: var(--_outer-radius, 24px);
+      --md-button-container-shape-start-end: var(--_outer-radius, 24px);
+      --md-button-container-shape-end-end: var(--_outer-radius, 24px);
+      --md-filled-tonal-button-container-shape-start-start: var(--_outer-radius, 24px);
+      --md-filled-tonal-button-container-shape-end-start: var(--_outer-radius, 24px);
+      --md-filled-tonal-button-container-shape-start-end: var(--_outer-radius, 24px);
+      --md-filled-tonal-button-container-shape-end-end: var(--_outer-radius, 24px);
+      --md-elevated-button-container-shape-start-start: var(--_outer-radius, 24px);
+      --md-elevated-button-container-shape-end-start: var(--_outer-radius, 24px);
+      --md-elevated-button-container-shape-start-end: var(--_outer-radius, 24px);
+      --md-elevated-button-container-shape-end-end: var(--_outer-radius, 24px);
+      --md-outlined-button-container-shape-start-start: var(--_outer-radius, 24px);
+      --md-outlined-button-container-shape-end-start: var(--_outer-radius, 24px);
+      --md-outlined-button-container-shape-start-end: var(--_outer-radius, 24px);
+      --md-outlined-button-container-shape-end-end: var(--_outer-radius, 24px);
+      --md-icon-button-container-shape-start-start: var(--_outer-radius, 24px);
+      --md-icon-button-container-shape-end-start: var(--_outer-radius, 24px);
+      --md-icon-button-container-shape-start-end: var(--_outer-radius, 24px);
+      --md-icon-button-container-shape-end-end: var(--_outer-radius, 24px);
     }
 
     /* Ensure active/hovered/focused button is above adjacent buttons */
